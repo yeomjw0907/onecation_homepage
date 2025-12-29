@@ -58,19 +58,19 @@ export const NAV_ITEMS: NavItem[] = [
         label: 'For Startups', 
         desc: '혁신/트렌드 중심 레퍼런스', 
         slug: 'for-startups',
-        image: 'https://images.unsplash.com/photo-1634942537034-2531766767d1?q=80&w=2670&auto=format&fit=crop' // Dark Fluid / Abstract
+        image: 'https://images.unsplash.com/photo-1614726365723-49cfae9683cb?q=80&w=2574&auto=format&fit=crop' // 3D Abstract Dark Shapes (Rocket/Growth Vibe)
       },
       { 
         label: 'For Enterprise', 
         desc: '신뢰/규모 중심 레퍼런스', 
         slug: 'for-enterprise',
-        image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2670&auto=format&fit=crop' // High-rise / Glass structure
+        image: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2670&auto=format&fit=crop' // Digital City / Cyberpunk Network
       },
       { 
         label: 'Success Stories', 
         desc: '심층 케이스 스터디', 
         slug: 'success-stories',
-        image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2670&auto=format&fit=crop' // Team Strategy / Blueprint
+        image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2670&auto=format&fit=crop' // 3D Data/Graph Visualization
       }
     ]
   },
@@ -84,19 +84,19 @@ export const NAV_ITEMS: NavItem[] = [
         label: 'Originals', 
         desc: '자체 개발 서비스/앱 실험실', 
         slug: 'originals',
-        image: 'https://images.unsplash.com/photo-1551650975-87deedd944c3?q=80&w=2574&auto=format&fit=crop' // App Mockup / Tech
+        image: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop' // Abstract 3D Structure
       },
       { 
         label: 'Trend Insights', 
         desc: '디자인/마케팅 트렌드 리포트', 
         slug: 'trend-insights',
-        image: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop' // Abstract 3D / Graph
+        image: 'https://images.unsplash.com/photo-1639762681485-074b7f938ba0?q=80&w=2832&auto=format&fit=crop' // Abstract 3D Data Wave
       },
       { 
         label: 'Culture Log', 
         desc: '원케이션 팀 문화, 해커톤', 
         slug: 'culture-log',
-        image: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2670&auto=format&fit=crop' // Team / Dark ambience
+        image: 'https://images.unsplash.com/photo-1590523277543-a94d2e4eb00b?q=80&w=2620&auto=format&fit=crop' // Dark Cinematic Camera Lens
       }
     ]
   },
@@ -119,21 +119,24 @@ export const FOUNDATION_SERVICES = [
     title: 'Business Planning',
     description: 'Strategic roadmaps and compelling IR decks to secure your vision.',
     visualDesc: '3D stylized, upward-trending arrow graph made of golden light particles.',
-    placeholder: 'https://placehold.co/600x400/080808/D4AF37?text=3D+Golden+Growth+Arrow'
+    // Replaced with Abstract Gold Wave/Flow resembling growth
+    placeholder: 'https://images.unsplash.com/photo-1639322537228-ad7117f70e70?q=80&w=2670&auto=format&fit=crop' 
   },
   {
     id: 'f2',
     title: 'Gov. Strategy',
     description: 'Navigating complex regulations to maximize funding opportunities.',
     visualDesc: 'Abstract, glowing gold pillar or archway with a digital seal of approval.',
-    placeholder: 'https://placehold.co/600x400/080808/D4AF37?text=3D+Gold+Pillar+Arch'
+    // Replaced with Abstract Architectural Structure resembling pillars/institution
+    placeholder: 'https://images.unsplash.com/photo-1470723710355-95304d8aece4?q=80&w=2670&auto=format&fit=crop'
   },
   {
     id: 'f3',
     title: 'Tech Consulting',
     description: 'Scalable architecture design and technical leadership from day one.',
     visualDesc: 'Complex, interconnected network node schematic in lime green and gold.',
-    placeholder: 'https://placehold.co/600x400/080808/CCFF00?text=3D+Tech+Blueprint+Node'
+    // Replaced with Abstract Circuit/Network Board
+    placeholder: 'https://images.unsplash.com/photo-1639322537504-6427a16b0a28?q=80&w=2832&auto=format&fit=crop'
   }
 ];
 
@@ -533,7 +536,7 @@ export const SUBPAGE_CONTENT: Record<string, SubPageContent> = {
     title: 'For Startups',
     subtitle: 'Target B References',
     description: '혁신적인 아이디어를 가진 스타트업을 위한 포트폴리오. 빠르고 강렬한 임팩트를 주는 프로젝트들입니다.',
-    heroImage: 'https://images.unsplash.com/photo-1559136555-9303baea8ebd?q=80&w=2670&auto=format&fit=crop',
+    heroImage: 'https://images.unsplash.com/photo-1614726365723-49cfae9683cb?q=80&w=2574&auto=format&fit=crop', // Updated Hero
     features: [
       { title: 'Agile MVP', desc: '핵심 기능에 집중한 빠른 런칭 사례.' },
       { title: 'Pitch Deck Design', desc: '투자 유치에 성공한 디자인 레퍼런스.' },
@@ -552,7 +555,7 @@ export const SUBPAGE_CONTENT: Record<string, SubPageContent> = {
     title: 'For Enterprise',
     subtitle: 'Target A References',
     description: '대기업 및 중견기업을 위한 신뢰와 안정성 중심의 프로젝트. 대규모 시스템 구축 및 브랜드 리뉴얼 사례.',
-    heroImage: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2670&auto=format&fit=crop',
+    heroImage: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2670&auto=format&fit=crop', // Updated Hero
     features: [
       { title: 'Corporate Site', desc: '글로벌 스탠다드를 준수한 기업 홈페이지.' },
       { title: 'Large Scale System', desc: '복잡한 데이터를 처리하는 관리자 시스템.' },
@@ -571,7 +574,7 @@ export const SUBPAGE_CONTENT: Record<string, SubPageContent> = {
     title: 'Success Stories',
     subtitle: 'Case Studies',
     description: '문제를 어떻게 정의하고 해결했는지, 그 과정을 심도 있게 다룬 케이스 스터디 모음입니다.',
-    heroImage: 'https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2670&auto=format&fit=crop',
+    heroImage: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2670&auto=format&fit=crop', // Updated Hero
     features: [
       { title: 'Problem Solving', desc: '명확한 문제 정의와 해결 과정.' },
       { title: 'Data Driven', desc: '전후 데이터 비교를 통한 성과 증명.' },
@@ -591,7 +594,7 @@ export const SUBPAGE_CONTENT: Record<string, SubPageContent> = {
     title: 'Originals',
     subtitle: 'Lab Experiments',
     description: '원케이션 자체적으로 기획하고 개발한 서비스와 실험적인 프로젝트들을 소개합니다.',
-    heroImage: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=2670&auto=format&fit=crop',
+    heroImage: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop', // Updated Hero
     features: [
       { title: 'SaaS Products', desc: '실제 운영 중인 자체 SaaS 서비스.' },
       { title: 'Interactive Art', desc: '기술과 예술이 결합된 디지털 아트.' },
@@ -608,7 +611,7 @@ export const SUBPAGE_CONTENT: Record<string, SubPageContent> = {
     title: 'Trend Insights',
     subtitle: 'Market Intelligence',
     description: '급변하는 디지털 시장의 트렌드를 분석하고 인사이트를 제공하는 리포트입니다.',
-    heroImage: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2672&auto=format&fit=crop',
+    heroImage: 'https://images.unsplash.com/photo-1639762681485-074b7f938ba0?q=80&w=2832&auto=format&fit=crop', // Updated Hero
     features: [
       { title: 'Design Trend', desc: '매년 발표하는 UI/UX 디자인 트렌드.' },
       { title: 'Tech Radar', desc: '주목해야 할 신기술 분석.' },
@@ -625,7 +628,7 @@ export const SUBPAGE_CONTENT: Record<string, SubPageContent> = {
     title: 'Culture Log',
     subtitle: 'Team Onecation',
     description: '치열하게 일하고 즐겁게 노는 원케이션의 조직 문화와 비하인드 스토리를 기록합니다.',
-    heroImage: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2670&auto=format&fit=crop',
+    heroImage: 'https://images.unsplash.com/photo-1590523277543-a94d2e4eb00b?q=80&w=2620&auto=format&fit=crop', // Updated Hero
     features: [
       { title: 'Work Style', desc: '자율과 책임을 중시하는 근무 문화.' },
       { title: 'Events', desc: '해커톤, 워크샵, 회식 등 사내 이벤트.' },

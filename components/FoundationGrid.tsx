@@ -24,23 +24,23 @@ export const FoundationGrid: React.FC = () => {
           <div className="absolute inset-0 opacity-20 pointer-events-none z-0 bg-[linear-gradient(rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:30px_30px]" />
           
           {/* 3D Visual Area (Top Half) */}
-          <div className="relative h-[60%] w-full overflow-hidden bg-gradient-to-b from-white/5 to-transparent flex items-center justify-center p-8 group-hover:-translate-y-2 transition-transform duration-700 ease-out">
-             <div className="absolute inset-0 bg-obsidian/30 backdrop-blur-sm z-0"></div>
+          <div className="relative h-[60%] w-full overflow-hidden bg-gradient-to-b from-white/5 to-transparent flex items-center justify-center p-0 group-hover:-translate-y-2 transition-transform duration-700 ease-out">
+             <div className="absolute inset-0 bg-obsidian/30 backdrop-blur-sm z-10 pointer-events-none mix-blend-overlay"></div>
              
              {/* Nanobanana Placeholder */}
              <DevComment message={`NANOBANANA: Generate ${item.visualDesc}`} />
              <img 
                src={item.placeholder} 
                alt={item.title} 
-               className="relative z-10 w-full h-full object-contain drop-shadow-2xl opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"
+               className="relative z-0 w-full h-full object-cover drop-shadow-2xl opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"
              />
              
              {/* Decorative Tech Lines */}
-             <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-gold/50 to-transparent"></div>
+             <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-gold/50 to-transparent z-20"></div>
           </div>
 
           {/* Content Area (Bottom Half) */}
-          <div className="relative h-[40%] p-8 flex flex-col justify-between bg-obsidian/40 backdrop-blur-md border-t border-white/5 group-hover:bg-obsidian/60 transition-colors">
+          <div className="relative h-[40%] p-8 flex flex-col justify-between bg-obsidian/40 backdrop-blur-md border-t border-white/5 group-hover:bg-obsidian/60 transition-colors z-20">
              <div>
                 <div className="flex justify-between items-start mb-4">
                    <h3 className="text-2xl font-bold text-gold font-sans tracking-tight group-hover:text-lime transition-colors duration-300">
