@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { SubPageContent, LayoutType } from '../types';
 import { Button } from './ui/Button';
 import { ArrowLeft, Quote, ArrowDown, ArrowUpRight, X, Calendar, User, Layers, Globe, Plus, Minus, Send, CheckCircle, Zap, Code, Box, GitGraph } from 'lucide-react';
+import { GenAIImage } from './GenAIImage';
 
 interface SubPageProps {
   content: SubPageContent;
@@ -16,11 +17,6 @@ const BackButton: React.FC<{ onClick: () => void; className?: string }> = ({ onC
   >
     <ArrowLeft size={16} /> Back
   </button>
-);
-
-// Helper to inject HTML comments into the DOM for the design team
-const DevComment: React.FC<{ message: string }> = ({ message }) => (
-  <div style={{ display: 'none' }} dangerouslySetInnerHTML={{ __html: `<!-- ${message} -->` }} />
 );
 
 // --- Component: 120 Alliance Visualization ---
@@ -163,17 +159,18 @@ const ManifestoLayout: React.FC<SubPageProps> = ({ content, onBack }) => {
                    className="flex-1 w-full"
                  >
                     <div className="relative aspect-[4/3] rounded-sm overflow-hidden border border-gold/20">
-                       {/* Nanobanana Asset Request Comment */}
-                       <DevComment message={`NANOBANANA: Generate high-fidelity 3D render for ${feature.title}. Concept: Black & Gold Circuit Board with Electric Lime pulses.`} />
                        
                        {/* Pulse Effect */}
                        <div className="absolute top-1/2 left-0 right-0 h-[1px] bg-lime/50 z-20 shadow-[0_0_10px_#ccff00] animate-pulse"></div>
                        
-                       <img 
-                         src={content.imageGrid[idx % content.imageGrid.length] || content.heroImage} 
-                         alt={feature.title} 
-                         className="w-full h-full object-cover grayscale brightness-75 contrast-125 hover:grayscale-0 transition-all duration-700"
-                       />
+                       <div className="w-full h-full grayscale brightness-75 contrast-125 hover:grayscale-0 transition-all duration-700">
+                          <GenAIImage 
+                            prompt={content.imageGrid[idx % content.imageGrid.length] || content.heroImage} 
+                            alt={feature.title} 
+                            className="w-full h-full"
+                            aspectRatio="4:3"
+                          />
+                       </div>
                        
                        {/* Tech Overlay */}
                        <div className="absolute inset-0 bg-gradient-to-t from-obsidian via-transparent to-transparent opacity-80"></div>
@@ -208,11 +205,9 @@ const AllianceLayout: React.FC<SubPageProps> = ({ content, onBack }) => {
     <div className="bg-obsidian min-h-screen text-white">
       {/* Hero: Golden Neural Network */}
       <section className="relative h-[80vh] flex items-center justify-center overflow-hidden">
-         {/* Nanobanana Asset Request */}
-         <DevComment message="NANOBANANA: Generate 'Golden Neural Network' (Plexus Effect). Thousands of Gold dots and lines connected in 3D space." />
          
          <div className="absolute inset-0 z-0 opacity-60">
-            <img src={content.heroImage} className="w-full h-full object-cover" alt="Neural Network" />
+            <GenAIImage prompt={content.heroImage} alt="Neural Network" className="w-full h-full" aspectRatio="16:9" />
             <div className="absolute inset-0 bg-gradient-to-b from-obsidian via-transparent to-obsidian"></div>
          </div>
          
@@ -253,8 +248,7 @@ const AllianceLayout: React.FC<SubPageProps> = ({ content, onBack }) => {
                </div>
                {/* Decorative Background */}
                <div className="absolute right-0 bottom-0 w-64 h-64 opacity-20 group-hover:opacity-40 transition-opacity">
-                  <DevComment message="NANOBANANA: Insert 3D 'Core' Icon placeholder" />
-                  <img src={content.imageGrid[0]} className="w-full h-full object-contain" alt="3D Icon" />
+                  <GenAIImage prompt={content.imageGrid[0]} alt="3D Icon" className="w-full h-full" aspectRatio="1:1" />
                </div>
             </motion.div>
 
@@ -273,8 +267,7 @@ const AllianceLayout: React.FC<SubPageProps> = ({ content, onBack }) => {
                   <p className="text-offwhite/60 font-kor">{content.features[1].desc}</p>
                </div>
                <div className="absolute right-[-20px] bottom-[-20px] w-40 h-40 opacity-20">
-                  <DevComment message="NANOBANANA: Insert 3D 'Dev' Icon placeholder" />
-                  <img src={content.imageGrid[1]} className="w-full h-full object-contain" alt="3D Icon" />
+                  <GenAIImage prompt={content.imageGrid[1]} alt="3D Icon" className="w-full h-full" aspectRatio="1:1" />
                </div>
             </motion.div>
 
@@ -293,8 +286,7 @@ const AllianceLayout: React.FC<SubPageProps> = ({ content, onBack }) => {
                   <p className="text-offwhite/60 font-kor">{content.features[2].desc}</p>
                </div>
                 <div className="absolute right-[-20px] bottom-[-20px] w-40 h-40 opacity-20">
-                  <DevComment message="NANOBANANA: Insert 3D 'Graph' Icon placeholder" />
-                  <img src={content.imageGrid[2]} className="w-full h-full object-contain" alt="3D Icon" />
+                  <GenAIImage prompt={content.imageGrid[2]} alt="3D Icon" className="w-full h-full" aspectRatio="1:1" />
                </div>
             </motion.div>
 
@@ -332,11 +324,11 @@ const ProcessLayout: React.FC<SubPageProps> = ({ content, onBack }) => {
     <div className="bg-obsidian min-h-screen text-white">
       {/* Hero: Interlocking Gold Rings */}
       <section className="relative h-[80vh] flex flex-col items-center justify-center text-center overflow-hidden">
-         {/* Nanobanana Asset Request */}
-         <DevComment message="NANOBANANA: Generate 'Interlocking Champagne Gold Rings' 3D abstract art." />
          
          <div className="absolute inset-0 z-0">
-           <img src={content.heroImage} className="w-full h-full object-cover opacity-60" alt="Process Hero" />
+           <div className="w-full h-full opacity-60">
+             <GenAIImage prompt={content.heroImage} alt="Process Hero" className="w-full h-full" aspectRatio="16:9" />
+           </div>
            <div className="absolute inset-0 bg-gradient-to-t from-obsidian via-obsidian/20 to-transparent"></div>
          </div>
 
@@ -388,14 +380,15 @@ const ProcessLayout: React.FC<SubPageProps> = ({ content, onBack }) => {
                >
                  {/* Visual Container */}
                  <div className="absolute inset-0 border border-white/10 bg-white/5 rounded-2xl overflow-hidden backdrop-blur-sm">
-                    {/* Nanobanana Asset Request */}
-                    <DevComment message={`NANOBANANA: Generate 3D Tech Visual for ${feature.category} (Radar/Blueprint/Diamond). Style: Neon HUD, Wireframe, Glowing.`} />
                     
-                    <img 
-                      src={content.imageGrid[idx % content.imageGrid.length]} 
-                      alt={feature.title} 
-                      className="w-full h-full object-cover opacity-80 mix-blend-screen" 
-                    />
+                    <div className="w-full h-full opacity-80 mix-blend-screen">
+                      <GenAIImage 
+                        prompt={content.imageGrid[idx % content.imageGrid.length]} 
+                        alt={feature.title} 
+                        className="w-full h-full"
+                        aspectRatio="4:3"
+                      />
+                    </div>
                     
                     {/* HUD Overlay */}
                     <div className="absolute inset-0 border border-white/5 m-4 rounded-xl pointer-events-none">
@@ -419,7 +412,7 @@ const StandardLayout: React.FC<SubPageProps> = ({ content, onBack }) => {
     <div className="pt-24 min-h-screen bg-obsidian">
       <section className="relative h-[60vh] min-h-[500px] flex items-end pb-20 px-6 md:px-8 max-w-7xl mx-auto border-b border-white/5">
         <div className="absolute inset-0 overflow-hidden rounded-3xl opacity-40">
-           <img src={content.heroImage} alt={content.title} className="w-full h-full object-cover grayscale" />
+           <GenAIImage prompt={content.heroImage} alt={content.title} className="w-full h-full grayscale" aspectRatio="16:9" />
            <div className="absolute inset-0 bg-gradient-to-t from-obsidian via-obsidian/20 to-transparent"></div>
         </div>
         
@@ -477,7 +470,7 @@ const StandardLayout: React.FC<SubPageProps> = ({ content, onBack }) => {
                    className="aspect-[4/3] rounded-2xl overflow-hidden relative group"
                  >
                     <div className="absolute inset-0 bg-lime/10 mix-blend-color z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                    <img src={img} alt="Detail" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                    <GenAIImage prompt={img} alt="Detail" className="w-full h-full transition-transform duration-700 group-hover:scale-110" aspectRatio="4:3" />
                  </motion.div>
                ))}
             </div>
@@ -508,7 +501,7 @@ const SplitLayout: React.FC<SubPageProps> = ({ content, onBack }) => (
         </p>
       </div>
       <div className="relative h-full min-h-[400px]">
-        <img src={content.heroImage} className="absolute inset-0 w-full h-full object-cover grayscale opacity-60" alt="Hero" />
+        <GenAIImage prompt={content.heroImage} className="absolute inset-0 w-full h-full grayscale opacity-60" alt="Hero" aspectRatio="4:3" />
         <div className="absolute inset-0 bg-gradient-to-l from-obsidian/50 to-transparent"></div>
       </div>
     </div>
@@ -532,7 +525,9 @@ const SplitLayout: React.FC<SubPageProps> = ({ content, onBack }) => (
             </div>
             <div className="lg:w-2/3 grid grid-cols-2 gap-4">
               {content.imageGrid.slice(0,2).map((img, idx) => (
-                <img key={idx} src={img} className="w-full aspect-video object-cover rounded-lg grayscale hover:grayscale-0 transition-all duration-500" alt="Detail" />
+                <div key={idx} className="w-full aspect-video rounded-lg overflow-hidden grayscale hover:grayscale-0 transition-all duration-500">
+                   <GenAIImage prompt={img} className="w-full h-full" alt="Detail" aspectRatio="16:9" />
+                </div>
               ))}
             </div>
          </div>
@@ -545,7 +540,9 @@ const SplitLayout: React.FC<SubPageProps> = ({ content, onBack }) => (
 const ImmersiveLayout: React.FC<SubPageProps> = ({ content, onBack }) => (
   <div className="bg-obsidian min-h-screen">
     <div className="h-screen w-full relative overflow-hidden flex items-end p-8 md:p-16">
-       <img src={content.heroImage} className="absolute inset-0 w-full h-full object-cover opacity-60 scale-105" alt="Hero" />
+       <div className="absolute inset-0 w-full h-full opacity-60 scale-105">
+          <GenAIImage prompt={content.heroImage} alt="Hero" className="w-full h-full" aspectRatio="16:9" />
+       </div>
        <div className="absolute inset-0 bg-gradient-to-t from-obsidian via-transparent to-transparent opacity-90"></div>
        <div className="relative z-10 w-full">
          <BackButton onClick={onBack} className="absolute top-[-80vh] left-0 text-white" />
@@ -584,11 +581,14 @@ const ImmersiveLayout: React.FC<SubPageProps> = ({ content, onBack }) => (
                  </p>
               </div>
               <div className="flex-1 w-full aspect-square relative rounded-full overflow-hidden border border-white/10">
-                 <img 
-                  src={content.imageGrid[idx % content.imageGrid.length] || content.heroImage} 
-                  className="absolute inset-0 w-full h-full object-cover hover:scale-110 transition-transform duration-700" 
-                  alt="Feature" 
-                 />
+                 <div className="absolute inset-0 w-full h-full hover:scale-110 transition-transform duration-700">
+                    <GenAIImage 
+                      prompt={content.imageGrid[idx % content.imageGrid.length] || content.heroImage} 
+                      alt="Feature"
+                      className="w-full h-full"
+                      aspectRatio="1:1"
+                    />
+                 </div>
               </div>
            </div>
          ))}
@@ -639,7 +639,9 @@ const WorkDetailView: React.FC<DetailViewProps> = ({ project, onClose }) => {
 
       {/* Hero Section */}
       <div className="relative w-full h-[70vh] min-h-[500px]">
-        <img src={project.image} alt={project.title} className="w-full h-full object-cover grayscale" />
+        <div className="w-full h-full grayscale">
+           <GenAIImage prompt={project.image} alt={project.title} className="w-full h-full" aspectRatio="16:9" />
+        </div>
         <div className="absolute inset-0 bg-gradient-to-t from-obsidian via-obsidian/40 to-transparent" />
         
         <div className="absolute bottom-0 left-0 right-0 p-6 md:p-12 max-w-7xl mx-auto">
@@ -703,8 +705,8 @@ const WorkDetailView: React.FC<DetailViewProps> = ({ project, onClose }) => {
            </div>
 
            {/* Large Image Break */}
-           <div className="w-full rounded-2xl overflow-hidden border border-white/5 bg-white/5">
-              <img src={project.image} className="w-full h-auto object-cover opacity-80" alt="Process" />
+           <div className="w-full rounded-2xl overflow-hidden border border-white/5 bg-white/5 opacity-80 h-[500px]">
+              <GenAIImage prompt={project.image + ", detailed UI components"} className="w-full h-full" alt="Process" aspectRatio="16:9" />
               <div className="p-4 text-center text-xs text-white/30 border-t border-white/5">
                 Design System & UI Components
               </div>
@@ -730,10 +732,10 @@ const WorkDetailView: React.FC<DetailViewProps> = ({ project, onClose }) => {
            {/* Gallery Grid */}
            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="bg-white/5 aspect-square rounded-xl overflow-hidden">
-                <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" alt="Detail 1" />
+                <GenAIImage prompt="Abstract digital art, lime green geometric shapes on black" className="w-full h-full hover:scale-105 transition-transform duration-700" alt="Detail 1" aspectRatio="1:1" />
               </div>
               <div className="bg-white/5 aspect-square rounded-xl overflow-hidden">
-                <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2670&auto=format&fit=crop" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" alt="Detail 2" />
+                <GenAIImage prompt="Modern minimalistic website interface, dark mode" className="w-full h-full hover:scale-105 transition-transform duration-700" alt="Detail 2" aspectRatio="1:1" />
               </div>
            </div>
 
@@ -859,11 +861,11 @@ const GalleryLayout: React.FC<SubPageProps> = ({ content, onBack }) => {
                    >
                       {/* Image Container */}
                       <div className="relative w-full overflow-hidden">
-                         <img 
-                           src={project.image} 
-                           className="w-full h-auto object-cover grayscale group-hover:grayscale-0 transition-all duration-700" 
-                           alt={project.title} 
-                           loading="lazy"
+                         <GenAIImage 
+                           prompt={project.image} 
+                           className="w-full h-auto grayscale group-hover:grayscale-0 transition-all duration-700" 
+                           alt={project.title}
+                           aspectRatio="4:3"
                          />
                          
                          {/* Hover Overlay */}
@@ -930,9 +932,9 @@ const EditorialLayout: React.FC<SubPageProps> = ({ content, onBack }) => (
            </p>
         </header>
 
-        <figure className="mb-16 relative group">
+        <figure className="mb-16 relative group h-[400px]">
            <div className="absolute inset-0 bg-gradient-to-t from-obsidian via-transparent to-transparent opacity-20 z-10" />
-           <img src={content.heroImage} className="w-full aspect-video object-cover rounded-2xl border border-white/5 shadow-2xl grayscale group-hover:grayscale-0 transition-all duration-700" alt="Hero" />
+           <GenAIImage prompt={content.heroImage} className="w-full h-full rounded-2xl border border-white/5 shadow-2xl grayscale group-hover:grayscale-0 transition-all duration-700" alt="Hero" aspectRatio="16:9" />
            <figcaption className="text-center text-xs text-white/20 mt-4 font-mono uppercase tracking-widest">Image from Onecation Archives</figcaption>
         </figure>
 
@@ -960,7 +962,7 @@ const EditorialLayout: React.FC<SubPageProps> = ({ content, onBack }) => (
            <div className="grid grid-cols-2 gap-4 my-12">
               {content.imageGrid.map((img, idx) => (
                 <div key={idx} className="relative overflow-hidden rounded-xl border border-white/5 group aspect-[3/4]">
-                   <img src={img} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 scale-100 group-hover:scale-110" alt="Editorial" />
+                   <GenAIImage prompt={img} className="w-full h-full grayscale group-hover:grayscale-0 transition-all duration-500 scale-100 group-hover:scale-110" alt="Editorial" aspectRatio="3:4" />
                 </div>
               ))}
            </div>

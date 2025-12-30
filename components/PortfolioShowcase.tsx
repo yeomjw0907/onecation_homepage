@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { SHOWCASE_ITEMS } from '../constants';
 import { ArrowUpRight } from 'lucide-react';
+import { GenAIImage } from './GenAIImage';
 
 // Duplicate items to create a seamless loop buffer
 const MARQUEE_ITEMS = [...SHOWCASE_ITEMS, ...SHOWCASE_ITEMS, ...SHOWCASE_ITEMS, ...SHOWCASE_ITEMS];
@@ -14,11 +15,14 @@ const PortfolioCard: React.FC<PortfolioCardProps> = ({ item }) => {
   return (
     <div className="group relative w-[400px] h-[150px] md:w-[500px] md:h-[188px] flex-shrink-0 rounded-2xl overflow-hidden border border-white/5 bg-white/5 cursor-pointer">
       {/* Background Image */}
-      <img
-        src={item.image}
-        alt={item.title}
-        className="absolute inset-0 w-full h-full object-cover grayscale opacity-50 group-hover:grayscale-0 group-hover:opacity-80 group-hover:scale-105 transition-all duration-700 ease-out"
-      />
+      <div className="absolute inset-0 w-full h-full opacity-50 group-hover:opacity-80 group-hover:scale-105 transition-all duration-700 ease-out grayscale group-hover:grayscale-0">
+        <GenAIImage 
+          prompt={item.image} 
+          alt={item.title} 
+          className="w-full h-full"
+          aspectRatio="16:9"
+        />
+      </div>
       
       {/* Dark Overlay Gradient */}
       <div className="absolute inset-0 bg-gradient-to-r from-obsidian/95 via-obsidian/40 to-transparent group-hover:via-obsidian/60 transition-colors duration-500" />

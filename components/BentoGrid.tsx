@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { ArrowUpRight, Code, Layers, Zap } from 'lucide-react';
 import { BENTO_ITEMS } from '../constants';
 import { BentoItem } from '../types';
+import { GenAIImage } from './GenAIImage';
 
 const BentoCard: React.FC<{ item: BentoItem; index: number }> = ({ item, index }) => {
   // Determine grid span classes
@@ -54,15 +55,16 @@ const BentoCard: React.FC<{ item: BentoItem; index: number }> = ({ item, index }
 
       {/* Image Background (if exists) */}
       {item.image && (
-        <>
+        <div className="absolute inset-0 -z-0">
            <div className="absolute inset-0 bg-gradient-to-t from-obsidian via-obsidian/60 to-transparent z-[1]" />
            <div className="absolute inset-0 bg-obsidian/40 z-[1] group-hover:bg-obsidian/20 transition-colors duration-500" />
-           <img 
-            src={item.image} 
+           <GenAIImage 
+            prompt={item.image} 
             alt={item.title} 
-            className="absolute inset-0 w-full h-full object-cover -z-0 opacity-60 group-hover:opacity-80 group-hover:scale-110 transition-all duration-700 ease-in-out grayscale group-hover:grayscale-0"
+            className="absolute inset-0 w-full h-full opacity-60 group-hover:opacity-80 group-hover:scale-110 transition-all duration-700 ease-in-out grayscale group-hover:grayscale-0"
+            aspectRatio="1:1"
           />
-        </>
+        </div>
       )}
     </motion.div>
   );

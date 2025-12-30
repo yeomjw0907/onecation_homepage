@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { INSIGHTS } from '../constants';
 import { ArrowUpRight } from 'lucide-react';
+import { GenAIImage } from './GenAIImage';
 
 export const Insights: React.FC = () => {
   return (
@@ -29,11 +30,14 @@ export const Insights: React.FC = () => {
             >
               <div className="relative aspect-[4/3] overflow-hidden rounded-xl mb-6 bg-white/5">
                 <div className="absolute inset-0 bg-obsidian/20 group-hover:bg-transparent transition-colors z-10" />
-                <img 
-                  src={item.image} 
-                  alt={item.title} 
-                  className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out"
-                />
+                <div className="w-full h-full transform group-hover:scale-105 transition-transform duration-700 ease-out">
+                   <GenAIImage 
+                      prompt={item.image} 
+                      alt={item.title} 
+                      className="w-full h-full"
+                      aspectRatio="4:3"
+                   />
+                </div>
                 <span className="absolute top-4 left-4 z-20 bg-black/60 backdrop-blur-md text-white text-[10px] uppercase tracking-widest px-3 py-1 rounded-full border border-white/10">
                   {item.category}
                 </span>
