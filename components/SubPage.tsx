@@ -1,8 +1,34 @@
+
 import React, { useEffect, useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { SubPageContent, LayoutType } from '../types';
 import { Button } from './ui/Button';
-import { ArrowLeft, Quote, ArrowDown, ArrowUpRight, X, Calendar, User, Layers, Globe, Plus, Minus, Send, CheckCircle, Zap, Code, Box, GitGraph } from 'lucide-react';
+import { 
+  ArrowLeft, 
+  Quote, 
+  ArrowDown, 
+  ArrowUpRight, 
+  X, 
+  Calendar, 
+  User, 
+  Layers, 
+  Globe, 
+  Plus, 
+  Minus, 
+  Send, 
+  CheckCircle, 
+  Zap, 
+  Code, 
+  Box, 
+  GitGraph, 
+  Search, 
+  Network,
+  Share2,
+  Bookmark,
+  ChevronRight,
+  Clock,
+  BookOpen
+} from 'lucide-react';
 import { GenAIImage } from './GenAIImage';
 
 interface SubPageProps {
@@ -204,9 +230,9 @@ const AllianceLayout: React.FC<SubPageProps> = ({ content, onBack }) => {
   return (
     <div className="bg-obsidian min-h-screen text-white">
       {/* Hero: Golden Neural Network */}
-      <section className="relative h-[80vh] flex items-center justify-center overflow-hidden">
+      <section className="relative h-[60vh] md:h-[80vh] flex items-center justify-center overflow-hidden">
          
-         <div className="absolute inset-0 z-0 opacity-60">
+         <div className="absolute inset-0 z-0 opacity-40 md:opacity-60">
             <GenAIImage prompt={content.heroImage} alt="Neural Network" className="w-full h-full" aspectRatio="16:9" />
             <div className="absolute inset-0 bg-gradient-to-b from-obsidian via-transparent to-obsidian"></div>
          </div>
@@ -230,24 +256,24 @@ const AllianceLayout: React.FC<SubPageProps> = ({ content, onBack }) => {
       </section>
 
       {/* Expertise Grid (Bento) */}
-      <section className="max-w-7xl mx-auto px-6 md:px-8 py-24">
-         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <section className="max-w-7xl mx-auto px-6 md:px-8 py-12 md:py-24">
+         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
             {/* Card 1: Core Brain */}
             <motion.div 
                initial={{ opacity: 0, y: 20 }}
                whileInView={{ opacity: 1, y: 0 }}
                transition={{ delay: 0.1 }}
-               className="col-span-1 md:col-span-2 bg-white/5 border border-gold/30 rounded-3xl p-10 relative overflow-hidden group hover:border-lime/50 transition-colors duration-500"
+               className="col-span-1 md:col-span-2 bg-white/5 border border-gold/30 rounded-3xl p-8 md:p-10 relative overflow-hidden group hover:border-lime/50 transition-colors duration-500"
             >
                <div className="relative z-10">
                   <div className="w-12 h-12 bg-black/50 rounded-xl flex items-center justify-center text-lime mb-6 border border-white/10 group-hover:bg-lime group-hover:text-black transition-colors">
                      <Layers size={24} />
                   </div>
-                  <h3 className="text-3xl font-bold text-white mb-2">{content.features[0].title}</h3>
-                  <p className="text-offwhite/60 font-kor">{content.features[0].desc}</p>
+                  <h3 className="text-2xl md:text-3xl font-bold text-white mb-2">{content.features[0].title}</h3>
+                  <p className="text-offwhite/60 font-kor text-sm md:text-base">{content.features[0].desc}</p>
                </div>
                {/* Decorative Background */}
-               <div className="absolute right-0 bottom-0 w-64 h-64 opacity-20 group-hover:opacity-40 transition-opacity">
+               <div className="absolute right-0 bottom-0 w-48 md:w-64 h-48 md:h-64 opacity-10 md:opacity-20 group-hover:opacity-40 transition-opacity">
                   <GenAIImage prompt={content.imageGrid[0]} alt="3D Icon" className="w-full h-full" aspectRatio="1:1" />
                </div>
             </motion.div>
@@ -257,16 +283,16 @@ const AllianceLayout: React.FC<SubPageProps> = ({ content, onBack }) => {
                initial={{ opacity: 0, y: 20 }}
                whileInView={{ opacity: 1, y: 0 }}
                transition={{ delay: 0.2 }}
-               className="col-span-1 bg-white/5 border border-white/10 rounded-3xl p-10 relative overflow-hidden group hover:border-gold/50 transition-colors duration-500"
+               className="col-span-1 bg-white/5 border border-white/10 rounded-3xl p-8 md:p-10 relative overflow-hidden group hover:border-gold/50 transition-colors duration-500"
             >
                <div className="relative z-10">
                   <div className="w-12 h-12 bg-black/50 rounded-xl flex items-center justify-center text-gold mb-6 border border-white/10">
                      <Code size={24} />
                   </div>
                   <h3 className="text-2xl font-bold text-white mb-2">{content.features[1].title}</h3>
-                  <p className="text-offwhite/60 font-kor">{content.features[1].desc}</p>
+                  <p className="text-offwhite/60 font-kor text-sm">{content.features[1].desc}</p>
                </div>
-               <div className="absolute right-[-20px] bottom-[-20px] w-40 h-40 opacity-20">
+               <div className="absolute right-[-20px] bottom-[-20px] w-32 h-32 md:w-40 md:h-40 opacity-10 md:opacity-20">
                   <GenAIImage prompt={content.imageGrid[1]} alt="3D Icon" className="w-full h-full" aspectRatio="1:1" />
                </div>
             </motion.div>
@@ -276,40 +302,43 @@ const AllianceLayout: React.FC<SubPageProps> = ({ content, onBack }) => {
                initial={{ opacity: 0, y: 20 }}
                whileInView={{ opacity: 1, y: 0 }}
                transition={{ delay: 0.3 }}
-               className="col-span-1 bg-white/5 border border-white/10 rounded-3xl p-10 relative overflow-hidden group hover:border-gold/50 transition-colors duration-500"
+               className="col-span-1 bg-white/5 border border-white/10 rounded-3xl p-8 md:p-10 relative overflow-hidden group hover:border-gold/50 transition-colors duration-500"
             >
                <div className="relative z-10">
-                  <div className="w-12 h-12 bg-black/50 rounded-xl flex items-center justify-center text-gold mb-6 border border-white/10">
-                     <GitGraph size={24} />
+                  <div className="w-12 h-12 bg-black/50 rounded-2xl flex items-center justify-center text-gold mb-6 border border-gold/20 shadow-[0_0_20px_rgba(212,175,55,0.1)]">
+                     <Network size={26} />
                   </div>
-                  <h3 className="text-2xl font-bold text-white mb-2">{content.features[2].title}</h3>
-                  <p className="text-offwhite/60 font-kor">{content.features[2].desc}</p>
+                  <h3 className="text-2xl md:text-3xl font-bold text-white mb-2 tracking-tight">{content.features[2].title}</h3>
+                  <p className="text-offwhite/60 font-kor text-sm md:text-base leading-relaxed">{content.features[2].desc}</p>
                </div>
-                <div className="absolute right-[-20px] bottom-[-20px] w-40 h-40 opacity-20">
+                <div className="absolute right-[-20px] bottom-[-20px] w-32 h-32 md:w-40 md:h-40 opacity-10 md:opacity-20">
                   <GenAIImage prompt={content.imageGrid[2]} alt="3D Icon" className="w-full h-full" aspectRatio="1:1" />
                </div>
             </motion.div>
 
-             {/* Card 4: Stats */}
+             {/* Card 4: Stats (Optimized for Mobile) */}
              <motion.div 
                initial={{ opacity: 0, y: 20 }}
                whileInView={{ opacity: 1, y: 0 }}
                transition={{ delay: 0.4 }}
-               className="col-span-1 md:col-span-2 bg-gradient-to-r from-white/5 to-transparent border border-white/5 rounded-3xl p-10 flex items-center justify-between"
+               className="col-span-1 md:col-span-2 bg-gradient-to-br from-white/10 via-white/5 to-transparent border border-white/10 rounded-3xl p-8 md:p-12 flex flex-col sm:flex-row items-center justify-between gap-12 sm:gap-6"
             >
-               <div>
-                  <h4 className="text-5xl font-bold text-white mb-1">120+</h4>
-                  <p className="text-lime uppercase tracking-widest text-xs">Active Experts</p>
+               <div className="text-center sm:text-left">
+                  <h4 className="text-5xl md:text-6xl font-bold text-white mb-1.5 tracking-tighter">120+</h4>
+                  <p className="text-lime uppercase tracking-[0.2em] text-[10px] md:text-xs font-bold whitespace-nowrap">Active Experts</p>
                </div>
-               <div className="h-16 w-[1px] bg-white/10"></div>
-               <div>
-                  <h4 className="text-5xl font-bold text-white mb-1">Top 1%</h4>
-                  <p className="text-lime uppercase tracking-widest text-xs">Talent Pool</p>
+               <div className="hidden sm:block h-16 w-[1px] bg-white/10"></div>
+               <div className="text-center sm:text-left">
+                  <div className="flex flex-col items-center sm:items-start">
+                    <span className="text-2xl md:text-3xl font-bold text-white/50 leading-none">Top</span>
+                    <h4 className="text-5xl md:text-6xl font-bold text-white mb-1.5 tracking-tighter">1%</h4>
+                  </div>
+                  <p className="text-lime uppercase tracking-[0.2em] text-[10px] md:text-xs font-bold whitespace-nowrap">Talent Pool</p>
                </div>
-               <div className="h-16 w-[1px] bg-white/10"></div>
-               <div>
-                  <h4 className="text-5xl font-bold text-white mb-1">0%</h4>
-                  <p className="text-lime uppercase tracking-widest text-xs">Overhead</p>
+               <div className="hidden sm:block h-16 w-[1px] bg-white/10"></div>
+               <div className="text-center sm:text-left">
+                  <h4 className="text-5xl md:text-6xl font-bold text-white mb-1.5 tracking-tighter">0%</h4>
+                  <p className="text-lime uppercase tracking-[0.2em] text-[10px] md:text-xs font-bold whitespace-nowrap">Overhead</p>
                </div>
             </motion.div>
          </div>
@@ -618,190 +647,316 @@ const WorkDetailView: React.FC<DetailViewProps> = ({ project, onClose }) => {
 
   return (
     <motion.div 
-      initial={{ opacity: 0, y: 50 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: 50 }}
-      transition={{ duration: 0.4, ease: "circOut" }}
+      initial={{ opacity: 0, x: '100%' }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: '100%' }}
+      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
       className="fixed inset-0 z-[60] bg-obsidian overflow-y-auto"
     >
-      {/* Top Bar */}
-      <div className="fixed top-0 left-0 right-0 z-50 px-6 py-6 flex justify-between items-center pointer-events-none">
-         <div className="pointer-events-auto">
-            <span className="text-gold font-bold text-xl tracking-tighter mix-blend-difference">ONECATION</span>
-         </div>
-         <button 
-           onClick={onClose} 
-           className="pointer-events-auto bg-black/50 backdrop-blur-md w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-white hover:bg-lime hover:text-black hover:border-lime transition-all duration-300 group"
-         >
-           <X size={24} className="group-hover:rotate-90 transition-transform duration-300" />
-         </button>
-      </div>
-
-      {/* Hero Section */}
-      <div className="relative w-full h-[70vh] min-h-[500px]">
-        <div className="w-full h-full grayscale">
-           <GenAIImage prompt={project.image} alt={project.title} className="w-full h-full" aspectRatio="16:9" />
-        </div>
+      {/* Immersive Hero Header */}
+      <div className="relative w-full h-[85vh] overflow-hidden">
+        <GenAIImage prompt={project.image} alt={project.title} className="w-full h-full grayscale brightness-50" aspectRatio="16:9" />
         <div className="absolute inset-0 bg-gradient-to-t from-obsidian via-obsidian/40 to-transparent" />
         
-        <div className="absolute bottom-0 left-0 right-0 p-6 md:p-12 max-w-7xl mx-auto">
+        {/* Floating Controls */}
+        <div className="absolute top-0 left-0 right-0 z-50 p-8 flex justify-between items-center">
+           <div className="flex items-center gap-4 bg-black/40 backdrop-blur-md px-6 py-2 rounded-full border border-white/10">
+              <span className="text-gold font-bold tracking-tighter">ONECATION</span>
+              <span className="w-[1px] h-3 bg-white/20"></span>
+              <span className="text-[10px] text-white/50 uppercase tracking-widest">{project.category}</span>
+           </div>
+           <button 
+             onClick={onClose} 
+             className="w-12 h-12 rounded-full bg-white/10 backdrop-blur-lg flex items-center justify-center text-white hover:bg-lime hover:text-black transition-all"
+           >
+             <X size={24} />
+           </button>
+        </div>
+
+        <div className="absolute bottom-20 left-0 right-0 px-8 md:px-16 max-w-7xl mx-auto">
           <motion.div 
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
+            transition={{ delay: 0.4 }}
           >
-            <span className="inline-block px-3 py-1 border border-lime/50 text-lime text-xs font-bold uppercase tracking-widest rounded-full mb-6 bg-lime/10">
-              {project.category}
-            </span>
-            <h1 className="text-5xl md:text-7xl font-bold text-white tracking-tighter mb-4 leading-tight">
-              {project.title}
-            </h1>
-            <p className="text-xl text-offwhite/70 max-w-2xl font-kor">
-              {project.client}와 함께한 디지털 혁신 프로젝트
-            </p>
+            <h1 className="text-6xl md:text-9xl font-bold text-white tracking-tighter mb-6 leading-[0.9]">{project.title}</h1>
+            <div className="flex flex-wrap gap-4 items-center">
+               <span className="px-4 py-1.5 rounded-full border border-gold/30 bg-gold/5 text-gold text-xs font-bold uppercase tracking-widest">{project.client}</span>
+               <div className="h-0.5 w-12 bg-white/10"></div>
+               <span className="text-white/40 text-sm font-kor">Project Case Study 2024</span>
+            </div>
           </motion.div>
         </div>
       </div>
 
-      {/* Content Container (Board Style) */}
-      <div className="max-w-5xl mx-auto px-6 md:px-8 py-20">
+      {/* Main Narrative Board */}
+      <div className="max-w-5xl mx-auto px-8 py-32 space-y-40">
         
-        {/* Meta Data Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 border-y border-white/10 py-10 mb-20">
-           <div>
-             <span className="flex items-center gap-2 text-white/40 text-xs uppercase tracking-widest mb-2"><User size={14}/> Client</span>
-             <p className="text-white font-medium">{project.client}</p>
+        {/* Specs Grid */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-12 border-b border-white/5 pb-20">
+           {[
+             { label: 'Client', value: project.client, icon: User },
+             { label: 'Service', value: 'UX/UI Engineering', icon: Layers },
+             { label: 'Industry', value: 'High-Tech Luxury', icon: Box },
+             { label: 'Timeline', value: '14 Weeks', icon: Clock },
+           ].map((spec, i) => (
+              <div key={i} className="space-y-3">
+                 <div className="flex items-center gap-2 text-white/30 uppercase tracking-widest text-[10px]">
+                    <spec.icon size={12} /> {spec.label}
+                 </div>
+                 <p className="text-lg font-bold text-white">{spec.value}</p>
+              </div>
+           ))}
+        </div>
+
+        {/* Narrative Section 1: Challenge */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-16">
+           <div className="md:col-span-4">
+              <h3 className="text-3xl font-bold text-white sticky top-32">The <br/><span className="text-gold">Challenge</span></h3>
            </div>
-           <div>
-             <span className="flex items-center gap-2 text-white/40 text-xs uppercase tracking-widest mb-2"><Calendar size={14}/> Timeline</span>
-             <p className="text-white font-medium">3 Months (2023)</p>
-           </div>
-           <div>
-             <span className="flex items-center gap-2 text-white/40 text-xs uppercase tracking-widest mb-2"><Layers size={14}/> Service</span>
-             <p className="text-white font-medium">UX/UI, Development</p>
-           </div>
-           <div>
-             <span className="flex items-center gap-2 text-white/40 text-xs uppercase tracking-widest mb-2"><Globe size={14}/> Website</span>
-             <a href="#" className="text-lime hover:underline underline-offset-4">Visit Live Site</a>
+           <div className="md:col-span-8 space-y-8 text-xl font-kor text-white/60 leading-loose">
+              <p>
+                {project.client} 프로젝트의 핵심 과제는 파편화된 디지털 접점을 하나로 통합하고, 브랜드의 프리미엄 정체성을 기술적으로 증명하는 것이었습니다.
+              </p>
+              <div className="bg-white/5 p-10 rounded-2xl border border-white/5 italic font-light text-white/80">
+                "단순한 홈페이지를 넘어, 우리 브랜드의 영혼을 디지털 공간에서 경험할 수 있게 해주세요."
+              </div>
+              <p>
+                우리는 수만 명의 사용자 행동 데이터를 분석하여 기존 시스템의 병목 현상을 파악했고, 이를 해결하기 위한 혁신적인 사용자 인터페이스 구조를 설계했습니다.
+              </p>
            </div>
         </div>
 
-        {/* Article Body */}
-        <div className="flex flex-col gap-24 font-kor text-offwhite/80 leading-loose text-lg">
-           
-           {/* Section 1: Challenge */}
-           <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
-              <div className="md:col-span-4">
-                 <h3 className="text-2xl font-bold text-white font-sans">The Challenge</h3>
-              </div>
-              <div className="md:col-span-8">
-                 <p className="mb-6">
-                   {project.title} 프로젝트의 핵심 과제는 기존의 보수적인 브랜드 이미지를 탈피하고, 디지털 네이티브 세대(Gen Z)에게 어필할 수 있는 새로운 시각적 언어를 정립하는 것이었습니다.
-                 </p>
-                 <p>
-                   특히 모바일 환경에서의 사용자 경험(UX)이 파편화되어 있어, 이를 통합하고 일관된 브랜드 메시지를 전달하는 것이 시급했습니다. 우리는 데이터 분석을 통해 이탈률이 높은 지점을 파악하고 근본적인 구조 개선에 착수했습니다.
-                 </p>
-              </div>
-           </div>
-
-           {/* Large Image Break */}
-           <div className="w-full rounded-2xl overflow-hidden border border-white/5 bg-white/5 opacity-80 h-[500px]">
-              <GenAIImage prompt={project.image + ", detailed UI components"} className="w-full h-full" alt="Process" aspectRatio="16:9" />
-              <div className="p-4 text-center text-xs text-white/30 border-t border-white/5">
-                Design System & UI Components
-              </div>
-           </div>
-
-           {/* Section 2: Solution */}
-           <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
-              <div className="md:col-span-4">
-                 <h3 className="text-2xl font-bold text-white font-sans">The Solution</h3>
-              </div>
-              <div className="md:col-span-8">
-                 <p className="mb-6">
-                   우리는 'Dynamic Elegance'라는 디자인 컨셉을 도출했습니다. 흑요석(Obsidian)과 같은 깊이감 있는 다크 모드를 베이스로, 라임(Lime) 컬러를 포인트로 사용하여 트렌디함을 더했습니다.
-                 </p>
-                 <ul className="list-disc pl-5 space-y-2 marker:text-lime">
-                   <li>WebGL 기반의 인터랙티브 히어로 섹션 구현</li>
-                   <li>Micro-interaction을 통한 사용성 개선</li>
-                   <li>Next.js 도입으로 페이지 로딩 속도 40% 단축</li>
-                 </ul>
-              </div>
-           </div>
-
-           {/* Gallery Grid */}
-           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="bg-white/5 aspect-square rounded-xl overflow-hidden">
-                <GenAIImage prompt="Abstract digital art, lime green geometric shapes on black" className="w-full h-full hover:scale-105 transition-transform duration-700" alt="Detail 1" aspectRatio="1:1" />
-              </div>
-              <div className="bg-white/5 aspect-square rounded-xl overflow-hidden">
-                <GenAIImage prompt="Modern minimalistic website interface, dark mode" className="w-full h-full hover:scale-105 transition-transform duration-700" alt="Detail 2" aspectRatio="1:1" />
-              </div>
-           </div>
-
-           {/* Section 3: Result */}
-           <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center bg-white/5 p-10 rounded-2xl border border-white/5">
-              <div className="md:col-span-4">
-                 <h3 className="text-2xl font-bold text-white font-sans">Key Results</h3>
-              </div>
-              <div className="md:col-span-8 flex justify-between text-center">
-                 <div>
-                    <span className="block text-4xl md:text-5xl font-bold text-gold font-sans mb-2">150%</span>
-                    <span className="text-sm text-white/50 uppercase tracking-widest">Traffic</span>
-                 </div>
-                 <div>
-                    <span className="block text-4xl md:text-5xl font-bold text-gold font-sans mb-2">3.5x</span>
-                    <span className="text-sm text-white/50 uppercase tracking-widest">Conversion</span>
-                 </div>
-                 <div>
-                    <span className="block text-4xl md:text-5xl font-bold text-gold font-sans mb-2">Award</span>
-                    <span className="text-sm text-white/50 uppercase tracking-widest">Winner</span>
-                 </div>
-              </div>
-           </div>
-
+        {/* Visual Showcase 1 */}
+        <div className="w-full aspect-[16/10] rounded-3xl overflow-hidden border border-white/5 group">
+           <GenAIImage prompt={`${project.image}, futuristic user interface detailed`} alt="Interface" className="w-full h-full grayscale group-hover:grayscale-0 transition-all duration-1000" />
         </div>
 
-        {/* Footer Navigation */}
-        <div className="mt-32 pt-12 border-t border-white/10 flex justify-between items-center">
-           <button onClick={onClose} className="text-offwhite/50 hover:text-white transition-colors flex items-center gap-2">
-             <ArrowLeft size={20} /> Back to List
-           </button>
-           <button className="text-xl font-bold text-white hover:text-lime transition-colors flex items-center gap-4 group">
-             Next Project <ArrowDown className="-rotate-90 group-hover:translate-x-2 transition-transform" />
-           </button>
+        {/* Narrative Section 2: Solution */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-16">
+           <div className="md:col-span-4">
+              <h3 className="text-3xl font-bold text-white sticky top-32">The <br/><span className="text-lime">Solution</span></h3>
+           </div>
+           <div className="md:col-span-8 space-y-10 text-xl font-kor text-white/60 leading-loose">
+              <p>
+                원케이션의 'Sync 프로세스'를 적용하여 기획, 디자인, 개발이 동시에 동기화되는 워크플로우를 구축했습니다.
+              </p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                 {[
+                   { title: 'Obsidian Design System', desc: '다크 모드에 최적화된 고대비 컴포넌트 라이브러리 구축.' },
+                   { title: 'Motion Engine', desc: '60fps의 부드러운 전환 효과로 감성적 만족도 극대화.' },
+                   { title: 'Edge Performance', desc: '전 세계 어디서나 1초 미만의 응답 속도를 보장하는 아키텍처.' },
+                   { title: 'AI Integration', desc: '사용자 취향에 반응하는 개인화 추천 알고리즘 삽입.' }
+                 ].map((sol, i) => (
+                   <div key={i} className="bg-white/[0.03] p-6 rounded-xl border border-white/10 hover:border-lime/40 transition-all">
+                      <h5 className="text-white font-bold text-sm mb-2">{sol.title}</h5>
+                      <p className="text-xs text-white/40 leading-relaxed">{sol.desc}</p>
+                   </div>
+                 ))}
+              </div>
+           </div>
         </div>
 
+        {/* Key Result Banner */}
+        <div className="bg-lime p-16 rounded-3xl flex flex-col md:flex-row justify-between items-center gap-12">
+           <div className="text-obsidian max-w-sm">
+              <h4 className="text-3xl font-bold mb-4 tracking-tighter">Business Impact</h4>
+              <p className="text-sm font-medium opacity-80">데이터로 증명된 성공적인 디지털 트랜스포메이션 결과입니다.</p>
+           </div>
+           <div className="flex gap-12">
+              <div className="text-center">
+                 <span className="block text-5xl font-black text-obsidian tracking-tighter">+240%</span>
+                 <span className="text-[10px] font-bold uppercase tracking-widest text-obsidian/60">Conversion</span>
+              </div>
+              <div className="text-center">
+                 <span className="block text-5xl font-black text-obsidian tracking-tighter">-45%</span>
+                 <span className="text-[10px] font-bold uppercase tracking-widest text-obsidian/60">Load Time</span>
+              </div>
+           </div>
+        </div>
+
+        {/* Detail Gallery */}
+        <div className="grid grid-cols-2 gap-6">
+           <div className="aspect-square rounded-2xl overflow-hidden border border-white/5 bg-white/5">
+              <GenAIImage prompt="Modern mobile app interface mockup gold details" alt="Mobile" className="w-full h-full" aspectRatio="1:1" />
+           </div>
+           <div className="aspect-square rounded-2xl overflow-hidden border border-white/5 bg-white/5">
+              <GenAIImage prompt="Premium branding collateral layout obsidian" alt="Branding" className="w-full h-full" aspectRatio="1:1" />
+           </div>
+        </div>
+
+        {/* Footer Actions */}
+        <div className="pt-20 border-t border-white/5 flex flex-col items-center text-center gap-10">
+           <h3 className="text-2xl font-bold text-white">Next Project Experience</h3>
+           <div className="flex gap-4">
+              <button className="flex items-center gap-2 text-white/40 hover:text-white transition-colors group">
+                 <ArrowLeft size={20} className="group-hover:-translate-x-2 transition-transform" /> Prev Project
+              </button>
+              <button className="flex items-center gap-2 text-white font-bold hover:text-gold transition-colors group">
+                 Next Project <ChevronRight size={20} className="group-hover:translate-x-2 transition-transform" />
+              </button>
+           </div>
+           <Button variant="primary" onClick={onClose} className="px-12 py-5 text-xl">Close Case Study</Button>
+        </div>
       </div>
     </motion.div>
   );
 };
 
-// --- Layout 4: Gallery (Portfolio / Work) ---
+// --- Sub-Component: Insight Detail View (Reading Oriented) ---
+interface InsightDetailProps {
+  post: any;
+  onClose: () => void;
+}
+
+const InsightDetailView: React.FC<InsightDetailProps> = ({ post, onClose }) => {
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, []);
+
+  return (
+    <motion.div 
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: 20 }}
+      transition={{ duration: 0.5 }}
+      className="fixed inset-0 z-[60] bg-obsidian overflow-y-auto font-kor"
+    >
+      {/* Top Reading Bar */}
+      <div className="sticky top-0 left-0 right-0 z-50 bg-obsidian/80 backdrop-blur-xl border-b border-white/5 px-6 py-4 flex justify-between items-center">
+         <div className="flex items-center gap-4">
+            <span className="text-gold font-bold text-sm tracking-tighter">O-LAB INSIGHTS</span>
+            <span className="text-[10px] text-white/30 uppercase tracking-widest hidden md:block">Now Reading: {post.title}</span>
+         </div>
+         <div className="flex items-center gap-3">
+            <button className="p-2 text-white/40 hover:text-white transition-colors"><Share2 size={18} /></button>
+            <button className="p-2 text-white/40 hover:text-white transition-colors"><Bookmark size={18} /></button>
+            <span className="w-[1px] h-4 bg-white/10 mx-2"></span>
+            <button onClick={onClose} className="p-2 text-white/40 hover:text-white transition-colors"><X size={20} /></button>
+         </div>
+      </div>
+
+      <article className="max-w-3xl mx-auto px-6 py-20">
+         {/* Article Header */}
+         <header className="mb-16 space-y-8">
+            <div className="flex items-center gap-3">
+               <span className="px-3 py-1 rounded-full bg-white/5 text-lime text-[10px] font-bold uppercase tracking-widest border border-white/10">
+                  {post.category}
+               </span>
+               <span className="text-white/20 text-xs font-mono">{post.date}</span>
+            </div>
+            <h1 className="text-4xl md:text-6xl font-bold text-white tracking-tight leading-tight">
+               {post.title}
+            </h1>
+            <div className="flex items-center gap-4 pt-4 border-t border-white/5">
+               <div className="w-10 h-10 rounded-full bg-gold/20 flex items-center justify-center border border-gold/20 text-gold font-bold text-xs">
+                  OC
+               </div>
+               <div>
+                  <p className="text-white text-sm font-bold">Onecation Editorial Team</p>
+                  <p className="text-white/30 text-xs">Premium Business Architects</p>
+               </div>
+               <div className="ml-auto flex items-center gap-2 text-white/30 text-xs">
+                  <Clock size={14} /> 8 min read
+               </div>
+            </div>
+         </header>
+
+         {/* Lead Image */}
+         <div className="w-full aspect-video rounded-2xl overflow-hidden mb-16 border border-white/5 bg-white/5">
+            <GenAIImage prompt={post.image} alt={post.title} className="w-full h-full" aspectRatio="16:9" />
+         </div>
+
+         {/* Article Content */}
+         <div className="prose prose-invert max-w-none text-white/70 text-lg leading-loose space-y-8">
+            <p className="text-xl text-white font-medium leading-relaxed border-l-4 border-gold pl-8 py-2 italic bg-white/[0.02] rounded-r-lg">
+               비즈니스의 미래는 단순히 어떤 기술을 사용하는가에 있지 않습니다. 그 기술을 어떻게 브랜드의 영혼과 결합시켜 사용자에게 잊지 못할 경험을 선사하는가에 달려 있습니다.
+            </p>
+            
+            <h3 className="text-2xl font-bold text-white pt-8">디지털 트랜스포메이션의 본질</h3>
+            <p>
+               오늘날 많은 기업들이 디지털 전환을 외치고 있지만, 대다수는 기존의 오프라인 프로세스를 온라인으로 옮기는 수준에 머물러 있습니다. 하지만 원케이션이 정의하는 진정한 디지털 트랜스포메이션은 브랜드의 본질(Essence)을 재정의하고, 이를 디지털 환경에 최적화된 새로운 사용자 여정으로 창조하는 것입니다.
+            </p>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 py-8">
+               <div className="bg-white/5 p-8 rounded-2xl border border-white/5">
+                  <h4 className="text-gold font-bold mb-4 flex items-center gap-2"><BookOpen size={16}/> Key Insight A</h4>
+                  <p className="text-sm">데이터는 방향을 제시할 뿐, 결정은 브랜드의 가치관을 따릅니다. 무조건적인 최적화보다 정체성 유지가 우선입니다.</p>
+               </div>
+               <div className="bg-white/5 p-8 rounded-2xl border border-white/5">
+                  <h4 className="text-gold font-bold mb-4 flex items-center gap-2"><Zap size={16}/> Key Insight B</h4>
+                  <p className="text-sm">사용자의 찰나의 순간을 포착하는 마이크로 인터랙션이 브랜드에 대한 신뢰도를 70% 이상 상승시킵니다.</p>
+               </div>
+            </div>
+
+            <h3 className="text-2xl font-bold text-white">결론: 우리가 나아가야 할 방향</h3>
+            <p>
+               우리는 더 이상 단순히 아름다운 웹사이트나 기능적인 앱을 만드는 것에 만족해서는 안 됩니다. 기술과 예술, 그리고 비즈니스 전략이 완벽하게 동기화된 하나의 에코시스템을 구축해야 합니다. 그것이 원케이션이 지향하는 'Business All-in-One'의 미래입니다.
+            </p>
+         </div>
+
+         {/* Footer Tags */}
+         <div className="mt-20 pt-10 border-t border-white/5 flex flex-wrap gap-2">
+            {['Strategy', 'UX Design', 'Luxury Tech', 'Future'].map(tag => (
+               <span key={tag} className="text-[10px] text-white/30 uppercase tracking-widest border border-white/10 px-3 py-1 rounded-full hover:border-gold/30 hover:text-gold transition-colors cursor-pointer">#{tag}</span>
+            ))}
+         </div>
+
+         {/* Author Bio */}
+         <footer className="mt-20 p-10 bg-white/[0.03] rounded-3xl border border-white/5 flex flex-col md:flex-row items-center gap-8 text-center md:text-left">
+            <div className="w-20 h-20 rounded-full bg-gold/10 flex items-center justify-center border border-gold/20 text-gold font-bold text-2xl">
+               OC
+            </div>
+            <div className="space-y-2">
+               <h4 className="text-xl font-bold text-white">Onecation Insights</h4>
+               <p className="text-sm text-white/40 leading-relaxed">원케이션 에디토리얼 팀은 비즈니스 아키텍처의 최신 트렌드와 인사이트를 분석하여 공유합니다. 우리는 지식의 공유가 더 큰 혁신을 만든다고 믿습니다.</p>
+            </div>
+         </footer>
+
+         <div className="mt-20 flex justify-between items-center">
+            <button onClick={onClose} className="text-offwhite/40 hover:text-white transition-colors flex items-center gap-2 group">
+               <ArrowLeft size={18} className="group-hover:-translate-x-1 transition-transform" /> Back to List
+            </button>
+            <div className="flex gap-4">
+               <Button variant="secondary" className="text-xs">이전 글</Button>
+               <Button variant="primary" className="text-xs">다음 글 보기</Button>
+            </div>
+         </div>
+      </article>
+    </motion.div>
+  );
+};
+
+// --- Layout 4: Gallery (Portfolio / Work / Originals) ---
 const GalleryLayout: React.FC<SubPageProps> = ({ content, onBack }) => {
   const [filter, setFilter] = useState('All');
   const [selectedProject, setSelectedProject] = useState<any | null>(null);
 
-  const categories = ['All', 'Web/App', 'Brand', 'Marketing', 'Strategy'];
+  // Categorization based on content.features
+  const categories = useMemo(() => {
+    const cats = new Set(content.features.map(f => f.category).filter(Boolean));
+    return ['All', ...Array.from(cats)];
+  }, [content.features]);
 
-  // Enhanced Mock Data for Masonry Layout
+  // Project List Generation
   const projects = useMemo(() => {
-    // Generate more items with varied aspect ratios for masonry effect
-    const baseItems = [...content.imageGrid, ...content.imageGrid, ...content.imageGrid, ...content.imageGrid]; 
-    return baseItems.map((img, i) => ({
+    const baseItems = content.imageGrid.map((img, i) => ({
       id: i,
       image: img,
-      title: `Project Name ${i + 1}`,
-      client: `Client ${String.fromCharCode(65 + (i % 5))}`,
-      category: categories[(i % 4) + 1],
-      // Random aspect ratio simulation by adding class names (in real world, handled by image dimensions)
+      title: content.features[i % content.features.length].title,
+      client: "Original Partner",
+      category: content.features[i % content.features.length].category || "Tech",
       aspect: i % 3 === 0 ? 'aspect-[4/5]' : i % 2 === 0 ? 'aspect-video' : 'aspect-square' 
     }));
-  }, [content.imageGrid]);
+    return baseItems;
+  }, [content.imageGrid, content.features]);
 
   const filteredProjects = filter === 'All' 
     ? projects 
-    : projects.filter(p => p.category === filter || p.category.includes(filter.split(' ')[0]));
+    : projects.filter(p => p.category === filter);
 
   return (
     <>
@@ -827,25 +982,21 @@ const GalleryLayout: React.FC<SubPageProps> = ({ content, onBack }) => {
           <div className="mt-12 flex flex-wrap gap-2">
              {categories.map((cat) => (
                <button
-                  key={cat}
-                  onClick={() => setFilter(cat)}
+                  key={cat as string}
+                  onClick={() => setFilter(cat as string)}
                   className={`px-6 py-2 rounded-full text-xs font-bold uppercase tracking-widest border transition-all duration-300 ${
                     filter === cat 
                       ? 'bg-lime text-obsidian border-lime shadow-[0_0_15px_rgba(204,255,0,0.3)]' 
                       : 'bg-white/5 text-white/40 border-transparent hover:border-white/20 hover:text-white'
                   }`}
                >
-                  {cat}
-                  <span className="ml-2 opacity-50 text-[10px]">
-                    {cat === 'All' ? projects.length : projects.filter(p => p.category === cat || p.category.includes(cat.split(' ')[0])).length}
-                  </span>
+                  {cat as string}
                </button>
              ))}
           </div>
         </div>
 
         <div className="max-w-[1920px] mx-auto px-6 md:px-8">
-           {/* Masonry Grid Layout using columns */}
            <div className="columns-1 md:columns-2 lg:columns-3 xl:columns-4 gap-6 space-y-6">
               <AnimatePresence mode='popLayout'>
                 {filteredProjects.map((project) => (
@@ -859,7 +1010,6 @@ const GalleryLayout: React.FC<SubPageProps> = ({ content, onBack }) => {
                       onClick={() => setSelectedProject(project)}
                       className="break-inside-avoid group relative rounded-xl overflow-hidden cursor-pointer border border-white/5 bg-white/[0.02] transform transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-lime/10"
                    >
-                      {/* Image Container */}
                       <div className="relative w-full overflow-hidden">
                          <GenAIImage 
                            prompt={project.image} 
@@ -867,8 +1017,6 @@ const GalleryLayout: React.FC<SubPageProps> = ({ content, onBack }) => {
                            alt={project.title}
                            aspectRatio="4:3"
                          />
-                         
-                         {/* Hover Overlay */}
                          <div className="absolute inset-0 bg-obsidian/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                             <div className="w-16 h-16 rounded-full border border-white/20 flex items-center justify-center text-lime scale-50 group-hover:scale-100 transition-transform duration-500 delay-100 bg-black/40 backdrop-blur-sm">
                                <ArrowUpRight size={32} />
@@ -876,15 +1024,13 @@ const GalleryLayout: React.FC<SubPageProps> = ({ content, onBack }) => {
                          </div>
                       </div>
 
-                      {/* Content Card (Floating Glass on Bottom) */}
                       <div className="absolute bottom-4 left-4 right-4 p-5 bg-black/60 backdrop-blur-md border border-white/10 rounded-lg translate-y-full opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 ease-out">
                          <div className="flex justify-between items-start">
                            <div>
                              <span className="text-lime text-[10px] tracking-widest uppercase block mb-1">
                                {project.category}
                              </span>
-                             <h3 className="text-lg font-bold text-white">{project.client}</h3>
-                             <p className="text-offwhite/50 text-xs font-kor truncate">{project.title}</p>
+                             <h3 className="text-lg font-bold text-white">{project.title}</h3>
                            </div>
                          </div>
                       </div>
@@ -892,16 +1038,9 @@ const GalleryLayout: React.FC<SubPageProps> = ({ content, onBack }) => {
                 ))}
               </AnimatePresence>
            </div>
-           
-           <div className="mt-20 flex justify-center pb-20">
-               <Button variant="secondary" className="px-12 py-4 text-sm tracking-widest">
-                  Load More Projects
-               </Button>
-           </div>
         </div>
       </div>
 
-      {/* Detail Modal / Page */}
       <AnimatePresence>
         {selectedProject && (
           <WorkDetailView project={selectedProject} onClose={() => setSelectedProject(null)} />
@@ -911,72 +1050,151 @@ const GalleryLayout: React.FC<SubPageProps> = ({ content, onBack }) => {
   );
 };
 
-// --- Layout 5: Editorial (Insights / Blog) ---
-const EditorialLayout: React.FC<SubPageProps> = ({ content, onBack }) => (
-  <div className="bg-obsidian min-h-screen pt-24 pb-20 selection:bg-lime/30 selection:text-lime">
-     <div className="max-w-3xl mx-auto px-6 relative">
-        {/* Background ambient glow for O-LAB */}
-        <div className="absolute top-20 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-lime/5 rounded-full blur-[120px] pointer-events-none -z-10" />
+// --- Layout 5: Editorial (Trend Insights / Archive Space) ---
+const EditorialLayout: React.FC<SubPageProps> = ({ content, onBack }) => {
+  const [activeCategory, setActiveCategory] = useState('All');
+  const [selectedPost, setSelectedPost] = useState<any | null>(null);
+  
+  const categories = useMemo(() => {
+    const cats = new Set(content.features.map(f => f.category).filter(Boolean));
+    return ['All', ...Array.from(cats)];
+  }, [content.features]);
 
-        <BackButton onClick={onBack} className="mb-12" />
+  const archiveItems = useMemo(() => {
+    return content.features.map((f, i) => ({
+      ...f,
+      id: i,
+      image: content.imageGrid[i % content.imageGrid.length],
+      date: `2024.0${(i % 9) + 1}.15`,
+    }));
+  }, [content.features, content.imageGrid]);
 
-        <header className="mb-16 text-center">
-           <span className="inline-block border border-gold/30 px-4 py-1.5 rounded-full text-[10px] uppercase tracking-[0.2em] text-gold mb-8 bg-gold/5 backdrop-blur-sm">
-             {content.subtitle}
-           </span>
-           <h1 className="text-4xl md:text-6xl font-bold font-sans text-white mb-8 leading-tight tracking-tight">
-             {content.title}
-           </h1>
-           <p className="text-lg md:text-xl text-offwhite/60 font-kor leading-relaxed font-light">
-             {content.description}
-           </p>
-        </header>
+  const filteredItems = activeCategory === 'All' 
+    ? archiveItems 
+    : archiveItems.filter(item => item.category === activeCategory);
 
-        <figure className="mb-16 relative group h-[400px]">
-           <div className="absolute inset-0 bg-gradient-to-t from-obsidian via-transparent to-transparent opacity-20 z-10" />
-           <GenAIImage prompt={content.heroImage} className="w-full h-full rounded-2xl border border-white/5 shadow-2xl grayscale group-hover:grayscale-0 transition-all duration-700" alt="Hero" aspectRatio="16:9" />
-           <figcaption className="text-center text-xs text-white/20 mt-4 font-mono uppercase tracking-widest">Image from Onecation Archives</figcaption>
-        </figure>
+  return (
+    <>
+      <div className="bg-obsidian min-h-screen pt-24 pb-20 selection:bg-lime/30 selection:text-lime">
+        <div className="max-w-7xl mx-auto px-6 md:px-8">
+            <BackButton onClick={onBack} className="mb-12" />
 
-        <div className="space-y-8 font-kor text-offwhite/80 text-lg leading-loose">
-           <p className="first-letter:text-5xl first-letter:font-bold first-letter:text-lime first-letter:float-left first-letter:mr-4 first-letter:mt-[-6px]">
-             {content.details}
-           </p>
+            <header className="mb-20">
+              <div className="flex flex-col md:flex-row justify-between items-end gap-10">
+                  <div className="max-w-2xl">
+                    <span className="inline-block text-lime text-xs font-bold tracking-[0.2em] uppercase mb-4">{content.subtitle}</span>
+                    <h1 className="text-5xl md:text-7xl font-bold text-white tracking-tighter mb-6">{content.title}</h1>
+                    <p className="text-lg text-offwhite/50 font-kor font-light leading-relaxed">
+                      {content.description}
+                    </p>
+                  </div>
+                  {/* Search Bar (Visual Only) */}
+                  <div className="relative group w-full md:w-auto">
+                    <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-white/20 group-hover:text-lime transition-colors" size={18} />
+                    <input 
+                      type="text" 
+                      placeholder="Search insights..." 
+                      className="bg-white/5 border border-white/10 rounded-full pl-12 pr-6 py-3 text-sm text-white w-full md:w-64 focus:outline-none focus:border-lime transition-all"
+                    />
+                  </div>
+              </div>
 
-           <div className="my-16 p-8 md:p-12 bg-white/5 border border-white/5 rounded-2xl relative overflow-hidden">
-             <div className="absolute top-0 right-0 w-32 h-32 bg-gold/10 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2"></div>
-             <Quote className="absolute top-6 left-6 text-gold/40 w-12 h-12" />
-             <ul className="relative z-10 space-y-6 pt-8">
-               {content.features.map((feature, idx) => (
-                 <li key={idx} className="flex gap-6 items-start">
-                   <span className="text-lime font-bold font-mono text-xl mt-1">0{idx + 1}.</span>
-                   <div>
-                     <strong className="block text-white text-xl mb-2">{feature.title}</strong>
-                     <span className="text-white/50 text-base leading-relaxed">{feature.desc}</span>
-                   </div>
-                 </li>
-               ))}
-             </ul>
-           </div>
+              {/* Categories */}
+              <div className="mt-12 flex flex-wrap gap-2 border-b border-white/5 pb-8">
+                  {categories.map((cat) => (
+                    <button 
+                      key={cat as string}
+                      onClick={() => setActiveCategory(cat as string)}
+                      className={`px-5 py-2 rounded-full text-[10px] uppercase tracking-widest font-bold border transition-all ${
+                        activeCategory === cat 
+                        ? 'bg-lime text-obsidian border-lime' 
+                        : 'bg-transparent text-white/40 border-white/10 hover:border-white/30 hover:text-white'
+                      }`}
+                    >
+                      {cat as string}
+                    </button>
+                  ))}
+              </div>
+            </header>
 
-           <div className="grid grid-cols-2 gap-4 my-12">
-              {content.imageGrid.map((img, idx) => (
-                <div key={idx} className="relative overflow-hidden rounded-xl border border-white/5 group aspect-[3/4]">
-                   <GenAIImage prompt={img} className="w-full h-full grayscale group-hover:grayscale-0 transition-all duration-500 scale-100 group-hover:scale-110" alt="Editorial" aspectRatio="3:4" />
-                </div>
+            {/* Featured Post (Visual) */}
+            {activeCategory === 'All' && archiveItems.length > 0 && (
+              <motion.div 
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="mb-24 group cursor-pointer"
+                onClick={() => setSelectedPost(archiveItems[0])}
+              >
+                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                    <div className="lg:col-span-8 aspect-[16/9] rounded-2xl overflow-hidden bg-white/5 border border-white/5 relative">
+                        <GenAIImage 
+                          prompt={archiveItems[0].image} 
+                          alt="Featured" 
+                          className="w-full h-full grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
+                          aspectRatio="16:9" 
+                        />
+                        <div className="absolute top-6 left-6 z-10 px-4 py-1.5 bg-lime text-obsidian text-[10px] font-bold tracking-widest uppercase rounded-full">
+                          Featured Insight
+                        </div>
+                    </div>
+                    <div className="lg:col-span-4">
+                        <span className="text-gold text-xs font-mono mb-4 block">{archiveItems[0].date}</span>
+                        <h2 className="text-3xl md:text-4xl font-bold text-white mb-6 group-hover:text-gold transition-colors">{archiveItems[0].title}</h2>
+                        <p className="text-offwhite/50 font-kor leading-relaxed mb-8">{archiveItems[0].desc}</p>
+                        <button className="flex items-center gap-2 text-lime text-xs font-bold uppercase tracking-widest hover:gap-4 transition-all">
+                          Read Story <ArrowUpRight size={16} />
+                        </button>
+                    </div>
+                  </div>
+              </motion.div>
+            )}
+
+            {/* Archive Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+              {filteredItems.slice(activeCategory === 'All' ? 1 : 0).map((item, idx) => (
+                  <motion.div
+                    key={item.id}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: idx * 0.1 }}
+                    className="group cursor-pointer"
+                    onClick={() => setSelectedPost(item)}
+                  >
+                    <div className="relative aspect-[4/3] rounded-xl overflow-hidden mb-6 bg-white/5 border border-white/5">
+                        <GenAIImage 
+                          prompt={item.image} 
+                          alt={item.title} 
+                          className="w-full h-full grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700" 
+                          aspectRatio="4:3"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-obsidian via-transparent to-transparent opacity-60" />
+                        <span className="absolute bottom-4 left-4 text-[10px] text-white/70 font-mono tracking-widest uppercase">{item.category}</span>
+                    </div>
+                    <h3 className="text-xl font-bold text-white mb-3 group-hover:text-gold transition-colors font-kor leading-snug">{item.title}</h3>
+                    <div className="flex items-center justify-between text-[10px] text-white/30 uppercase tracking-[0.2em] font-sans border-t border-white/5 pt-4">
+                        <span>{item.date}</span>
+                        <ArrowUpRight size={14} className="group-hover:text-lime transition-colors" />
+                    </div>
+                  </motion.div>
               ))}
-           </div>
-        </div>
+            </div>
 
-        <div className="mt-20 pt-10 border-t border-white/10 text-center">
-           <h3 className="font-sans font-bold text-2xl text-white mb-8">Explore More Insights</h3>
-           <div className="flex justify-center gap-4">
-              <Button variant="outline" withArrow onClick={() => window.location.href='mailto:hello@onecation.com'}>Subscribe to O-LAB</Button>
-           </div>
+            <div className="mt-32 text-center">
+              <p className="text-offwhite/30 text-sm mb-8 font-kor italic">The archives are updated weekly with new digital foresight.</p>
+              <Button variant="secondary" className="px-10">Load More Insights</Button>
+            </div>
         </div>
-     </div>
-  </div>
-);
+      </div>
+
+      <AnimatePresence>
+        {selectedPost && (
+          <InsightDetailView post={selectedPost} onClose={() => setSelectedPost(null)} />
+        )}
+      </AnimatePresence>
+    </>
+  );
+};
 
 // --- Layout 6: FAQ (Accordion Style) ---
 const FAQLayout: React.FC<SubPageProps> = ({ content, onBack }) => {
@@ -1016,7 +1234,7 @@ const FAQLayout: React.FC<SubPageProps> = ({ content, onBack }) => {
         <div className="flex flex-wrap justify-center gap-3 mb-16">
           {categories.map((cat) => (
             <button
-              key={cat}
+              key={cat as string}
               onClick={() => {
                 setFilter(cat as string);
                 setOpenIndex(null); // Reset open accordion on filter change

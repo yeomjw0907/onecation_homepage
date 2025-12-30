@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+
+import React, { useState, useEffect } from 'react';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
 import { Clients } from './components/Clients';
@@ -10,8 +11,9 @@ import { Footer } from './components/Footer';
 import { Section } from './components/ui/Section';
 import { SubPage } from './components/SubPage';
 import { FoundationGrid } from './components/FoundationGrid';
+import { AdminPage } from './components/AdminPage';
 import { SUBPAGE_CONTENT } from './constants';
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight, Lock } from 'lucide-react';
 
 const App: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<string>('home');
@@ -20,6 +22,21 @@ const App: React.FC = () => {
     setCurrentPage(slug);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
+
+  // Keyboard shortcut to access admin (Alt+Shift+A)
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.altKey && e.shiftKey && e.key === 'A') {
+        navigateTo('admin');
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
+  if (currentPage === 'admin') {
+    return <AdminPage onExit={() => navigateTo('home')} />;
+  }
 
   return (
     <div className="min-h-screen bg-obsidian text-offwhite font-sans selection:bg-lime/30 selection:text-lime">
@@ -109,6 +126,16 @@ const App: React.FC = () => {
                    <ArrowUpRight size={20} className="group-hover:rotate-45 transition-transform duration-300" />
                 </span>
               </button>
+
+              {/* Secret Admin Entry (For Dev/Demo) */}
+              <div className="mt-20 flex justify-center opacity-10 hover:opacity-100 transition-opacity">
+                 <button 
+                   onClick={() => navigateTo('admin')}
+                   className="flex items-center gap-2 text-[10px] text-white/40 uppercase tracking-widest hover:text-gold"
+                 >
+                   <Lock size={10} /> Internal Access
+                 </button>
+              </div>
           </Section>
         </main>
       ) : (

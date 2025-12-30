@@ -1,4 +1,5 @@
-export type LayoutType = 'standard' | 'split' | 'immersive' | 'gallery' | 'editorial' | 'contact' | 'faq' | 'manifesto' | 'alliance' | 'process';
+
+export type LayoutType = 'standard' | 'split' | 'immersive' | 'gallery' | 'editorial' | 'contact' | 'faq' | 'manifesto' | 'alliance' | 'process' | 'success-story';
 
 export interface NavChild {
   label: string;
@@ -41,4 +42,16 @@ export interface SubPageContent {
   details: string;
   imageGrid: string[];
   layout: LayoutType; // Controls the visual structure
+}
+
+export interface ProjectLead {
+  id: string;
+  name: string;
+  email: string;
+  company: string;
+  budget: string;
+  service: string;
+  message: string;
+  status: 'pending' | 'reviewed' | 'completed';
+  date: string;
 }

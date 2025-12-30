@@ -13,7 +13,7 @@ const BentoCard: React.FC<{ item: BentoItem; index: number }> = ({ item, index }
     3: 'md:col-span-3',
   }[item.colSpan];
 
-  const rowSpanClass = item.rowSpan === 2 ? 'md:row-span-2 h-full min-h-[400px]' : 'min-h-[240px]';
+  const rowSpanClass = item.rowSpan === 2 ? 'md:row-span-2 h-full min-h-[350px] md:min-h-[400px]' : 'min-h-[200px] md:min-h-[240px]';
 
   return (
     <motion.div
@@ -21,7 +21,7 @@ const BentoCard: React.FC<{ item: BentoItem; index: number }> = ({ item, index }
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
-      className={`group relative overflow-hidden rounded-3xl bg-glass border border-glass-border p-8 hover:border-white/20 transition-all duration-500 ${colSpanClass} ${rowSpanClass}`}
+      className={`group relative overflow-hidden rounded-3xl bg-glass border border-glass-border p-6 md:p-8 hover:border-white/20 transition-all duration-500 ${colSpanClass} ${rowSpanClass}`}
     >
       {/* Hover Gradient Effect */}
       <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
@@ -34,20 +34,20 @@ const BentoCard: React.FC<{ item: BentoItem; index: number }> = ({ item, index }
                {item.hasArrow ? <ArrowUpRight size={14} /> : getIcon(item.category)}
             </span>
             {item.category && (
-              <span className="text-[10px] uppercase tracking-widest text-white/40 border border-white/5 px-2 py-1 rounded-full bg-black/30 backdrop-blur-sm">
+              <span className="text-[9px] md:text-[10px] uppercase tracking-widest text-white/40 border border-white/5 px-2 py-1 rounded-full bg-black/30 backdrop-blur-sm">
                 {item.category}
               </span>
             )}
           </div>
           
-          <h3 className="text-2xl font-bold text-white mb-1 group-hover:text-gold transition-colors duration-300 font-sans drop-shadow-md">
+          <h3 className="text-xl md:text-2xl font-bold text-white mb-1 group-hover:text-gold transition-colors duration-300 font-sans drop-shadow-md">
             {item.title}
           </h3>
-          <p className="text-sm font-medium text-white/70 mb-4">{item.subtitle}</p>
+          <p className="text-xs md:text-sm font-medium text-white/70 mb-4">{item.subtitle}</p>
         </div>
 
         {item.description && (
-          <p className="text-sm text-offwhite/60 font-kor leading-relaxed max-w-[90%] mt-auto drop-shadow-sm">
+          <p className="text-xs md:text-sm text-offwhite/60 font-kor leading-relaxed max-w-[95%] md:max-w-[90%] mt-auto drop-shadow-sm">
             {item.description}
           </p>
         )}
@@ -80,7 +80,7 @@ const getIcon = (category?: string) => {
 
 export const BentoGrid: React.FC = () => {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-auto grid-flow-dense">
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 auto-rows-auto grid-flow-dense">
       {BENTO_ITEMS.map((item, index) => (
         <BentoCard key={item.id} item={item} index={index} />
       ))}

@@ -1,3 +1,4 @@
+
 import React from 'react';
 
 export const Footer: React.FC = () => {
@@ -78,7 +79,7 @@ export const Footer: React.FC = () => {
         {/* Copyright */}
         <div className="mt-20 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center text-[10px] text-offwhite/20 font-sans tracking-[0.2em] uppercase gap-4">
            <span>© {currentYear} 98.7 degrees Co., Ltd. All rights reserved.</span>
-           <span className="opacity-50">Luxury Tech Agency</span>
+           <span className="opacity-50">Premium Business Architects</span>
         </div>
       </div>
     </footer>

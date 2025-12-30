@@ -118,19 +118,19 @@ export const FOUNDATION_SERVICES = [
     id: 'f1',
     title: 'Business Planning',
     description: 'Strategic roadmaps and compelling IR decks to secure your vision.',
-    image: 'Abstract 3D golden chess pieces on a reflective black board, strategy and foresight.'
+    image: 'Abstract 3D Golden Trajectory cutting through dark chaos, symbolizing a clear roadmap to success. Cinematic lighting.'
   },
   {
     id: 'f2',
     title: 'Gov. Strategy',
     description: 'Navigating complex regulations to maximize funding opportunities.',
-    image: 'A grand futuristic architectural archway made of black marble and gold trim, symbolizing government structure.'
+    image: 'A glowing 3D Golden Key floating in front of a massive digital gate. Symbolizing access and approval.'
   },
   {
     id: 'f3',
     title: 'Tech Consulting',
     description: 'Scalable architecture design and technical leadership from day one.',
-    image: 'A complex 3D network topology map, glowing nodes connected by lime laser lines, blueprint style.'
+    image: 'Isometric 3D Holographic Blueprint of a complex server architecture. Glowing Lime lines on black background. Clean and precise.'
   }
 ];
 
@@ -138,8 +138,8 @@ export const BENTO_ITEMS: BentoItem[] = [
   {
     id: '1',
     title: 'ONE.SYSTEM',
-    subtitle: 'Integrated Ecosystem',
-    description: 'A unified workflow designed for seamless luxury tech integration.',
+    subtitle: '통합 에코시스템',
+    description: '럭셔리 테크를 위한 완벽한 통합 워크플로우.',
     colSpan: 2,
     rowSpan: 2,
     image: 'A mesmerizing 3D interlocking mechanism of gold and black gears, perfectly synchronized, clockwork precision.',
@@ -149,8 +149,8 @@ export const BENTO_ITEMS: BentoItem[] = [
   {
     id: '2',
     title: 'Precision',
-    subtitle: 'Pixel Perfect',
-    description: 'Obsessive attention to detail.',
+    subtitle: '픽셀 퍼펙트',
+    description: '1px의 오차도 허용하지 않는 집요한 디테일.',
     colSpan: 1,
     rowSpan: 1,
     category: 'Philosophy'
@@ -158,7 +158,8 @@ export const BENTO_ITEMS: BentoItem[] = [
   {
     id: '3',
     title: 'Global Reach',
-    subtitle: 'Seoul • NY • Paris',
+    subtitle: '글로벌 네트워크',
+    description: 'Seoul • NY • Paris',
     colSpan: 1,
     rowSpan: 1,
     category: 'Network'
@@ -166,8 +167,8 @@ export const BENTO_ITEMS: BentoItem[] = [
   {
     id: '4',
     title: 'CREATION',
-    subtitle: 'Digital Artistry',
-    description: 'Forging new digital realities.',
+    subtitle: '디지털 아티스트리',
+    description: '상상을 뛰어넘는 새로운 디지털 경험 창조.',
     colSpan: 1, 
     rowSpan: 1, 
     image: 'A digital sculpture of a human hand creating a glowing polygon sphere, creation and art.',
@@ -177,8 +178,8 @@ export const BENTO_ITEMS: BentoItem[] = [
   {
     id: '5',
     title: 'ACCELERATION',
-    subtitle: 'Growth Engine',
-    description: 'Scaling with data-driven strategies.',
+    subtitle: '성장 엔진',
+    description: '데이터와 크리에이티브가 결합된 성장 전략.',
     colSpan: 2,
     rowSpan: 1,
     image: 'A high-speed light tunnel, motion blur, accelerating forward, warp speed effect.',
@@ -187,8 +188,8 @@ export const BENTO_ITEMS: BentoItem[] = [
   {
     id: '6',
     title: 'O-LAB',
-    subtitle: 'Experimental R&D',
-    description: 'Pushing boundaries of WebGL and spatial computing.',
+    subtitle: '자체 R&D 연구소',
+    description: 'WebGL과 공간 컴퓨팅의 한계를 넘는 실험.',
     colSpan: 3,
     image: 'A futuristic laboratory setup with floating holograms and experimental tech devices.',
     category: 'R&D',
@@ -297,6 +298,20 @@ export const INSIGHTS = [
     title: '원케이션의 해커톤: O-THON 2023',
     date: 'Dec 05, 2023',
     image: 'A dark room filled with developers and glowing monitors, cyberpunk atmosphere, coding late night.'
+  },
+  {
+    id: 4,
+    category: 'Branding',
+    title: '2024년 럭셔리 테크 디자인 가이드라인',
+    date: 'Jan 15, 2024',
+    image: 'Close up of a luxury car dashboard with holographic displays, gold trim on black leather.'
+  },
+  {
+    id: 5,
+    category: 'Strategy',
+    title: '스타트업을 위한 정부 지원사업 로드맵',
+    date: 'Feb 02, 2024',
+    image: 'A path made of glowing gold steps leading through a digital mountain landscape.'
   }
 ];
 
@@ -362,9 +377,9 @@ export const SUBPAGE_CONTENT: Record<string, SubPageContent> = {
   // FOUNDATION
   'business-planning': {
     title: 'Business Planning',
-    subtitle: 'Strategy & IR',
-    description: '투자자를 설득하고 비즈니스의 방향성을 명확히 하는 고도화된 사업계획서와 피치덱을 제작합니다.',
-    heroImage: 'A sleek business boardroom table with a holographic projection of a growth chart.',
+    subtitle: 'Visionary Roadmap',
+    description: '불확실한 비즈니스 환경에서 명확한 승리의 경로를 설계합니다. 투자자를 매료시키는 압도적인 스토리텔링과 정교한 재무 시뮬레이션.',
+    heroImage: 'Abstract 3D Golden Trajectory cutting through dark chaos, symbolizing a clear roadmap to success. Cinematic lighting.',
     features: [
       { title: 'Market Analysis', desc: '정량적/정성적 시장 분석 데이터.' },
       { title: 'Financial Modeling', desc: '현실적이고 논리적인 재무 추정.' },
@@ -379,9 +394,9 @@ export const SUBPAGE_CONTENT: Record<string, SubPageContent> = {
   },
   'gov-strategy': {
     title: 'Gov. Strategy',
-    subtitle: 'R&D & Support',
-    description: '팁스(TIPS), 예비창업패키지 등 정부지원사업 합격을 위한 맞춤형 전략 컨설팅.',
-    heroImage: 'A majestic government building facade with modern architectural elements.',
+    subtitle: 'Master Key Strategy',
+    description: '복잡한 심사 기준을 꿰뚫는 필승 전략. 수많은 합격 데이터로 검증된 원케이션만의 합격 공식을 제안합니다.',
+    heroImage: 'A glowing 3D Golden Key floating in front of a massive digital gate. Symbolizing access and approval.',
     features: [
       { title: 'Eligibility Check', desc: '지원 가능 사업 적합성 진단.' },
       { title: 'Evaluation Criteria', desc: '평가 지표에 맞춘 사업계획서 최적화.' },
@@ -396,9 +411,9 @@ export const SUBPAGE_CONTENT: Record<string, SubPageContent> = {
   },
   'tech-consulting': {
     title: 'Tech Consulting',
-    subtitle: 'Architecture & PM',
-    description: '개발 착수 전, 실패하지 않는 프로덕트를 위한 기술적 아키텍처 설계와 기획을 제공합니다 (CTO as a Service).',
-    heroImage: 'A server room with rows of racks and glowing blue lights.',
+    subtitle: 'System Architecture',
+    description: '개발 착수 전, 실패 확률을 0%로 만드는 기술 설계. 확장 가능한 아키텍처와 빈틈없는 기능 명세서(SRS)를 제공합니다.',
+    heroImage: 'Isometric 3D Holographic Blueprint of a complex server architecture. Glowing Lime lines on black background. Clean and precise.',
     features: [
       { title: 'Stack Selection', desc: '서비스에 최적화된 기술 스택 선정.' },
       { title: 'DB Design', desc: '확장성을 고려한 데이터베이스 설계.' },
@@ -550,7 +565,7 @@ export const SUBPAGE_CONTENT: Record<string, SubPageContent> = {
     ],
     details: '엄격한 보안 규정과 가이드라인을 준수하며 완벽한 퀄리티를 제공한 엔터프라이즈 프로젝트입니다.',
     imageGrid: [
-      'A large conference room with a presentation screen.',
+      'A large conference room with a presidential screen.',
       'A complex admin dashboard on a widescreen monitor.',
       'A corporate lobby with branding.',
       'A secure server room.'
@@ -579,41 +594,46 @@ export const SUBPAGE_CONTENT: Record<string, SubPageContent> = {
   // O-LAB
   'originals': {
     title: 'Originals',
-    subtitle: 'Lab Experiments',
-    description: '원케이션 자체적으로 기획하고 개발한 서비스와 실험적인 프로젝트들을 소개합니다.',
+    subtitle: 'Product Gallery',
+    description: '원케이션 자체적으로 기획하고 개발한 서비스와 실험적인 제품들을 소개합니다. 혁신적인 아이디어가 실제 제품으로 구현된 결과물들입니다.',
     heroImage: 'A sci-fi lab bench with prototype devices and glowing blueprints.',
     features: [
-      { title: 'SaaS Products', desc: '실제 운영 중인 자체 SaaS 서비스.' },
-      { title: 'Interactive Art', desc: '기술과 예술이 결합된 디지털 아트.' },
-      { title: 'Open Source', desc: '개발 커뮤니티에 기여하는 라이브러리.' }
+      { title: 'SaaS Products', desc: '실제 운영 중인 자체 SaaS 서비스.', category: 'Web/App' },
+      { title: 'Interactive Art', desc: '기술과 예술이 결합된 디지털 아트.', category: 'Digital Art' },
+      { title: 'Open Source', desc: '개발 커뮤니티에 기여하는 라이브러리.', category: 'Tech' }
     ],
     details: '우리는 클라이언트 워크뿐만 아니라, 스스로 메이커가 되어 끊임없이 도전하고 증명합니다.',
     imageGrid: [
-      'A screen showing a SaaS dashboard.',
-      'A digital art installation with projection mapping.'
+      'A screen showing a sleek dark-mode dashboard interface.',
+      'A 3D glass sculpture of a digital heart glowing with fiber optics.',
+      'Code snippets floating in a 3D space, golden lines on black.',
+      'A smartphone displaying a minimalist crypto wallet interface.'
     ],
-    layout: 'editorial'
+    layout: 'gallery'
   },
   'trend-insights': {
     title: 'Trend Insights',
-    subtitle: 'Market Intelligence',
-    description: '급변하는 디지털 시장의 트렌드를 분석하고 인사이트를 제공하는 리포트입니다.',
-    heroImage: 'A futuristic newsroom with holographic screens showing trends.',
+    subtitle: 'Insight Archive',
+    description: '급변하는 디지털 시장의 트렌드를 분석하고 아카이빙합니다. 디자인, 기술, 마케팅 전반의 핵심 인사이트를 확인하세요.',
+    heroImage: 'A futuristic library with floating holographic books and charts.',
     features: [
-      { title: 'Design Trend', desc: '매년 발표하는 UI/UX 디자인 트렌드.' },
-      { title: 'Tech Radar', desc: '주목해야 할 신기술 분석.' },
-      { title: 'Marketing', desc: '소비자 심리와 마케팅 트렌드.' }
+      { title: 'Web 3.0 & Luxury', desc: '럭셔리 브랜드의 디지털 결합 트렌드.', category: 'Tech' },
+      { title: 'Immersive Interaction', desc: '사용자 몰입을 위한 새로운 UX 패턴.', category: 'Design' },
+      { title: '2024 Design Guide', desc: '올해 주목해야 할 디자인 가이드라인.', category: 'Design' },
+      { title: 'Startup Roadmap', desc: '정부 지원사업 합격을 위한 전략.', category: 'Strategy' }
     ],
     details: '원케이션의 시각으로 해석한 깊이 있는 분석 자료를 통해 미래를 준비하세요.',
     imageGrid: [
-      'A magazine cover with future design trends.',
-      'A word cloud of trending tech terms.'
+      'Digital diamond floating in a mesh network.',
+      'Fluid abstract shapes with neon lighting.',
+      'Luxury car dashboard with holographic UI.',
+      'Golden path leading through a digital mountain range.'
     ],
     layout: 'editorial'
   },
   'culture-log': {
     title: 'Culture Log',
-    subtitle: 'Team Onecation',
+    subtitle: 'Team Archive',
     description: '치열하게 일하고 즐겁게 노는 원케이션의 조직 문화와 비하인드 스토리를 기록합니다.',
     heroImage: 'A candid photo of a team dinner, warm lighting, laughter.',
     features: [
@@ -670,7 +690,6 @@ export const SUBPAGE_CONTENT: Record<string, SubPageContent> = {
     description: '프로젝트 진행과 관련하여 자주 묻는 질문들을 모았습니다. 궁금한 점이 해결되지 않았다면 언제든 문의해주세요.',
     heroImage: 'A large glowing question mark in a 3D space.',
     features: [
-      // Development
       { category: '개발', title: '개발 언어는 무엇을 사용하나요?', desc: '웹은 React, Next.js, 앱은 Flutter, React Native를 주력으로 사용합니다. 백엔드는 Node.js, Python, Java 등 프로젝트 특성에 맞춰 가장 적합한 기술 스택을 제안합니다.' },
       { category: '개발', title: '유지보수도 가능한가요?', desc: '네, 가능합니다. 프로젝트 완료 후 기본 하자보수 기간(1년)을 제공하며, 이후 별도의 유지보수(SMA) 계약을 통해 서버 관리, 기능 개선 등 안정적인 운영을 지원합니다.' },
       { category: '개발', title: '하이브리드 앱과 네이티브 앱의 차이는 무엇인가요?', desc: '네이티브 앱은 성능이 뛰어나지만 개발 비용이 높습니다. 하이브리드(크로스 플랫폼) 앱은 하나의 코드로 iOS와 Android를 동시에 개발하여 비용 효율적입니다. 프로젝트 목적에 따라 적합한 방식을 제안드립니다.' },

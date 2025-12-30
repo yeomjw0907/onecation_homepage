@@ -70,7 +70,8 @@ export const Header: React.FC<HeaderProps> = ({ onNavigate }) => {
               >
                 <a
                   href={item.href}
-                  className={`text-xs font-bold tracking-[0.15em] transition-colors duration-300 uppercase font-sans flex flex-col items-center gap-1 cursor-default ${
+                  onClick={(e) => handleLinkClick(e, item.children[0]?.slug)}
+                  className={`text-xs font-bold tracking-[0.15em] transition-colors duration-300 uppercase font-sans flex flex-col items-center gap-1 cursor-pointer ${
                     hoveredNav === item.id ? 'text-gold' : 'text-offwhite/60 hover:text-offwhite'
                   }`}
                 >
@@ -225,7 +226,7 @@ export const Header: React.FC<HeaderProps> = ({ onNavigate }) => {
                           key={idx} 
                           href="#" 
                           onClick={(e) => handleLinkClick(e, child.slug)}
-                          className="block pl-2 border-l-2 border-white/10 hover:border-lime transition-all"
+                          className="block p-4 bg-white/5 rounded-lg border border-transparent hover:border-lime/30 transition-all"
                         >
                           <span className="text-white font-medium text-sm block mb-1">{child.label}</span>
                           <span className="text-offwhite/40 text-xs font-kor block">{child.desc}</span>

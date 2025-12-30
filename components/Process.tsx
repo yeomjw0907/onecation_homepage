@@ -1,7 +1,6 @@
 import React, { useRef } from 'react';
-import { motion, useScroll, useSpring, useTransform } from 'framer-motion';
+import { motion, useScroll, useSpring } from 'framer-motion';
 import { PROCESS_STEPS } from '../constants';
-import { ArrowDown } from 'lucide-react';
 
 export const Process: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -10,7 +9,7 @@ export const Process: React.FC = () => {
     offset: ["start center", "end end"]
   });
 
-  // Smooth the scroll progress for the lime line
+  // Smooth the scroll progress for the electric lime line
   const scaleY = useSpring(scrollYProgress, {
     stiffness: 100,
     damping: 30,
@@ -32,10 +31,10 @@ export const Process: React.FC = () => {
       </div>
 
       <div className="max-w-7xl mx-auto px-6 md:px-8 relative">
-        {/* Connector Line Background */}
-        <div className="absolute left-6 md:left-[50%] md:-translate-x-1/2 top-0 bottom-0 w-[1px] bg-white/5 hidden md:block" />
+        {/* Vertical Connector Line (Background - Dim) */}
+        <div className="absolute left-6 md:left-[50%] md:-translate-x-1/2 top-0 bottom-0 w-[1px] bg-white/10 hidden md:block" />
         
-        {/* Dynamic Active Line (Electric Lime) */}
+        {/* Dynamic Active Line (Electric Lime - Progress) */}
         <motion.div 
           style={{ scaleY, originY: 0 }}
           className="absolute left-6 md:left-[50%] md:-translate-x-1/2 top-0 bottom-0 w-[2px] bg-lime shadow-[0_0_15px_#CCFF00] z-10 hidden md:block"
@@ -47,37 +46,40 @@ export const Process: React.FC = () => {
             return (
               <div key={step.id} className="relative grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-24 items-center">
                 
-                {/* Timeline Center Point (Mobile & Desktop) */}
+                {/* Timeline Center Point Indicator */}
                 <div className="absolute left-[23px] md:left-1/2 md:-translate-x-1/2 top-0 md:top-1/2 md:-translate-y-1/2 z-20">
                    <motion.div 
                      initial={{ scale: 0 }}
                      whileInView={{ scale: 1 }}
                      viewport={{ once: true }}
-                     className="w-3 h-3 rounded-full bg-lime shadow-[0_0_10px_#CCFF00] border-4 border-obsidian"
+                     className="w-4 h-4 rounded-full bg-lime shadow-[0_0_15px_#CCFF00] border-4 border-obsidian"
                    />
                 </div>
 
                 {/* Text Content */}
                 <motion.div 
-                  initial={{ opacity: 0, x: isEven ? -50 : 50 }}
+                  initial={{ opacity: 0, x: -50 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true, margin: "-100px" }}
                   transition={{ duration: 0.8, ease: "easeOut" }}
-                  className={`relative md:w-full ${isEven ? 'md:text-right md:order-1' : 'md:text-left md:order-2'}`}
+                  className={`relative md:w-full md:pr-12 pl-12 md:pl-0 z-10`}
                 >
-                  {/* Massive Outline Typography */}
-                  <div className={`absolute -top-16 md:-top-24 ${isEven ? 'md:-right-12' : 'md:-left-12'} pointer-events-none opacity-20 z-0`}>
-                    <span className="text-8xl md:text-[12rem] font-black leading-none font-sans text-transparent stroke-gold" style={{ WebkitTextStroke: '2px rgba(212,175,55,0.4)' }}>
+                  {/* Massive Outline Typography Background */}
+                  <div className="absolute -top-16 -left-4 md:-top-24 md:-left-20 pointer-events-none opacity-20 z-0">
+                    <span 
+                      className="text-8xl md:text-[16rem] font-black leading-none font-sans text-transparent" 
+                      style={{ WebkitTextStroke: '2px rgba(212,175,55,0.4)' }}
+                    >
                       {step.id}
                     </span>
                   </div>
 
                   <div className="relative z-10">
-                    <h3 className="text-4xl font-bold text-white mb-6 tracking-tight">{step.title}</h3>
-                    <p className="text-offwhite/60 font-kor text-lg leading-relaxed mb-8 max-w-xl inline-block">
+                    <h3 className="text-4xl md:text-6xl font-bold text-white mb-6 tracking-tight">{step.title}</h3>
+                    <p className="text-offwhite/60 font-kor text-lg leading-relaxed mb-8 max-w-xl">
                       {step.description}
                     </p>
-                    <div className={`flex flex-wrap gap-2 ${isEven ? 'md:justify-end' : 'md:justify-start'}`}>
+                    <div className="flex flex-wrap gap-2">
                       {step.tags.map((tag) => (
                         <span key={tag} className="text-[10px] text-gold border border-gold/20 bg-gold/5 px-4 py-1.5 rounded-full uppercase tracking-widest font-sans">
                           {tag}
@@ -93,36 +95,35 @@ export const Process: React.FC = () => {
                   whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
                   viewport={{ once: true, margin: "-100px" }}
                   transition={{ duration: 1, delay: 0.2 }}
-                  className={`relative aspect-square md:aspect-[4/3] rounded-3xl overflow-hidden group shadow-2xl ${isEven ? 'md:order-2' : 'md:order-1'}`}
+                  className="relative aspect-square md:aspect-[4/3] rounded-3xl overflow-hidden group shadow-2xl bg-white/[0.02] border border-white/10 backdrop-blur-md"
                   style={{ perspective: "1000px" }}
                 >
-                   {/* Glass Frame Elements */}
-                   <div className="absolute inset-0 border border-white/10 rounded-3xl z-30 pointer-events-none group-hover:border-lime/30 transition-colors duration-500" />
+                   {/* Glass Frame HUD Elements */}
+                   <div className="absolute inset-0 border border-white/5 rounded-3xl z-30 pointer-events-none group-hover:border-lime/30 transition-colors duration-500" />
                    <div className="absolute inset-0 bg-gradient-to-tr from-white/5 via-transparent to-transparent z-20 pointer-events-none" />
                    
                    {/* Visual Content */}
-                   <div className="w-full h-full relative overflow-hidden bg-white/[0.02]">
-                      <div className="absolute inset-0 bg-lime/5 z-10 mix-blend-color opacity-50 group-hover:opacity-20 transition-opacity"></div>
+                   <div className="w-full h-full relative overflow-hidden">
+                      <div className="absolute inset-0 bg-lime/5 z-10 mix-blend-color opacity-30 group-hover:opacity-10 transition-opacity"></div>
                       <div className="absolute inset-0 bg-gradient-to-t from-obsidian via-transparent to-transparent z-10"></div>
                       <img 
                         src={step.image} 
                         alt={step.title} 
-                        className="w-full h-full object-cover grayscale brightness-75 group-hover:grayscale-0 group-hover:scale-110 group-hover:brightness-100 transition-all duration-1000 ease-out"
+                        className="w-full h-full object-cover grayscale brightness-75 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000 ease-out"
                       />
                    </div>
                    
                    {/* HUD Corner Accents */}
-                   <div className="absolute top-6 left-6 z-30 opacity-0 group-hover:opacity-100 transition-opacity">
-                     <div className="w-4 h-4 border-t-2 border-l-2 border-lime"></div>
+                   <div className="absolute top-6 left-6 z-30 opacity-50 group-hover:opacity-100 transition-opacity">
+                     <div className="w-4 h-4 border-t border-l border-lime"></div>
                    </div>
-                   <div className="absolute bottom-6 right-6 z-30 opacity-0 group-hover:opacity-100 transition-opacity">
-                     <div className="w-4 h-4 border-b-2 border-r-2 border-lime"></div>
+                   <div className="absolute bottom-6 right-6 z-30 opacity-50 group-hover:opacity-100 transition-opacity">
+                     <div className="w-4 h-4 border-b border-r border-gold"></div>
                    </div>
-                   
-                   {/* Status Indicator */}
-                   <div className="absolute bottom-6 left-6 z-30 flex items-center gap-2 px-3 py-1 bg-black/60 backdrop-blur-md border border-white/10 rounded-md">
-                      <div className="w-1.5 h-1.5 rounded-full bg-lime animate-pulse"></div>
-                      <span className="text-[10px] text-white/50 font-mono tracking-widest uppercase">SYNC_NODE_{step.id}</span>
+
+                   {/* Step Badge */}
+                   <div className="absolute top-6 right-6 z-30 bg-black/60 backdrop-blur-md px-3 py-1 border border-white/10 rounded-md">
+                      <span className="text-[10px] text-gold font-mono tracking-widest uppercase">SYNC_NODE_{step.id}</span>
                    </div>
                 </motion.div>
               </div>
