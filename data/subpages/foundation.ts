@@ -5,7 +5,7 @@ export const FOUNDATION_SUBPAGES: Record<string, SubPageContent> = {
         title: 'Business Planning',
         subtitle: 'Visionary Roadmap',
         description: '불확실한 비즈니스 환경에서 명확한 승리의 경로를 설계합니다. 투자자를 매료시키는 압도적인 스토리텔링과 정교한 재무 시뮬레이션.',
-        heroImage: 'Abstract 3D Golden Trajectory cutting through dark chaos, symbolizing a clear roadmap to success. Cinematic lighting.',
+        heroImage: '/images/foundation/foundation_planning_hero.png',
         features: [
             { title: 'Market Analysis', desc: '정량적/정성적 시장 분석 데이터.' },
             { title: 'Financial Modeling', desc: '현실적이고 논리적인 재무 추정.' },
@@ -13,8 +13,8 @@ export const FOUNDATION_SUBPAGES: Record<string, SubPageContent> = {
         ],
         details: '단순 문서 작성이 아닌, 비즈니스 모델(BM) 자체를 진단하고 고도화하는 컨설팅을 제공합니다.',
         imageGrid: [
-            'Close up of a hand analyzing a stock market graph on a tablet.',
-            'A stack of gold coins and documents on a desk.'
+            '/images/foundation/foundation_planning_grid1.png',
+            '/images/foundation/foundation_planning_grid2.png'
         ],
         detailedProcess: [
             { step: '01', title: 'BM Diagnosis', description: '기존 비즈니스 모델의 수익성 및 확장성 정밀 진단' },
@@ -28,7 +28,7 @@ export const FOUNDATION_SUBPAGES: Record<string, SubPageContent> = {
         title: 'Gov. Strategy',
         subtitle: 'Master Key Strategy',
         description: '복잡한 심사 기준을 꿰뚫는 필승 전략. 수많은 합격 데이터로 검증된 원케이션만의 합격 공식을 제안합니다.',
-        heroImage: 'A glowing 3D Golden Key floating in front of a massive digital gate. Symbolizing access and approval.',
+        heroImage: '/images/foundation/foundation_gov_hero.png',
         features: [
             { title: 'Eligibility Check', desc: '지원 가능 사업 적합성 진단.' },
             { title: 'Evaluation Criteria', desc: '평가 지표에 맞춘 사업계획서 최적화.' },
@@ -36,8 +36,8 @@ export const FOUNDATION_SUBPAGES: Record<string, SubPageContent> = {
         ],
         details: '수많은 합격 사례를 보유한 전문 위원들이 평가위원의 관점에서 합격 포인트를 짚어드립니다.',
         imageGrid: [
-            'A judge gavel on a desk, symbolizing evaluation.',
-            'A document with an "Approved" stamp glowing.'
+            '/images/foundation/foundation_gov_grid1.png',
+            '/images/foundation/foundation_gov_grid2.png'
         ],
         detailedProcess: [
             { step: '01', title: 'Audit', description: '기업 역량 및 가점 사항 정밀 진단' },
@@ -51,7 +51,7 @@ export const FOUNDATION_SUBPAGES: Record<string, SubPageContent> = {
         title: 'Tech Consulting',
         subtitle: 'System Architecture',
         description: '개발 착수 전, 실패 확률을 0%로 만드는 기술 설계. 확장 가능한 아키텍처와 빈틈없는 기능 명세서(SRS)를 제공합니다.',
-        heroImage: 'Isometric 3D Holographic Blueprint of a complex server architecture. Glowing Lime lines on black background. Clean and precise.',
+        heroImage: '/images/foundation/foundation_tech_hero.png',
         features: [
             { title: 'Stack Selection', desc: '서비스에 최적화된 기술 스택 선정.' },
             { title: 'DB Design', desc: '확장성을 고려한 데이터베이스 설계.' },
@@ -59,8 +59,8 @@ export const FOUNDATION_SUBPAGES: Record<string, SubPageContent> = {
         ],
         details: '개발 지식이 없는 창업자도 안심하고 프로젝트를 진행할 수 있도록 기술적 가이드를 제시합니다.',
         imageGrid: [
-            'A whiteboard filled with complex software architecture diagrams.',
-            'Close up of code on a monitor screen.'
+            '/images/foundation/foundation_tech_grid1.png',
+            '/images/foundation/foundation_tech_grid1.png'
         ],
         detailedProcess: [
             { step: '01', title: 'Requirement Analysis', description: '비즈니스 요구사항의 기술적 타당성 검토' },

@@ -7,15 +7,29 @@ interface GenAIImageProps {
   aspectRatio?: "1:1" | "3:4" | "4:3" | "16:9" | "9:16";
 }
 
-export const GenAIImage: React.FC<GenAIImageProps> = ({ 
-  prompt, 
-  alt, 
-  className = "", 
-  aspectRatio = "1:1" 
+export const GenAIImage: React.FC<GenAIImageProps> = ({
+  prompt,
+  alt,
+  className = "",
+  aspectRatio = "1:1"
 }) => {
-  // 임시 placeholder - 나중에 실제 이미지로 교체 예정
+  // 정적 이미지 경로인 경우 (/ 또는 http로 시작)
+  const isStaticImage = prompt.startsWith('/') || prompt.startsWith('http');
+
+  if (isStaticImage) {
+    return (
+      <img
+        src={prompt}
+        alt={alt}
+        className={`object-cover ${className}`}
+        loading="lazy"
+      />
+    );
+  }
+
+  // 프롬프트인 경우 placeholder 표시
   return (
-    <div 
+    <div
       className={`relative overflow-hidden bg-gradient-to-br from-obsidian via-white/5 to-obsidian ${className}`}
       title={prompt}
     >
