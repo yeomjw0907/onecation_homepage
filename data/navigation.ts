@@ -55,19 +55,19 @@ export const NAV_ITEMS: NavItem[] = [
                 label: 'For Startups',
                 desc: '혁신/트렌드 중심 레퍼런스',
                 slug: 'for-startups',
-                image: 'A futuristic rocket taking off made of geometric black and gold polygons, upward momentum, minimalist.'
+                image: '/images/work/work_startup_hero.png'
             },
             {
                 label: 'For Enterprise',
                 desc: '신뢰/규모 중심 레퍼런스',
                 slug: 'for-enterprise',
-                image: 'A massive futuristic skyscraper city at night, glowing windows, corporate power, obsidian and glass texture.'
+                image: '/images/work/work_enterprise_hero.png'
             },
             {
                 label: 'Success Stories',
                 desc: '심층 케이스 스터디',
                 slug: 'success-stories',
-                image: '3D data visualization graph rising upwards, made of glowing gold particles in a dark void.'
+                image: '/images/work/work_cases_hero.png'
             }
         ]
     },
@@ -81,19 +81,19 @@ export const NAV_ITEMS: NavItem[] = [
                 label: 'Originals',
                 desc: '자체 개발 서비스/앱 실험실',
                 slug: 'originals',
-                image: 'Abstract 3D laboratory equipment, glass beakers with glowing lime liquid, floating in zero gravity dark space.'
+                image: '/images/olab/olab_rd_hero.png'
             },
             {
                 label: 'Trend Insights',
                 desc: '디자인/마케팅 트렌드 리포트',
                 slug: 'trend-insights',
-                image: 'A holographic radar interface showing future trends, floating charts, cyberpunk style.'
+                image: '/images/olab/olab_insights_hero.png'
             },
             {
                 label: 'Culture Log',
                 desc: '원케이션 팀 문화, 해커톤',
                 slug: 'culture-log',
-                image: 'A cinematic close-up of a camera lens reflecting a digital neon city.'
+                image: '/images/olab/olab_team_hero.png'
             }
         ]
     },
