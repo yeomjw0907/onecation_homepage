@@ -1,25 +1,25 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Button } from './ui/Button';
 
-interface HeroProps {
-  onNavigate?: (slug: string) => void;
-}
+export const Hero: React.FC = () => {
+  const navigate = useNavigate();
 
-export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
   return (
     <section className="relative h-screen flex items-center justify-center overflow-hidden bg-obsidian">
-      {/* Spline 3D Background - Added mute=1 and preload=auto to avoid audio focus takeover */}
+      {/* Spline 3D Background */}
       <div className="absolute inset-0 z-0">
-        <iframe 
-          src='https://my.spline.design/nexbotrobotcharacterconcept-TtSaAYJd2xtxethjAYfSQe3m/?logo=0&mute=1' 
-          frameBorder='0' 
-          width='100%' 
+        <iframe
+          src='https://my.spline.design/nexbotrobotcharacterconcept-TtSaAYJd2xtxethjAYfSQe3m/?logo=0&mute=1'
+          frameBorder='0'
+          width='100%'
           height='100%'
           className="w-full h-full"
           title="Onecation 3D Hero"
+          loading="lazy"
         />
-        
+
         {/* Dark Overlay for better text visibility */}
         <div className="absolute inset-0 bg-black/60 pointer-events-none"></div>
 
@@ -30,7 +30,7 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
         {/* Mask to hide Spline Logo (Bottom Right) */}
         <div className="absolute bottom-0 right-0 w-36 h-14 bg-obsidian z-10"></div>
       </div>
-      
+
       {/* Content Overlay */}
       <div className="relative z-10 max-w-7xl mx-auto px-6 text-center pointer-events-none h-full flex flex-col justify-center">
         <motion.div
@@ -42,41 +42,41 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
           <span className="inline-block py-1.5 px-4 border border-white/10 rounded-full bg-black/40 backdrop-blur-md text-xs text-gold tracking-[0.2em] mb-8 font-sans uppercase shadow-lg">
             Premium Business Architects
           </span>
-          
+
           <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold text-white tracking-tighter mb-6 leading-tight drop-shadow-[0_0_30px_rgba(0,0,0,0.5)]">
             Business <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-offwhite via-white to-white/50 filter drop-shadow-lg">
               ALL-IN-ONE
             </span>
           </h1>
-          
+
           <p className="max-w-xl mx-auto text-offwhite/90 text-base md:text-lg mb-10 font-kor leading-relaxed font-light drop-shadow-md bg-black/20 backdrop-blur-sm rounded-2xl p-6 border border-white/5">
-            기획, 디자인, 개발, 마케팅의 파편화된 경험을 종결합니다.<br className="hidden md:block"/>
+            기획, 디자인, 개발, 마케팅의 파편화된 경험을 종결합니다.<br className="hidden md:block" />
             비전 수립부터 폭발적 성장까지, 당신을 위한 단 하나의 완벽한 솔루션.
           </p>
-          
+
           <div className="flex flex-col sm:flex-row gap-4">
-            <Button 
-              variant="primary" 
-              withArrow 
+            <Button
+              variant="primary"
+              withArrow
               className="shadow-2xl"
-              onClick={() => onNavigate?.('start-project')}
+              onClick={() => navigate('/start-project')}
             >
               Start Project
             </Button>
-            <Button 
-              variant="secondary" 
+            <Button
+              variant="secondary"
               className="backdrop-blur-xl bg-white/5 hover:bg-white/10"
-              onClick={() => onNavigate?.('for-startups')}
+              onClick={() => navigate('/for-startups')}
             >
               Explore Works
             </Button>
           </div>
         </motion.div>
       </div>
-      
+
       {/* Scroll Indicator */}
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1, duration: 1 }}

@@ -7,3 +7,4 @@ export { RelatedWorks } from './RelatedWorks';
 export { AllianceVisual } from './AllianceVisual';
 export { WorkDetailView } from './WorkDetailView';
 export { InsightDetailView } from './InsightDetailView';
+export { SEOHead } from './SEOHead';
