@@ -24,9 +24,9 @@ export const ContextNavigation: React.FC<ContextNavigationProps> = ({ currentSlu
 
     return (
         <>
-            <div className="fixed top-[72px] left-0 right-0 z-40 bg-obsidian/80 backdrop-blur-md border-b border-white/5 overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-                <div className="flex items-center px-6 h-12 gap-6 min-w-max">
-                    <span className="text-gold text-[10px] font-bold tracking-widest uppercase border-r border-white/10 pr-6 mr-2 sticky left-0 bg-[#080808]/95 backdrop-blur-md h-full flex items-center z-10 shadow-[5px_0_15px_-5px_rgba(0,0,0,0.8)]">
+            <div className="fixed top-[72px] left-0 right-0 z-40 bg-transparent overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+                <div className="flex items-center px-6 h-12 gap-6 min-w-max bg-gradient-to-b from-black/80 to-transparent">
+                    <span className="text-gold text-[10px] font-bold tracking-widest uppercase border-r border-white/10 pr-6 mr-2 sticky left-0 h-full flex items-center z-10">
                         {context.category}
                     </span>
                     {context.siblings.map((child, idx) => {
@@ -35,7 +35,7 @@ export const ContextNavigation: React.FC<ContextNavigationProps> = ({ currentSlu
                             <button
                                 key={idx}
                                 onClick={() => onNavigate(child.slug!)}
-                                className={`text-[11px] uppercase tracking-wider whitespace-nowrap transition-all duration-300 flex items-center gap-2 ${isActive ? 'text-lime font-bold' : 'text-white/40 hover:text-white'}`}
+                                className={`text-[11px] uppercase tracking-wider whitespace-nowrap transition-all duration-300 flex items-center gap-2 drop-shadow-md ${isActive ? 'text-lime font-bold' : 'text-white/60 hover:text-white'}`}
                             >
                                 {isActive && <div className="w-1.5 h-1.5 rounded-full bg-lime shadow-[0_0_5px_#ccff00]" />}
                                 {child.label}
