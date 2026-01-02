@@ -142,8 +142,10 @@ const App: React.FC = () => {
         <main>
           {SUBPAGE_CONTENT[currentPage] ? (
             <SubPage 
+              slug={currentPage}
               content={SUBPAGE_CONTENT[currentPage]} 
               onBack={() => navigateTo('home')} 
+              onNavigate={navigateTo}
             />
           ) : (
             <div className="h-screen flex items-center justify-center text-white">

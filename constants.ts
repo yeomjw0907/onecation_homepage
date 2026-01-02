@@ -1,3 +1,4 @@
+
 import { NavItem, BentoItem, SubPageContent } from './types';
 
 // Helper to generate slug
@@ -204,7 +205,8 @@ export const SHOWCASE_ITEMS = [
     subtitle: 'Immersive Experience',
     handle: '@samsung_cnt',
     image: 'Abstract glass shards floating in a void, reflecting a high-tech fashion runway.',
-    iconType: 'brand'
+    iconType: 'brand',
+    relatedSlugs: ['web-engineering', 'brand-experience', 'for-enterprise', 'manifesto']
   },
   {
     id: 'p2',
@@ -212,7 +214,8 @@ export const SHOWCASE_ITEMS = [
     subtitle: 'Digital Flagship',
     handle: '@gentlemonster',
     image: 'Surreal avant-garde sunglasses floating in a strange alien landscape, minimal.',
-    iconType: 'cube'
+    iconType: 'cube',
+    relatedSlugs: ['brand-experience', 'web-engineering', 'viral-content', 'trend-insights']
   },
   {
     id: 'p3',
@@ -220,7 +223,8 @@ export const SHOWCASE_ITEMS = [
     subtitle: 'Future Mobility',
     handle: '@hyundai_kr',
     image: 'A futuristic concept car silhouette in a dark tunnel with neon taillights.',
-    iconType: 'brand'
+    iconType: 'brand',
+    relatedSlugs: ['app-platform', 'tech-consulting', 'for-enterprise', 'process']
   },
   {
     id: 'p4',
@@ -228,7 +232,8 @@ export const SHOWCASE_ITEMS = [
     subtitle: 'AI Service Platform',
     handle: '@sktelecom',
     image: 'A glowing AI brain network, synapses firing, connected digital intelligence.',
-    iconType: 'cube'
+    iconType: 'cube',
+    relatedSlugs: ['tech-consulting', 'app-platform', 'seo-data', 'originals']
   },
   {
     id: 'p5',
@@ -236,7 +241,8 @@ export const SHOWCASE_ITEMS = [
     subtitle: 'Beauty Tech',
     handle: '@amorepacific',
     image: 'A drop of golden serum falling into water, ripples, high speed photography, pristine.',
-    iconType: 'brand'
+    iconType: 'brand',
+    relatedSlugs: ['performance', 'viral-content', 'for-enterprise', 'brand-experience']
   },
   {
     id: 'p6',
@@ -244,7 +250,8 @@ export const SHOWCASE_ITEMS = [
     subtitle: 'Fintech App',
     handle: '@wooribank',
     image: 'Digital blocks of cryptocurrency and finance charts floating in a secure vault.',
-    iconType: 'cube'
+    iconType: 'cube',
+    relatedSlugs: ['app-platform', 'business-planning', 'for-startups', 'gov-strategy']
   }
 ];
 
@@ -390,6 +397,12 @@ export const SUBPAGE_CONTENT: Record<string, SubPageContent> = {
       'Close up of a hand analyzing a stock market graph on a tablet.',
       'A stack of gold coins and documents on a desk.'
     ],
+    detailedProcess: [
+      { step: '01', title: 'BM Diagnosis', description: '기존 비즈니스 모델의 수익성 및 확장성 정밀 진단' },
+      { step: '02', title: 'Market Research', description: 'TAM-SAM-SOM 분석 및 경쟁사 벤치마킹' },
+      { step: '03', title: 'Financial Modeling', description: '3~5개년 추정 손익계산서 및 기업가치 평가(Valuation)' },
+      { step: '04', title: 'Pitch Deck Design', description: '투자자를 설득하는 압도적인 스토리텔링 및 디자인' }
+    ],
     layout: 'split'
   },
   'gov-strategy': {
@@ -406,6 +419,12 @@ export const SUBPAGE_CONTENT: Record<string, SubPageContent> = {
     imageGrid: [
       'A judge gavel on a desk, symbolizing evaluation.',
       'A document with an "Approved" stamp glowing.'
+    ],
+    detailedProcess: [
+      { step: '01', title: 'Audit', description: '기업 역량 및 가점 사항 정밀 진단' },
+      { step: '02', title: 'Matching', description: '최적의 지원사업 매칭 및 전략 수립' },
+      { step: '03', title: 'Writing', description: '평가 지표를 관통하는 사업계획서 작성 및 첨삭' },
+      { step: '04', title: 'Defense', description: '대면 평가용 발표 자료 제작 및 모의 Q&A 코칭' }
     ],
     layout: 'split'
   },
@@ -424,6 +443,12 @@ export const SUBPAGE_CONTENT: Record<string, SubPageContent> = {
       'A whiteboard filled with complex software architecture diagrams.',
       'Close up of code on a monitor screen.'
     ],
+    detailedProcess: [
+      { step: '01', title: 'Requirement Analysis', description: '비즈니스 요구사항의 기술적 타당성 검토' },
+      { step: '02', title: 'Stack Selection', description: '서비스 규모에 맞는 최적의 언어, 프레임워크 선정' },
+      { step: '03', title: 'Architecture Design', description: 'DB 스키마, API 명세, 시스템 아키텍처 설계' },
+      { step: '04', title: 'SRS Documentation', description: '개발자 커뮤니케이션을 위한 상세 기능 명세서 작성' }
+    ],
     layout: 'split'
   },
   
@@ -441,9 +466,37 @@ export const SUBPAGE_CONTENT: Record<string, SubPageContent> = {
     details: '심미적 아름다움을 넘어 브랜드의 철학을 담아냅니다. 시장 내에서 독보적인 위치를 점유할 수 있는 디자인을 제안합니다.',
     imageGrid: [
       'A designer sketchpad with logo concepts.',
-      'Premium business cards with gold foil stamping.'
+      'Premium business cards with gold foil stamping.',
+      'A minimalist branding moodboard.',
+      '3D logo rendering on obsidian background.'
     ],
-    layout: 'immersive'
+    detailedProcess: [
+      { 
+        step: '01', 
+        title: 'Discovery', 
+        description: '브랜드 코어 밸류 및 타겟 오디언스 분석',
+        image: 'Moodboard textures, color palettes, abstract design research, branding workshop, obsidian table'
+      },
+      { 
+        step: '02', 
+        title: 'Identity Design', 
+        description: '로고, 컬러, 타이포그래피 등 시각적 언어 정립',
+        image: 'Sketching logo on paper, vector bezier curves on screen, golden ratio grid, minimal'
+      },
+      { 
+        step: '03', 
+        title: 'Application', 
+        description: '명함, 패키지, 굿즈 등 온/오프라인 접점 디자인',
+        image: 'Luxury business cards, stationery mockup, gold foil stamping on black paper'
+      },
+      { 
+        step: '04', 
+        title: 'Guideline', 
+        description: '일관된 브랜드 경험 유지를 위한 BX 가이드라인 배포',
+        image: 'Brand book layout, typography specimen, design system manual, clean swiss style'
+      }
+    ],
+    layout: 'creation'
   },
   'web-engineering': {
     title: 'Web Engineering',
@@ -458,9 +511,37 @@ export const SUBPAGE_CONTENT: Record<string, SubPageContent> = {
     details: 'Next.js, React, Three.js 등 최신 기술을 활용하여 안정적이고 화려한 웹 경험을 구축합니다.',
     imageGrid: [
       'Code editor with React components visible.',
-      'A mobile phone showing a responsive website layout.'
+      'A mobile phone showing a responsive website layout.',
+      'A 3D mesh wireframe of a website.',
+      'Server rack with green status lights.'
     ],
-    layout: 'immersive'
+    detailedProcess: [
+      { 
+        step: '01', 
+        title: 'Planning & UX', 
+        description: '사용자 여정(User Journey) 설계 및 와이어프레임 작성',
+        image: 'Wireframe sketches on whiteboard, user flow diagram, sticky notes, UX research'
+      },
+      { 
+        step: '02', 
+        title: 'Creative Design', 
+        description: '몰입형 인터랙션이 가미된 고해상도 UI 디자인',
+        image: 'High fidelity website UI design on monitor, dark mode, futuristic interface, 3D elements'
+      },
+      { 
+        step: '03', 
+        title: 'Engineering', 
+        description: 'Next.js 기반의 프론트엔드 구축 및 CMS 연동',
+        image: 'Code on screen, React components, matrix rain style, developer typing, neon glow'
+      },
+      { 
+        step: '04', 
+        title: 'Optimization', 
+        description: 'SEO 최적화, 크로스 브라우징, 성능 테스트 및 배포',
+        image: 'Server rack lights, speed test graph, green checkmarks, rocket launch abstract'
+      }
+    ],
+    layout: 'creation'
   },
   'app-platform': {
     title: 'App & Platform',
@@ -475,12 +556,40 @@ export const SUBPAGE_CONTENT: Record<string, SubPageContent> = {
     details: '초기 MVP부터 엔터프라이즈급 ERP 시스템까지, 목적에 맞는 최적의 솔루션을 제공합니다.',
     imageGrid: [
       'App wireframes laid out on a table.',
-      'A dashboard interface on a tablet device.'
+      'A dashboard interface on a tablet device.',
+      'User flow diagram on a whiteboard.',
+      'Mobile app notification screen.'
     ],
-    layout: 'immersive'
+    detailedProcess: [
+      { 
+        step: '01', 
+        title: 'Architecture', 
+        description: '시스템 구조 설계 및 데이터 모델링',
+        image: 'System architecture diagram, server nodes, database schema, blueprint style'
+      },
+      { 
+        step: '02', 
+        title: 'UI/UX Design', 
+        description: '모바일 환경에 최적화된 사용자 인터페이스 디자인',
+        image: 'Mobile app interface screens floating in air, app flow, prototyping'
+      },
+      { 
+        step: '03', 
+        title: 'Full-stack Dev', 
+        description: '클라이언트(App) 및 서버(Admin) 동시 개발',
+        image: 'Mobile phone showing code, flutter logo abstract, developer desk setup'
+      },
+      { 
+        step: '04', 
+        title: 'QA & Launch', 
+        description: '기능/보안 테스트 후 스토어 심사 및 출시 지원',
+        image: 'App store launch button, mobile phone with success screen, confetti abstract'
+      }
+    ],
+    layout: 'creation'
   },
   
-  // ACCELERATION
+  // ACCELERATION - CHANGED LAYOUT
   'seo-data': {
     title: 'SEO & Data',
     subtitle: 'Growth Hacking',
@@ -496,7 +605,13 @@ export const SUBPAGE_CONTENT: Record<string, SubPageContent> = {
       'Search engine results page on a monitor.',
       'A graph showing exponential user growth.'
     ],
-    layout: 'split'
+    detailedProcess: [
+      { step: '01', title: 'Site Audit', description: '웹사이트 구조 및 SEO 건강도 정밀 진단' },
+      { step: '02', title: 'Keyword Strategy', description: '고효율 유입 키워드 발굴 및 콘텐츠 로드맵 수립' },
+      { step: '03', title: 'Technical Setup', description: '메타태그 최적화, 스키마 마크업, 사이트맵 제출' },
+      { step: '04', title: 'Data Analysis', description: 'GA4/GSC 데이터 기반의 지속적인 트래픽 성과 분석' }
+    ],
+    layout: 'acceleration'
   },
   'performance': {
     title: 'Performance',
@@ -513,7 +628,13 @@ export const SUBPAGE_CONTENT: Record<string, SubPageContent> = {
       'Social media ad interface on a phone.',
       'A funnel diagram showing conversion rates.'
     ],
-    layout: 'split'
+    detailedProcess: [
+      { step: '01', title: 'Media Mix', description: '타겟 오디언스에 맞는 최적의 광고 매체 선정' },
+      { step: '02', title: 'Creative Prod', description: '클릭을 유도하는 숏폼/이미지 광고 소재 제작' },
+      { step: '03', title: 'A/B Testing', description: '소재 및 타겟 테스트를 통한 위닝(Winning) 세트 발굴' },
+      { step: '04', title: 'Scale Up', description: '고효율 캠페인 예산 증액 및 전환율 최적화(CRO)' }
+    ],
+    layout: 'acceleration'
   },
   'viral-content': {
     title: 'Viral & Content',
@@ -530,7 +651,13 @@ export const SUBPAGE_CONTENT: Record<string, SubPageContent> = {
       'A camera setup for filming content.',
       'An influencer holding a product.'
     ],
-    layout: 'split'
+    detailedProcess: [
+      { step: '01', title: 'Trend Catch', description: '실시간 소셜 미디어 트렌드 및 밈(Meme) 분석' },
+      { step: '02', title: 'Storytelling', description: '브랜드 메시지를 녹여낸 바이럴 시나리오 기획' },
+      { step: '03', title: 'Production', description: '트렌디한 촬영 및 편집 기법을 적용한 콘텐츠 제작' },
+      { step: '04', title: 'Seeding', description: '주요 커뮤니티 및 SNS 채널 배포 및 확산 유도' }
+    ],
+    layout: 'acceleration'
   },
   
   // WORK

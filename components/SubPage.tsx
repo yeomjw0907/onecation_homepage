@@ -1,7 +1,8 @@
 
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState, useMemo, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { SubPageContent, LayoutType } from '../types';
+import { SubPageContent, LayoutType, ProcessStep } from '../types';
+import { NAV_ITEMS, SHOWCASE_ITEMS, INSIGHTS } from '../constants';
 import { Button } from './ui/Button';
 import { 
   ArrowLeft, 
@@ -26,14 +27,29 @@ import {
   Share2,
   Bookmark,
   ChevronRight,
+  ChevronDown,
   Clock,
-  BookOpen
+  BookOpen,
+  TrendingUp,
+  BarChart,
+  Target,
+  Mail,
+  MapPin,
+  Phone,
+  MessageSquare
 } from 'lucide-react';
 import { GenAIImage } from './GenAIImage';
 
 interface SubPageProps {
+  slug: string;
   content: SubPageContent;
   onBack: () => void;
+  onNavigate?: (slug: string) => void;
+}
+
+export interface InsightDetailProps {
+  post: any;
+  onClose: () => void;
 }
 
 const BackButton: React.FC<{ onClick: () => void; className?: string }> = ({ onClick, className = '' }) => (
@@ -44,6 +60,297 @@ const BackButton: React.FC<{ onClick: () => void; className?: string }> = ({ onC
     <ArrowLeft size={16} /> Back
   </button>
 );
+
+// --- Component: Context Navigation (Sidebar/TopBar) ---
+const ContextNavigation: React.FC<{ currentSlug: string; onNavigate?: (slug: string) => void }> = ({ currentSlug, onNavigate }) => {
+  // Find the parent category and siblings
+  const context = useMemo(() => {
+    for (const item of NAV_ITEMS) {
+      const found = item.children.find(child => child.slug === currentSlug);
+      if (found) {
+        return {
+          category: item.label,
+          siblings: item.children
+        };
+      }
+    }
+    return null;
+  }, [currentSlug]);
+
+  if (!context || !onNavigate) return null;
+
+  return (
+    <>
+      {/* Universal Top Bar Navigation (Mobile & Desktop) */}
+      <div className="fixed top-[72px] left-0 right-0 z-40 bg-obsidian/80 backdrop-blur-md border-b border-white/5 overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+         <div className="flex items-center px-6 h-12 gap-6 min-w-max">
+            <span className="text-gold text-[10px] font-bold tracking-widest uppercase border-r border-white/10 pr-6 mr-2 sticky left-0 bg-[#080808]/95 backdrop-blur-md h-full flex items-center z-10 shadow-[5px_0_15px_-5px_rgba(0,0,0,0.8)]">
+               {context.category}
+            </span>
+            {context.siblings.map((child, idx) => {
+               const isActive = child.slug === currentSlug;
+               return (
+                 <button
+                   key={idx}
+                   onClick={() => onNavigate(child.slug!)}
+                   className={`text-[11px] uppercase tracking-wider whitespace-nowrap transition-all duration-300 flex items-center gap-2 ${isActive ? 'text-lime font-bold' : 'text-white/40 hover:text-white'}`}
+                 >
+                   {isActive && <div className="w-1.5 h-1.5 rounded-full bg-lime shadow-[0_0_5px_#ccff00]" />}
+                   {child.label}
+                 </button>
+               )
+            })}
+         </div>
+      </div>
+    </>
+  );
+};
+
+// --- Custom Select Dropdown Component ---
+interface CustomSelectProps {
+  options: string[];
+  placeholder?: string;
+  value: string;
+  onChange: (value: string) => void;
+  accentColor?: string;
+}
+
+const CustomSelect: React.FC<CustomSelectProps> = ({ options, placeholder = "선택해주세요", value, onChange, accentColor = 'lime' }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleOutsideClick = (e: MouseEvent) => {
+      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleOutsideClick);
+    return () => document.removeEventListener('mousedown', handleOutsideClick);
+  }, []);
+
+  const borderColor = isOpen 
+    ? (accentColor === 'gold' ? 'border-gold' : 'border-lime') 
+    : 'border-white/10';
+    
+  const activeOptionClass = accentColor === 'gold' ? 'bg-gold/10 text-gold' : 'bg-lime/10 text-lime';
+
+  return (
+    <div className="relative" ref={containerRef}>
+      <button
+        type="button"
+        onClick={() => setIsOpen(!isOpen)}
+        className={`w-full bg-black/20 border ${borderColor} rounded-xl p-4 text-left flex justify-between items-center transition-colors duration-300 text-white focus:outline-none`}
+      >
+        <span className={value ? "text-white font-medium" : "text-white/30"}>{value || placeholder}</span>
+        <ChevronDown size={18} className={`text-white/50 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} />
+      </button>
+
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -10, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -10, scale: 0.98 }}
+            transition={{ duration: 0.2 }}
+            className="absolute top-full left-0 right-0 mt-2 bg-[#111] border border-white/10 rounded-xl shadow-2xl overflow-hidden z-50 py-2 max-h-60 overflow-y-auto custom-scrollbar"
+          >
+            {options.map((option) => (
+              <button
+                key={option}
+                type="button"
+                onClick={() => {
+                  onChange(option);
+                  setIsOpen(false);
+                }}
+                className={`w-full text-left px-5 py-3 text-sm transition-colors hover:bg-white/5 ${value === option ? activeOptionClass : 'text-white/70'}`}
+              >
+                {option}
+              </button>
+            ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+};
+
+// --- Component: Reusable Contact Form Section ---
+const ContactFormSection: React.FC<{ accentColor?: string }> = ({ accentColor = 'lime' }) => {
+  const [service, setService] = useState('');
+  
+  const serviceOptions = [
+    'Business Planning', 'Gov. Strategy', 'Tech Consulting',
+    'Brand Experience', 'Web Engineering', 'App & Platform',
+    'SEO & Data', 'Performance Marketing', 'Viral & Content',
+    'Other'
+  ];
+
+  return (
+    <section className="py-24 px-6 border-t border-white/5 bg-[#0a0a0a]">
+      <div className="max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
+          <div>
+            <span className={`text-[10px] font-bold tracking-[0.2em] uppercase mb-4 block text-${accentColor}`}>Begin Your Journey</span>
+            <h3 className="text-4xl font-bold text-white mb-6 tracking-tight">Start Project</h3>
+            <p className="text-offwhite/50 mb-12 font-kor leading-relaxed">
+              위대한 여정은 작은 문의에서 시작됩니다.<br/> 
+              프로젝트에 대해 알려주시면 가장 적합한 전문가가 답변드립니다.
+            </p>
+            <div className="space-y-8">
+              <div className="flex items-start gap-5">
+                <div className={`w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-${accentColor} bg-white/5`}>
+                  <Mail size={20} />
+                </div>
+                <div>
+                  <p className="text-white font-bold text-lg mb-1">Email Us</p>
+                  <a href="mailto:yeomjw0907@onecation.co.kr" className="block text-offwhite/60 hover:text-white transition-colors">yeomjw0907@onecation.co.kr</a>
+                  <a href="mailto:hello@onecation.com" className="block text-offwhite/60 hover:text-white transition-colors">hello@onecation.com</a>
+                </div>
+              </div>
+              <div className="flex items-start gap-5">
+                <div className={`w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-${accentColor} bg-white/5`}>
+                  <Phone size={20} />
+                </div>
+                <div>
+                  <p className="text-white font-bold text-lg mb-1">Call Us</p>
+                  <a href="tel:01063334649" className="block text-offwhite/60 hover:text-white transition-colors">010-6333-4649</a>
+                  <p className="text-[10px] text-white/30 mt-1 uppercase tracking-wider">Mon-Fri, 10am - 7pm</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-5">
+                <div className={`w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-${accentColor} bg-white/5`}>
+                  <MapPin size={20} />
+                </div>
+                <div>
+                  <p className="text-white font-bold text-lg mb-1">Visit Us</p>
+                  <p className="text-offwhite/60 font-kor leading-relaxed">
+                    인천광역시 연수구 송도2동 인천타워대로 99<br/>애니오션빌딩 11-12층
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div className="bg-white/[0.02] border border-white/10 rounded-3xl p-8 md:p-10 relative">
+            <h4 className="text-xl font-bold text-white mb-8">Send a Message</h4>
+            <form className="space-y-5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                <div>
+                  <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest mb-2 block">Name</label>
+                  <input type="text" className={`w-full bg-black/20 border border-white/10 rounded-xl p-4 text-white focus:border-${accentColor} outline-none transition-colors`} placeholder="홍길동 / 기업명" />
+                </div>
+                <div>
+                  <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest mb-2 block">Contact</label>
+                  <input type="text" className={`w-full bg-black/20 border border-white/10 rounded-xl p-4 text-white focus:border-${accentColor} outline-none transition-colors`} placeholder="이메일 또는 전화번호" />
+                </div>
+              </div>
+              
+              <div>
+                <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest mb-2 block">Service Interest</label>
+                <CustomSelect 
+                  options={serviceOptions} 
+                  value={service} 
+                  onChange={setService} 
+                  placeholder="관심 서비스를 선택하세요"
+                  accentColor={accentColor}
+                />
+              </div>
+              
+              <div>
+                <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest mb-2 block">Project Details</label>
+                <textarea rows={4} className={`w-full bg-black/20 border border-white/10 rounded-xl p-4 text-white focus:border-${accentColor} outline-none transition-colors resize-none leading-relaxed`} placeholder="프로젝트 예산, 일정, 주요 기능 등 상세 내용을 입력해주세요." />
+              </div>
+              
+              <Button variant="primary" className={`w-full bg-${accentColor} text-black border-none py-4 text-lg`} withArrow>문의하기</Button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+// --- Component: Related Works (New Footer Section) ---
+interface RelatedWorksProps {
+  currentSlug: string;
+  onSelectProject: (project: any) => void;
+}
+
+const RelatedWorks: React.FC<RelatedWorksProps> = ({ currentSlug, onSelectProject }) => {
+  const relatedProjects = useMemo(() => {
+    // 1. Filter projects that have the current slug in their relatedSlugs list
+    let filtered = SHOWCASE_ITEMS.filter(item => 
+      item.relatedSlugs?.includes(currentSlug)
+    );
+
+    // 2. If fewer than 2 results, fill with random items to maintain layout balance
+    if (filtered.length < 2) {
+      const remaining = SHOWCASE_ITEMS.filter(item => !filtered.includes(item));
+      // Shuffle simply by slicing for demo (or use random sort)
+      const fill = remaining.slice(0, 3 - filtered.length);
+      filtered = [...filtered, ...fill];
+    }
+
+    return filtered.slice(0, 3); // Limit to 3 items
+  }, [currentSlug]);
+
+  if (relatedProjects.length === 0) return null;
+
+  return (
+    <section className="relative z-10 py-24 bg-[#0a0a0a] border-t border-white/5">
+      <div className="max-w-7xl mx-auto px-6 md:px-8">
+        <div className="mb-12 flex items-end justify-between">
+           <div>
+             <span className="text-lime text-[10px] font-bold tracking-[0.2em] uppercase mb-3 block">Related Works</span>
+             <h3 className="text-3xl font-bold text-white">Proven Results</h3>
+           </div>
+           <p className="text-offwhite/40 text-xs font-kor hidden md:block">
+             해당 서비스와 관련된 성공 사례를 확인해보세요.
+           </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {relatedProjects.map((project, idx) => (
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: idx * 0.1 }}
+              onClick={() => onSelectProject({
+                ...project,
+                // Map showcase item fields to DetailView format if needed
+                client: project.title,
+                category: project.subtitle
+              })}
+              className="group cursor-pointer"
+            >
+              <div className="relative aspect-[4/3] rounded-xl overflow-hidden mb-4 border border-white/5 bg-white/5">
+                <GenAIImage 
+                  prompt={project.image} 
+                  alt={project.title} 
+                  className="w-full h-full grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-out"
+                  aspectRatio="4:3"
+                />
+                <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500"></div>
+                
+                {/* Floating Icon */}
+                <div className="absolute top-4 right-4 bg-black/60 backdrop-blur-md p-2 rounded-full border border-white/10 text-white/50 group-hover:text-lime group-hover:border-lime transition-all">
+                   <ArrowUpRight size={16} />
+                </div>
+              </div>
+              <div>
+                <h4 className="text-lg font-bold text-white mb-1 group-hover:text-gold transition-colors">{project.title}</h4>
+                <p className="text-offwhite/40 text-xs uppercase tracking-wider">{project.subtitle}</p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
 
 // --- Component: 120 Alliance Visualization ---
 const AllianceVisual = () => {
@@ -435,82 +742,129 @@ const ProcessLayout: React.FC<SubPageProps> = ({ content, onBack }) => {
   );
 };
 
-// --- Standard Layout (Restored Generic) ---
-const StandardLayout: React.FC<SubPageProps> = ({ content, onBack }) => {
+// --- Layout: Creation (Brand, Web, App) ---
+const CreationLayout: React.FC<SubPageProps> = ({ content, onBack, slug }) => {
+  // Determine style based on slug
+  const isBrand = slug === 'brand-experience';
+  const accentColor = isBrand ? 'gold' : 'lime';
+  const textAccent = isBrand ? 'text-gold' : 'text-lime';
+
   return (
-    <div className="pt-24 min-h-screen bg-obsidian">
-      <section className="relative h-[60vh] min-h-[500px] flex items-end pb-20 px-6 md:px-8 max-w-7xl mx-auto border-b border-white/5">
-        <div className="absolute inset-0 overflow-hidden rounded-3xl opacity-40">
-           <GenAIImage prompt={content.heroImage} alt={content.title} className="w-full h-full grayscale" aspectRatio="16:9" />
-           <div className="absolute inset-0 bg-gradient-to-t from-obsidian via-obsidian/20 to-transparent"></div>
-        </div>
-        
-        <motion.div 
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="relative z-10 w-full"
-        >
-          <div className="flex items-center gap-4 mb-6">
-            <BackButton onClick={onBack} />
-            <span className="w-1 h-1 rounded-full bg-white/20"></span>
-            <span className="text-gold text-xs uppercase tracking-widest">{content.subtitle}</span>
-          </div>
-          <h1 className="text-5xl md:text-8xl font-bold text-white mb-6 leading-none tracking-tighter">
-            {content.title}
-          </h1>
-          <p className="text-offwhite/70 max-w-2xl text-lg md:text-xl font-kor font-light leading-relaxed">
-            {content.description}
-          </p>
-        </motion.div>
-      </section>
-
-      <section className="max-w-7xl mx-auto px-6 md:px-8 py-24">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
-          <div className="lg:col-span-4 space-y-12">
-            <h3 className="text-lime font-bold tracking-widest uppercase text-sm mb-8">Key Features</h3>
-            <div className="space-y-8">
-              {content.features.map((feature, idx) => (
-                <motion.div 
-                  key={idx}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ delay: idx * 0.1 }}
-                  className="border-l border-white/10 pl-6 hover:border-lime transition-colors group"
-                >
-                  <h4 className="text-xl font-bold text-white mb-2 group-hover:text-gold transition-colors">{feature.title}</h4>
-                  <p className="text-offwhite/40 text-sm font-kor leading-relaxed">{feature.desc}</p>
-                </motion.div>
-              ))}
-            </div>
+    <div className="bg-obsidian min-h-screen text-white selection:bg-white/20">
+       {/* Hero Section */}
+       <section className="relative h-screen w-full flex flex-col justify-center items-center overflow-hidden px-6">
+          <div className="absolute inset-0 z-0">
+             <GenAIImage prompt={content.heroImage} className="w-full h-full opacity-40 scale-105" alt="Hero" />
+             <div className="absolute inset-0 bg-gradient-to-t from-obsidian via-obsidian/50 to-transparent"></div>
+             {/* Grid overlay for tech pages */}
+             {!isBrand && <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:50px_50px]"></div>}
           </div>
 
-          <div className="lg:col-span-8">
-            <p className="text-2xl md:text-3xl text-offwhite/90 font-kor leading-normal mb-16 font-light">
-              "{content.details}"
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-               {content.imageGrid.map((img, idx) => (
-                 <motion.div
-                   key={idx}
-                   initial={{ opacity: 0, scale: 0.95 }}
-                   whileInView={{ opacity: 1, scale: 1 }}
-                   transition={{ delay: 0.2 + (idx * 0.1) }}
-                   className="aspect-[4/3] rounded-2xl overflow-hidden relative group"
-                 >
-                    <div className="absolute inset-0 bg-lime/10 mix-blend-color z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                    <GenAIImage prompt={img} alt="Detail" className="w-full h-full transition-transform duration-700 group-hover:scale-110" aspectRatio="4:3" />
-                 </motion.div>
+          <div className="relative z-10 text-center max-w-5xl">
+             <BackButton onClick={onBack} className="mx-auto mb-8 opacity-50 hover:opacity-100" />
+             <motion.span 
+               initial={{ opacity: 0, y: 20 }}
+               animate={{ opacity: 1, y: 0 }}
+               className={`inline-block text-xs font-bold tracking-[0.3em] uppercase mb-6 ${textAccent}`}
+             >
+                {content.subtitle}
+             </motion.span>
+             <motion.h1 
+               initial={{ opacity: 0, scale: 0.9 }}
+               animate={{ opacity: 1, scale: 1 }}
+               transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+               className="text-6xl md:text-9xl font-black tracking-tighter mb-8 leading-[0.9]"
+             >
+               {content.title.split(' ').map((word, i) => (
+                 <span key={i} className="block">{word}</span>
                ))}
-            </div>
-            <div className="mt-16 flex justify-end border-t border-white/10 pt-10">
-               <Button variant="primary" withArrow onClick={() => window.location.href='mailto:hello@onecation.com'}>
-                  Contact Us
-               </Button>
-            </div>
+             </motion.h1>
+             <motion.p 
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.5 }}
+                className="text-lg md:text-xl text-white/60 font-kor max-w-2xl mx-auto leading-relaxed"
+             >
+               {content.description}
+             </motion.p>
           </div>
-        </div>
-      </section>
+          
+          {/* Scroll Down */}
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1 }}
+            className="absolute bottom-10 left-1/2 -translate-x-1/2"
+          >
+             <div className={`w-[1px] h-24 bg-gradient-to-b from-transparent via-${isBrand ? 'gold' : 'lime'} to-transparent animate-pulse`}></div>
+          </motion.div>
+       </section>
+
+       {/* Detailed Workflow Process (Visual Grid Style) */}
+       {content.detailedProcess && (
+         <section className="py-24 bg-[#080808] border-t border-white/5">
+            <div className="max-w-7xl mx-auto px-6">
+               <div className="mb-16 text-center">
+                  <span className={`text-[10px] font-bold uppercase tracking-[0.2em] ${textAccent} block mb-4`}>Workflow</span>
+                  <h2 className="text-4xl font-bold text-white">Creative Process</h2>
+               </div>
+               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                  {content.detailedProcess.map((step, idx) => (
+                     <div key={idx} className="relative aspect-[3/4] group overflow-hidden rounded-2xl border border-white/10 bg-white/5">
+                        {/* Image Background */}
+                        <div className="absolute inset-0">
+                           <GenAIImage 
+                             prompt={step.image || content.imageGrid[idx % content.imageGrid.length]} 
+                             alt={step.title}
+                             className="w-full h-full grayscale group-hover:grayscale-0 transition-all duration-700 scale-105 group-hover:scale-100"
+                             aspectRatio="3:4"
+                           />
+                           <div className="absolute inset-0 bg-gradient-to-t from-obsidian via-obsidian/50 to-transparent opacity-90 group-hover:opacity-80 transition-opacity" />
+                        </div>
+                        
+                        {/* Content */}
+                        <div className="absolute inset-0 p-8 flex flex-col justify-end relative z-10">
+                           <div className="mb-auto">
+                              <span className={`text-5xl font-black ${isBrand ? 'text-gold/20' : 'text-lime/20'} group-hover:opacity-100 transition-opacity`}>{step.step}</span>
+                           </div>
+                           <h3 className={`text-2xl font-bold text-white mb-3 ${isBrand ? 'group-hover:text-gold' : 'group-hover:text-lime'} transition-colors`}>{step.title}</h3>
+                           <p className="text-sm text-offwhite/60 font-kor leading-relaxed group-hover:text-white transition-colors">{step.description}</p>
+                        </div>
+                     </div>
+                  ))}
+               </div>
+            </div>
+         </section>
+       )}
+
+       {/* Feature Highlight Section */}
+       <section className="max-w-[1920px] mx-auto border-t border-white/5">
+          {content.features.map((feature, idx) => (
+             <div key={idx} className="min-h-[50vh] flex flex-col md:flex-row border-b border-white/5 relative group">
+                <div className="w-full md:w-1/2 p-12 md:p-24 flex flex-col justify-center relative z-10 bg-obsidian/90 backdrop-blur-sm md:bg-transparent">
+                   <div className="mb-8">
+                      <h2 className="text-3xl md:text-5xl font-bold mb-4">{feature.title}</h2>
+                      <div className={`w-12 h-1 ${isBrand ? 'bg-gold' : 'bg-lime'} mb-6`}></div>
+                      <p className="text-lg text-white/60 font-kor leading-loose max-w-md">
+                         {feature.desc}
+                      </p>
+                   </div>
+                </div>
+                <div className="w-full md:w-1/2 h-[40vh] md:h-auto overflow-hidden border-l border-white/5 relative">
+                   <div className="absolute inset-0 bg-black/20 z-10 group-hover:bg-transparent transition-colors duration-700"></div>
+                   <GenAIImage 
+                     prompt={content.imageGrid[idx % content.imageGrid.length]} 
+                     alt={feature.title} 
+                     className="w-full h-full grayscale group-hover:grayscale-0 transition-all duration-1000 scale-105 group-hover:scale-100" 
+                     aspectRatio="4:3"
+                   />
+                </div>
+             </div>
+          ))}
+       </section>
+
+       {/* Contact Section */}
+       <ContactFormSection accentColor={isBrand ? 'gold' : 'lime'} />
     </div>
   );
 };
@@ -535,6 +889,7 @@ const SplitLayout: React.FC<SubPageProps> = ({ content, onBack }) => (
       </div>
     </div>
 
+    {/* Key Features */}
     <section className="bg-obsidian border-t border-white/5">
        <div className="max-w-7xl mx-auto px-6 md:px-8 py-20">
          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
@@ -546,24 +901,145 @@ const SplitLayout: React.FC<SubPageProps> = ({ content, onBack }) => (
               </div>
             ))}
          </div>
-         
-         <div className="flex flex-col lg:flex-row gap-16 items-start">
-            <div className="lg:w-1/3">
-              <h3 className="text-3xl font-bold text-white mb-4">Approach</h3>
-              <p className="text-offwhite/60 font-kor">{content.details}</p>
-            </div>
-            <div className="lg:w-2/3 grid grid-cols-2 gap-4">
-              {content.imageGrid.slice(0,2).map((img, idx) => (
-                <div key={idx} className="w-full aspect-video rounded-lg overflow-hidden grayscale hover:grayscale-0 transition-all duration-500">
-                   <GenAIImage prompt={img} className="w-full h-full" alt="Detail" aspectRatio="16:9" />
-                </div>
-              ))}
-            </div>
-         </div>
        </div>
     </section>
+
+    {/* Detailed Process Section (Vertical Timeline) */}
+    {content.detailedProcess && (
+      <section className="py-24 bg-[#0a0a0a] border-t border-white/5">
+         <div className="max-w-4xl mx-auto px-6">
+            <div className="text-center mb-16">
+               <span className="text-lime text-xs font-bold uppercase tracking-[0.2em] block mb-4">Our Approach</span>
+               <h2 className="text-4xl font-bold text-white">Consulting Process</h2>
+            </div>
+            <div className="space-y-8 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-white/10 before:to-transparent">
+               {content.detailedProcess.map((step, idx) => (
+                  <div key={idx} className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+                     <div className="flex items-center justify-center w-10 h-10 rounded-full border border-white/20 bg-[#0a0a0a] shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 text-gold font-bold text-xs z-10">
+                        {step.step}
+                     </div>
+                     <div className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-white/5 p-6 rounded-xl border border-white/5 group-hover:border-gold/30 transition-all">
+                        <h3 className="font-bold text-white mb-2">{step.title}</h3>
+                        <p className="text-sm text-offwhite/50 font-kor">{step.description}</p>
+                     </div>
+                  </div>
+               ))}
+            </div>
+         </div>
+      </section>
+    )}
+
+    {/* Contact Form */}
+    <ContactFormSection accentColor="gold" />
   </div>
 );
+
+// --- Layout: Acceleration (Dynamic/High-Velocity) ---
+const AccelerationLayout: React.FC<SubPageProps> = ({ content, onBack }) => {
+  return (
+    <div className="bg-obsidian min-h-screen text-white overflow-hidden relative">
+      {/* Background Elements */}
+      <div className="absolute inset-0 z-0">
+         <div className="absolute top-0 right-0 w-[50%] h-full bg-gradient-to-l from-[#111] to-transparent transform -skew-x-12 opacity-50"></div>
+         <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(204,255,0,0.05),transparent_60%)]"></div>
+      </div>
+
+      <div className="relative z-10 pt-24 px-6 md:px-12 max-w-8xl mx-auto flex flex-col">
+         <div className="mb-8">
+            <BackButton onClick={onBack} />
+         </div>
+
+         {/* Header Section */}
+         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-24">
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+            >
+               <div className="flex items-center gap-3 mb-6">
+                  <span className="w-2 h-2 rounded-full bg-lime animate-pulse"></span>
+                  <span className="text-lime font-bold tracking-[0.2em] uppercase text-sm">{content.subtitle}</span>
+               </div>
+               <h1 className="text-6xl md:text-8xl font-black italic tracking-tighter text-white mb-8 leading-[0.9]">
+                 {content.title.toUpperCase()}
+               </h1>
+               <p className="text-xl text-offwhite/60 font-kor leading-relaxed max-w-lg border-l-2 border-lime/30 pl-6">
+                 {content.description}
+               </p>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 1 }}
+              className="relative aspect-video rounded-tr-[4rem] rounded-bl-[4rem] overflow-hidden border-2 border-white/5 group"
+            >
+               <div className="absolute inset-0 bg-lime/10 mix-blend-overlay z-10"></div>
+               <GenAIImage 
+                 prompt={content.heroImage} 
+                 alt="Acceleration Hero" 
+                 className="w-full h-full grayscale brightness-75 contrast-125 group-hover:grayscale-0 transition-all duration-1000"
+                 aspectRatio="16:9" 
+               />
+            </motion.div>
+         </div>
+
+         {/* Features Grid */}
+         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-24">
+            {content.features.map((feature, idx) => (
+               <motion.div
+                 key={idx}
+                 initial={{ opacity: 0, y: 50 }}
+                 whileInView={{ opacity: 1, y: 0 }}
+                 transition={{ delay: idx * 0.1 }}
+                 className="bg-[#0A0A0A] border border-white/10 p-8 rounded-2xl relative overflow-hidden group hover:border-lime/50 transition-colors"
+               >
+                  <div className="absolute top-0 right-0 p-6 opacity-20 group-hover:opacity-100 group-hover:text-lime transition-all duration-500">
+                     {idx === 0 ? <Target size={32} /> : idx === 1 ? <BarChart size={32} /> : <TrendingUp size={32} />}
+                  </div>
+                  <div className="relative z-10">
+                     <div className="text-4xl font-black text-white/10 mb-4 font-mono group-hover:text-lime/20 transition-colors">0{idx + 1}</div>
+                     <h3 className="text-2xl font-bold text-white mb-3 italic">{feature.title}</h3>
+                     <p className="text-offwhite/50 text-sm font-kor leading-relaxed">{feature.desc}</p>
+                  </div>
+                  <div className="absolute bottom-0 left-0 h-1 bg-lime w-0 group-hover:w-full transition-all duration-700 ease-out"></div>
+               </motion.div>
+            ))}
+         </div>
+      </div>
+
+      {/* Detailed Process (Acceleration Style - Arrows) */}
+      {content.detailedProcess && (
+         <section className="py-24 bg-[#080808] border-t border-white/5 relative overflow-hidden">
+            <div className="max-w-7xl mx-auto px-6">
+               <div className="mb-16 text-center">
+                  <span className="text-lime text-[10px] font-bold uppercase tracking-[0.2em] block mb-4">Growth Engine</span>
+                  <h2 className="text-4xl font-black italic text-white">Execution Process</h2>
+               </div>
+               <div className="flex flex-col md:flex-row gap-6 justify-center items-stretch">
+                  {content.detailedProcess.map((step, idx) => (
+                     <div key={idx} className="flex-1 flex flex-col">
+                        <div className="bg-white/5 border border-lime/10 p-8 rounded-xl h-full relative group hover:bg-lime/5 transition-colors">
+                           <div className="flex justify-between items-center mb-6">
+                              <span className="text-2xl font-black text-lime italic">{step.step}</span>
+                              {idx < 3 && <ChevronRight className="text-white/20 hidden md:block group-hover:text-lime/50 group-hover:translate-x-2 transition-all" />}
+                           </div>
+                           <h3 className="text-xl font-bold text-white mb-2 italic">{step.title}</h3>
+                           <p className="text-sm text-offwhite/50 font-kor">{step.description}</p>
+                        </div>
+                        {idx < 3 && <div className="h-8 w-[1px] bg-white/10 mx-auto md:hidden"></div>}
+                     </div>
+                  ))}
+               </div>
+            </div>
+         </section>
+      )}
+
+      {/* Contact Section */}
+      <ContactFormSection accentColor="lime" />
+    </div>
+  );
+};
 
 // --- Layout 3: Immersive (Creative / Design) ---
 const ImmersiveLayout: React.FC<SubPageProps> = ({ content, onBack }) => (
@@ -803,12 +1279,6 @@ const WorkDetailView: React.FC<DetailViewProps> = ({ project, onClose }) => {
   );
 };
 
-// --- Sub-Component: Insight Detail View (Reading Oriented) ---
-interface InsightDetailProps {
-  post: any;
-  onClose: () => void;
-}
-
 const InsightDetailView: React.FC<InsightDetailProps> = ({ post, onClose }) => {
   useEffect(() => {
     document.body.style.overflow = 'hidden';
@@ -931,9 +1401,12 @@ const InsightDetailView: React.FC<InsightDetailProps> = ({ post, onClose }) => {
 };
 
 // --- Layout 4: Gallery (Portfolio / Work / Originals) ---
-const GalleryLayout: React.FC<SubPageProps> = ({ content, onBack }) => {
+interface GalleryLayoutProps extends SubPageProps {
+  onSelectProject: (project: any) => void;
+}
+
+const GalleryLayout: React.FC<GalleryLayoutProps> = ({ content, onBack, onSelectProject }) => {
   const [filter, setFilter] = useState('All');
-  const [selectedProject, setSelectedProject] = useState<any | null>(null);
 
   // Categorization based on content.features
   const categories = useMemo(() => {
@@ -973,487 +1446,284 @@ const GalleryLayout: React.FC<SubPageProps> = ({ content, onBack }) => {
                  <span className="text-lime text-sm tracking-[0.2em] uppercase font-bold">{content.subtitle}</span>
                </motion.div>
             </div>
-            <p className="text-offwhite/50 max-w-md font-kor text-sm text-right leading-relaxed mb-2">
-              {content.description}
-            </p>
-          </div>
-
-          {/* Filter Bar */}
-          <div className="mt-12 flex flex-wrap gap-2">
-             {categories.map((cat) => (
-               <button
-                  key={cat as string}
-                  onClick={() => setFilter(cat as string)}
-                  className={`px-6 py-2 rounded-full text-xs font-bold uppercase tracking-widest border transition-all duration-300 ${
-                    filter === cat 
-                      ? 'bg-lime text-obsidian border-lime shadow-[0_0_15px_rgba(204,255,0,0.3)]' 
-                      : 'bg-white/5 text-white/40 border-transparent hover:border-white/20 hover:text-white'
-                  }`}
-               >
-                  {cat as string}
-               </button>
-             ))}
+            <div className="flex gap-4 overflow-x-auto pb-2 md:pb-0">
+               {categories.map((cat) => (
+                  <button 
+                    key={cat} 
+                    onClick={() => setFilter(cat as string)}
+                    className={`px-4 py-2 rounded-full text-xs font-bold uppercase tracking-widest transition-all whitespace-nowrap ${filter === cat ? 'bg-white text-black' : 'bg-white/5 text-white/50 hover:bg-white/10 hover:text-white'}`}
+                  >
+                    {cat}
+                  </button>
+               ))}
+            </div>
           </div>
         </div>
 
-        <div className="max-w-[1920px] mx-auto px-6 md:px-8">
-           <div className="columns-1 md:columns-2 lg:columns-3 xl:columns-4 gap-6 space-y-6">
-              <AnimatePresence mode='popLayout'>
-                {filteredProjects.map((project) => (
-                   <motion.div
-                      layout
-                      key={project.id}
-                      initial={{ opacity: 0, scale: 0.9 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0.9 }}
-                      transition={{ duration: 0.4 }}
-                      onClick={() => setSelectedProject(project)}
-                      className="break-inside-avoid group relative rounded-xl overflow-hidden cursor-pointer border border-white/5 bg-white/[0.02] transform transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-lime/10"
-                   >
-                      <div className="relative w-full overflow-hidden">
-                         <GenAIImage 
-                           prompt={project.image} 
-                           className="w-full h-auto grayscale group-hover:grayscale-0 transition-all duration-700" 
-                           alt={project.title}
-                           aspectRatio="4:3"
-                         />
-                         <div className="absolute inset-0 bg-obsidian/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                            <div className="w-16 h-16 rounded-full border border-white/20 flex items-center justify-center text-lime scale-50 group-hover:scale-100 transition-transform duration-500 delay-100 bg-black/40 backdrop-blur-sm">
-                               <ArrowUpRight size={32} />
-                            </div>
-                         </div>
-                      </div>
-
-                      <div className="absolute bottom-4 left-4 right-4 p-5 bg-black/60 backdrop-blur-md border border-white/10 rounded-lg translate-y-full opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 ease-out">
-                         <div className="flex justify-between items-start">
-                           <div>
-                             <span className="text-lime text-[10px] tracking-widest uppercase block mb-1">
-                               {project.category}
-                             </span>
-                             <h3 className="text-lg font-bold text-white">{project.title}</h3>
-                           </div>
-                         </div>
-                      </div>
-                   </motion.div>
-                ))}
-              </AnimatePresence>
+        <div className="max-w-[1920px] mx-auto px-6">
+           <div className="columns-1 md:columns-2 lg:columns-3 gap-6 space-y-6">
+              {filteredProjects.map((project, idx) => (
+                 <motion.div
+                   key={idx}
+                   layout
+                   initial={{ opacity: 0, y: 20 }}
+                   animate={{ opacity: 1, y: 0 }}
+                   exit={{ opacity: 0, scale: 0.9 }}
+                   transition={{ duration: 0.5 }}
+                   className="break-inside-avoid relative group cursor-pointer"
+                   onClick={() => onSelectProject(project)}
+                 >
+                    <div className={`w-full rounded-2xl overflow-hidden bg-white/5 relative ${project.aspect}`}>
+                       <GenAIImage prompt={project.image} alt={project.title} className="w-full h-full grayscale group-hover:grayscale-0 transition-all duration-700" aspectRatio={project.aspect === 'aspect-square' ? '1:1' : project.aspect === 'aspect-video' ? '16:9' : '3:4'} />
+                       <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500" />
+                       
+                       {/* Overlay Info */}
+                       <div className="absolute inset-0 p-8 flex flex-col justify-end opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                          <div className="absolute inset-0 bg-gradient-to-t from-obsidian via-transparent to-transparent opacity-80" />
+                          <div className="relative z-10">
+                             <span className="text-[10px] text-lime font-bold uppercase tracking-widest mb-2 block">{project.category}</span>
+                             <h3 className="text-2xl font-bold text-white">{project.title}</h3>
+                          </div>
+                       </div>
+                    </div>
+                 </motion.div>
+              ))}
            </div>
         </div>
       </div>
+    </>
+  );
+};
 
+// --- Layout 5: Editorial (Insights / Culture) ---
+interface EditorialLayoutProps extends SubPageProps {
+  onSelectInsight: (post: any) => void;
+}
+
+const EditorialLayout: React.FC<EditorialLayoutProps> = ({ content, onBack, onSelectInsight }) => {
+  return (
+    <div className="min-h-screen bg-obsidian pt-24 pb-20 font-kor">
+       <div className="max-w-7xl mx-auto px-6 md:px-8 mb-16">
+          <BackButton onClick={onBack} className="mb-8" />
+          <div className="border-b border-white/5 pb-12 mb-12">
+             <span className="text-gold text-xs font-bold tracking-[0.2em] uppercase mb-4 block">O-LAB Archive</span>
+             <h1 className="text-5xl md:text-7xl font-bold text-white tracking-tight">{content.title}</h1>
+             <p className="text-offwhite/60 mt-6 max-w-2xl text-lg">{content.description}</p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+             {/* Featured Post (First Item) */}
+             <div className="lg:col-span-8 group cursor-pointer" onClick={() => onSelectInsight(INSIGHTS[0] || {})}>
+                <div className="w-full aspect-video rounded-3xl overflow-hidden mb-6 border border-white/5 relative">
+                   <GenAIImage prompt={content.heroImage} alt="Featured" className="w-full h-full grayscale group-hover:grayscale-0 transition-all duration-1000" aspectRatio="16:9" />
+                   <div className="absolute top-6 left-6 bg-gold text-obsidian px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest">Featured</div>
+                </div>
+                <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 group-hover:text-gold transition-colors">{content.features[0]?.title || "The Future of Digital Luxury"}</h2>
+                <p className="text-offwhite/60 text-lg leading-relaxed line-clamp-3">{content.details}</p>
+             </div>
+
+             {/* Sidebar List */}
+             <div className="lg:col-span-4 flex flex-col gap-8">
+                <h3 className="text-sm font-bold text-white/40 uppercase tracking-widest border-b border-white/10 pb-4">Latest Articles</h3>
+                {INSIGHTS.slice(0, 4).map((item, idx) => (
+                   <div key={idx} className="group cursor-pointer flex gap-4 items-start" onClick={() => onSelectInsight(item)}>
+                      <div className="w-24 h-24 rounded-xl overflow-hidden shrink-0 bg-white/5">
+                         <GenAIImage prompt={item.image} alt={item.title} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all" aspectRatio="1:1" />
+                      </div>
+                      <div>
+                         <span className="text-[10px] text-lime font-bold uppercase tracking-widest mb-1 block">{item.category}</span>
+                         <h4 className="text-white font-bold leading-tight group-hover:text-lime transition-colors mb-2">{item.title}</h4>
+                         <span className="text-xs text-white/30">{item.date}</span>
+                      </div>
+                   </div>
+                ))}
+             </div>
+          </div>
+       </div>
+    </div>
+  );
+};
+
+// --- Layout 6: Contact (Form / Info) ---
+const ContactLayout: React.FC<SubPageProps> = ({ content, onBack }) => {
+  const [service, setService] = useState('');
+  const serviceOptions = [
+    'Business Planning', 'Gov. Strategy', 'Tech Consulting',
+    'Brand Experience', 'Web Engineering', 'App & Platform',
+    'SEO & Data', 'Performance Marketing', 'Viral & Content',
+    'Other'
+  ];
+
+  return (
+    <div className="min-h-screen bg-obsidian pt-24 pb-20">
+       <div className="max-w-7xl mx-auto px-6 md:px-8">
+          <BackButton onClick={onBack} className="mb-8" />
+          
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+             {/* Left Info */}
+             <div>
+                <span className="text-lime text-xs font-bold tracking-[0.2em] uppercase mb-4 block">{content.subtitle}</span>
+                <h1 className="text-5xl md:text-7xl font-bold text-white tracking-tight mb-8 leading-tight">{content.title}</h1>
+                <p className="text-offwhite/60 text-lg font-kor leading-relaxed mb-12">{content.description}</p>
+                
+                <div className="space-y-8">
+                   <div className="flex items-start gap-4">
+                      <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-white"><Mail size={20}/></div>
+                      <div>
+                         <h4 className="text-white font-bold mb-1">Email Us</h4>
+                         <p className="text-offwhite/50">yeomjw0907@onecation.co.kr</p>
+                         <p className="text-offwhite/50">hello@onecation.com</p>
+                      </div>
+                   </div>
+                   <div className="flex items-start gap-4">
+                      <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-white"><Phone size={20}/></div>
+                      <div>
+                         <h4 className="text-white font-bold mb-1">Call Us</h4>
+                         <p className="text-offwhite/50">010-6333-4649</p>
+                         <p className="text-offwhite/50 text-xs mt-1">Mon-Fri, 10am - 7pm</p>
+                      </div>
+                   </div>
+                   <div className="flex items-start gap-4">
+                      <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-white"><MapPin size={20}/></div>
+                      <div>
+                         <h4 className="text-white font-bold mb-1">Visit Us</h4>
+                         <p className="text-offwhite/50 font-kor">인천광역시 연수구 송도2동 인천타워대로 99<br/>애니오션빌딩 11-12층</p>
+                      </div>
+                   </div>
+                </div>
+             </div>
+
+             {/* Right Form */}
+             <div className="bg-white/5 border border-white/10 rounded-3xl p-8 md:p-12">
+                <h3 className="text-2xl font-bold text-white mb-8">Send a Message</h3>
+                <form className="space-y-6">
+                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div className="space-y-2">
+                         <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest mb-1 block">Name</label>
+                         <input type="text" className="w-full bg-black/20 border border-white/10 rounded-xl p-4 text-white focus:border-lime focus:outline-none transition-colors" placeholder="홍길동 / 기업명" />
+                      </div>
+                      <div className="space-y-2">
+                         <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest mb-1 block">Contact</label>
+                         <input type="text" className="w-full bg-black/20 border border-white/10 rounded-xl p-4 text-white focus:border-lime focus:outline-none transition-colors" placeholder="이메일 또는 전화번호" />
+                      </div>
+                   </div>
+                   <div className="space-y-2">
+                      <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest mb-1 block">Service Interest</label>
+                      <CustomSelect options={serviceOptions} value={service} onChange={setService} placeholder="관심 서비스를 선택하세요" />
+                   </div>
+                   <div className="space-y-2">
+                      <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest mb-1 block">Project Details</label>
+                      <textarea rows={4} className="w-full bg-black/20 border border-white/10 rounded-xl p-4 text-white focus:border-lime focus:outline-none transition-colors resize-none leading-relaxed" placeholder="프로젝트 예산, 일정, 주요 기능 등 상세 내용을 입력해주세요."></textarea>
+                   </div>
+                   <Button variant="primary" className="w-full py-4 text-lg" withArrow>문의하기</Button>
+                </form>
+             </div>
+          </div>
+       </div>
+    </div>
+  );
+};
+
+const FAQLayout: React.FC<SubPageProps> = ({ content, onBack }) => {
+  // Simple FAQ accordion or list
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+
+  return (
+    <div className="min-h-screen bg-obsidian pt-24 pb-20">
+      <div className="max-w-4xl mx-auto px-6 md:px-8">
+        <BackButton onClick={onBack} className="mb-8" />
+        <div className="text-center mb-16">
+          <span className="text-lime text-xs font-bold tracking-[0.2em] uppercase mb-4 block">{content.subtitle}</span>
+          <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">{content.title}</h1>
+          <p className="text-offwhite/60 text-lg">{content.description}</p>
+        </div>
+
+        <div className="space-y-4">
+          {content.features.map((item, idx) => (
+            <div key={idx} className="border border-white/10 rounded-2xl bg-white/5 overflow-hidden">
+              <button 
+                onClick={() => setOpenIndex(openIndex === idx ? null : idx)}
+                className="w-full flex items-center justify-between p-6 text-left hover:bg-white/5 transition-colors"
+              >
+                <div className="flex items-center gap-4">
+                  <span className="text-[10px] text-lime font-bold uppercase tracking-widest border border-lime/30 px-2 py-1 rounded bg-lime/10">{item.category}</span>
+                  <span className="font-bold text-white text-lg">{item.title}</span>
+                </div>
+                <ChevronDown className={`text-white/40 transition-transform ${openIndex === idx ? 'rotate-180' : ''}`} />
+              </button>
+              <AnimatePresence>
+                {openIndex === idx && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: 'auto', opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                  >
+                    <div className="px-6 pb-6 pt-0 pl-20">
+                      <p className="text-offwhite/60 font-kor leading-relaxed border-l-2 border-lime/30 pl-4">{item.desc}</p>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          ))}
+        </div>
+        
+        {/* Contact CTA */}
+        <div className="mt-20 text-center bg-white/5 border border-white/10 rounded-3xl p-10">
+           <h3 className="text-2xl font-bold text-white mb-4">Still have questions?</h3>
+           <p className="text-offwhite/50 mb-8">We are here to help you.</p>
+           <Button variant="primary" onClick={() => window.location.href='mailto:hello@onecation.com'}>Contact Support</Button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export const SubPage: React.FC<SubPageProps> = (props) => {
+  const { content, slug, onNavigate } = props;
+  const [selectedProject, setSelectedProject] = useState<any>(null);
+  const [selectedInsight, setSelectedInsight] = useState<any>(null);
+
+  // Scroll to top on mount
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [slug]);
+
+  const renderLayout = () => {
+    switch (content.layout) {
+      case 'manifesto': return <ManifestoLayout {...props} />;
+      case 'alliance': return <AllianceLayout {...props} />;
+      case 'process': return <ProcessLayout {...props} />;
+      case 'creation': return <CreationLayout {...props} />;
+      case 'split': return <SplitLayout {...props} />;
+      case 'acceleration': return <AccelerationLayout {...props} />;
+      case 'immersive': return <ImmersiveLayout {...props} />;
+      case 'gallery': return <GalleryLayout {...props} onSelectProject={setSelectedProject} />;
+      case 'success-story': return <GalleryLayout {...props} onSelectProject={setSelectedProject} />;
+      case 'editorial': return <EditorialLayout {...props} onSelectInsight={setSelectedInsight} />;
+      case 'contact': return <ContactLayout {...props} />;
+      case 'faq': return <FAQLayout {...props} />;
+      default: return <CreationLayout {...props} />;
+    }
+  };
+
+  return (
+    <>
+      <ContextNavigation currentSlug={slug} onNavigate={onNavigate} />
+      {renderLayout()}
+      
       <AnimatePresence>
         {selectedProject && (
           <WorkDetailView project={selectedProject} onClose={() => setSelectedProject(null)} />
         )}
-      </AnimatePresence>
-    </>
-  );
-};
-
-// --- Layout 5: Editorial (Trend Insights / Archive Space) ---
-const EditorialLayout: React.FC<SubPageProps> = ({ content, onBack }) => {
-  const [activeCategory, setActiveCategory] = useState('All');
-  const [selectedPost, setSelectedPost] = useState<any | null>(null);
-  
-  const categories = useMemo(() => {
-    const cats = new Set(content.features.map(f => f.category).filter(Boolean));
-    return ['All', ...Array.from(cats)];
-  }, [content.features]);
-
-  const archiveItems = useMemo(() => {
-    return content.features.map((f, i) => ({
-      ...f,
-      id: i,
-      image: content.imageGrid[i % content.imageGrid.length],
-      date: `2024.0${(i % 9) + 1}.15`,
-    }));
-  }, [content.features, content.imageGrid]);
-
-  const filteredItems = activeCategory === 'All' 
-    ? archiveItems 
-    : archiveItems.filter(item => item.category === activeCategory);
-
-  return (
-    <>
-      <div className="bg-obsidian min-h-screen pt-24 pb-20 selection:bg-lime/30 selection:text-lime">
-        <div className="max-w-7xl mx-auto px-6 md:px-8">
-            <BackButton onClick={onBack} className="mb-12" />
-
-            <header className="mb-20">
-              <div className="flex flex-col md:flex-row justify-between items-end gap-10">
-                  <div className="max-w-2xl">
-                    <span className="inline-block text-lime text-xs font-bold tracking-[0.2em] uppercase mb-4">{content.subtitle}</span>
-                    <h1 className="text-5xl md:text-7xl font-bold text-white tracking-tighter mb-6">{content.title}</h1>
-                    <p className="text-lg text-offwhite/50 font-kor font-light leading-relaxed">
-                      {content.description}
-                    </p>
-                  </div>
-                  {/* Search Bar (Visual Only) */}
-                  <div className="relative group w-full md:w-auto">
-                    <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-white/20 group-hover:text-lime transition-colors" size={18} />
-                    <input 
-                      type="text" 
-                      placeholder="Search insights..." 
-                      className="bg-white/5 border border-white/10 rounded-full pl-12 pr-6 py-3 text-sm text-white w-full md:w-64 focus:outline-none focus:border-lime transition-all"
-                    />
-                  </div>
-              </div>
-
-              {/* Categories */}
-              <div className="mt-12 flex flex-wrap gap-2 border-b border-white/5 pb-8">
-                  {categories.map((cat) => (
-                    <button 
-                      key={cat as string}
-                      onClick={() => setActiveCategory(cat as string)}
-                      className={`px-5 py-2 rounded-full text-[10px] uppercase tracking-widest font-bold border transition-all ${
-                        activeCategory === cat 
-                        ? 'bg-lime text-obsidian border-lime' 
-                        : 'bg-transparent text-white/40 border-white/10 hover:border-white/30 hover:text-white'
-                      }`}
-                    >
-                      {cat as string}
-                    </button>
-                  ))}
-              </div>
-            </header>
-
-            {/* Featured Post (Visual) */}
-            {activeCategory === 'All' && archiveItems.length > 0 && (
-              <motion.div 
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="mb-24 group cursor-pointer"
-                onClick={() => setSelectedPost(archiveItems[0])}
-              >
-                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-                    <div className="lg:col-span-8 aspect-[16/9] rounded-2xl overflow-hidden bg-white/5 border border-white/5 relative">
-                        <GenAIImage 
-                          prompt={archiveItems[0].image} 
-                          alt="Featured" 
-                          className="w-full h-full grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
-                          aspectRatio="16:9" 
-                        />
-                        <div className="absolute top-6 left-6 z-10 px-4 py-1.5 bg-lime text-obsidian text-[10px] font-bold tracking-widest uppercase rounded-full">
-                          Featured Insight
-                        </div>
-                    </div>
-                    <div className="lg:col-span-4">
-                        <span className="text-gold text-xs font-mono mb-4 block">{archiveItems[0].date}</span>
-                        <h2 className="text-3xl md:text-4xl font-bold text-white mb-6 group-hover:text-gold transition-colors">{archiveItems[0].title}</h2>
-                        <p className="text-offwhite/50 font-kor leading-relaxed mb-8">{archiveItems[0].desc}</p>
-                        <button className="flex items-center gap-2 text-lime text-xs font-bold uppercase tracking-widest hover:gap-4 transition-all">
-                          Read Story <ArrowUpRight size={16} />
-                        </button>
-                    </div>
-                  </div>
-              </motion.div>
-            )}
-
-            {/* Archive Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-              {filteredItems.slice(activeCategory === 'All' ? 1 : 0).map((item, idx) => (
-                  <motion.div
-                    key={item.id}
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: idx * 0.1 }}
-                    className="group cursor-pointer"
-                    onClick={() => setSelectedPost(item)}
-                  >
-                    <div className="relative aspect-[4/3] rounded-xl overflow-hidden mb-6 bg-white/5 border border-white/5">
-                        <GenAIImage 
-                          prompt={item.image} 
-                          alt={item.title} 
-                          className="w-full h-full grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700" 
-                          aspectRatio="4:3"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-obsidian via-transparent to-transparent opacity-60" />
-                        <span className="absolute bottom-4 left-4 text-[10px] text-white/70 font-mono tracking-widest uppercase">{item.category}</span>
-                    </div>
-                    <h3 className="text-xl font-bold text-white mb-3 group-hover:text-gold transition-colors font-kor leading-snug">{item.title}</h3>
-                    <div className="flex items-center justify-between text-[10px] text-white/30 uppercase tracking-[0.2em] font-sans border-t border-white/5 pt-4">
-                        <span>{item.date}</span>
-                        <ArrowUpRight size={14} className="group-hover:text-lime transition-colors" />
-                    </div>
-                  </motion.div>
-              ))}
-            </div>
-
-            <div className="mt-32 text-center">
-              <p className="text-offwhite/30 text-sm mb-8 font-kor italic">The archives are updated weekly with new digital foresight.</p>
-              <Button variant="secondary" className="px-10">Load More Insights</Button>
-            </div>
-        </div>
-      </div>
-
-      <AnimatePresence>
-        {selectedPost && (
-          <InsightDetailView post={selectedPost} onClose={() => setSelectedPost(null)} />
+        {selectedInsight && (
+          <InsightDetailView post={selectedInsight} onClose={() => setSelectedInsight(null)} />
         )}
       </AnimatePresence>
+
+      {!['contact', 'faq', 'gallery', 'editorial', 'manifesto', 'alliance'].includes(content.layout) && (
+         <RelatedWorks currentSlug={slug} onSelectProject={setSelectedProject} />
+      )}
     </>
   );
-};
-
-// --- Layout 6: FAQ (Accordion Style) ---
-const FAQLayout: React.FC<SubPageProps> = ({ content, onBack }) => {
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
-  const [filter, setFilter] = useState('All');
-
-  // Derive unique categories from content
-  const categories = useMemo(() => {
-    const cats = new Set(content.features.map(f => f.category).filter(Boolean));
-    return ['All', ...Array.from(cats)];
-  }, [content.features]);
-
-  // Filter features based on selection
-  const filteredFeatures = useMemo(() => {
-    if (filter === 'All') return content.features;
-    return content.features.filter(f => f.category === filter);
-  }, [filter, content.features]);
-
-  return (
-    <div className="bg-obsidian min-h-screen pt-24 pb-20">
-      <div className="max-w-4xl mx-auto px-6 md:px-8">
-        <BackButton onClick={onBack} className="mb-12" />
-        
-        <div className="text-center mb-12">
-          <span className="inline-block border border-white/10 px-4 py-1.5 rounded-full text-[10px] uppercase tracking-[0.2em] text-white/50 mb-6 bg-white/5">
-            {content.subtitle}
-          </span>
-          <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
-            {content.title}
-          </h1>
-          <p className="text-offwhite/50 max-w-lg mx-auto font-kor">
-            {content.description}
-          </p>
-        </div>
-
-        {/* Filter Tabs */}
-        <div className="flex flex-wrap justify-center gap-3 mb-16">
-          {categories.map((cat) => (
-            <button
-              key={cat as string}
-              onClick={() => {
-                setFilter(cat as string);
-                setOpenIndex(null); // Reset open accordion on filter change
-              }}
-              className={`px-6 py-2 rounded-full text-xs font-bold uppercase tracking-widest border transition-all duration-300 ${
-                filter === cat 
-                  ? 'bg-lime text-obsidian border-lime shadow-[0_0_15px_rgba(204,255,0,0.3)]' 
-                  : 'bg-white/5 text-white/40 border-transparent hover:border-white/20 hover:text-white'
-              }`}
-            >
-              {cat as string}
-            </button>
-          ))}
-        </div>
-
-        <div className="space-y-4">
-          <AnimatePresence mode='wait'>
-            <motion.div
-              key={filter} // Re-render list when filter changes for smooth transition
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.3 }}
-              className="space-y-4"
-            >
-              {filteredFeatures.map((item, index) => {
-                 const isOpen = openIndex === index;
-                 return (
-                   <motion.div 
-                     key={index} // Simple index key is okay here since we reset on filter change
-                     className={`border rounded-xl transition-all duration-300 overflow-hidden ${isOpen ? 'border-lime bg-white/[0.03]' : 'border-white/10 bg-transparent hover:border-white/30'}`}
-                   >
-                     <button 
-                       onClick={() => setOpenIndex(isOpen ? null : index)}
-                       className="w-full flex items-center justify-between p-6 md:p-8 text-left group"
-                     >
-                       <div className="flex flex-col gap-1">
-                          {item.category && (
-                            <span className="text-[10px] text-lime font-bold tracking-widest uppercase mb-1 opacity-70">
-                              {item.category}
-                            </span>
-                          )}
-                          <span className={`text-lg md:text-xl font-bold font-kor transition-colors ${isOpen ? 'text-white' : 'text-offwhite/70 group-hover:text-white'}`}>
-                            {item.title}
-                          </span>
-                       </div>
-                       <span className={`p-2 rounded-full transition-colors flex-shrink-0 ml-4 ${isOpen ? 'bg-lime text-obsidian' : 'bg-white/10 text-white'}`}>
-                         {isOpen ? <Minus size={20} /> : <Plus size={20} />}
-                       </span>
-                     </button>
-                     <AnimatePresence>
-                       {isOpen && (
-                         <motion.div
-                           initial={{ height: 0, opacity: 0 }}
-                           animate={{ height: "auto", opacity: 1 }}
-                           exit={{ height: 0, opacity: 0 }}
-                           transition={{ duration: 0.3, ease: "easeInOut" }}
-                         >
-                           <div className="px-6 md:px-8 pb-8">
-                             <div className="h-[1px] w-full bg-white/5 mb-6" />
-                             <p className="text-offwhite/70 leading-relaxed font-kor">
-                               {item.desc}
-                             </p>
-                           </div>
-                         </motion.div>
-                       )}
-                     </AnimatePresence>
-                   </motion.div>
-                 );
-              })}
-            </motion.div>
-          </AnimatePresence>
-        </div>
-
-        <div className="mt-20 p-10 rounded-2xl bg-gradient-to-br from-white/5 to-transparent border border-white/10 text-center">
-           <h3 className="text-xl font-bold text-white mb-2">Still have questions?</h3>
-           <p className="text-offwhite/50 mb-8 font-kor">찾으시는 질문이 없다면 직접 문의해주세요.</p>
-           <Button onClick={() => window.location.href='mailto:hello@onecation.com'}>Contact Support</Button>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-// --- Layout 7: Contact (Form Style) ---
-const ContactLayout: React.FC<SubPageProps> = ({ content, onBack }) => {
-  const isRecruit = content.title === 'Recruit';
-
-  return (
-    <div className="bg-obsidian min-h-screen pt-24 pb-20">
-      <div className="max-w-6xl mx-auto px-6 md:px-8">
-         <BackButton onClick={onBack} className="mb-8" />
-         
-         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
-            {/* Left Column: Info */}
-            <div>
-               <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-                 <span className="text-lime text-xs font-bold tracking-[0.2em] uppercase mb-6 block">{content.subtitle}</span>
-                 <h1 className="text-5xl md:text-7xl font-bold text-white mb-8 tracking-tighter leading-tight">
-                   {content.title}
-                 </h1>
-                 <p className="text-offwhite/60 text-lg font-kor leading-relaxed mb-12">
-                   {content.description}
-                 </p>
-               </motion.div>
-
-               <div className="space-y-8 border-t border-white/10 pt-10">
-                 {content.features.map((feature, idx) => (
-                   <div key={idx}>
-                      <h4 className="text-white font-bold text-lg mb-1">{feature.title}</h4>
-                      <p className="text-offwhite/40 text-sm font-kor">{feature.desc}</p>
-                   </div>
-                 ))}
-               </div>
-               
-               <div className="mt-12 pt-10 border-t border-white/10">
-                  <p className="text-offwhite/80 font-bold mb-4">Direct Contact</p>
-                  <a href="mailto:hello@onecation.com" className="block text-2xl text-white hover:text-lime transition-colors underline underline-offset-8 decoration-white/20 hover:decoration-lime">hello@onecation.com</a>
-               </div>
-            </div>
-
-            {/* Right Column: Form */}
-            <div className="bg-white/[0.02] border border-white/5 rounded-3xl p-8 md:p-10 backdrop-blur-sm">
-               <h3 className="text-2xl font-bold text-white mb-8 flex items-center gap-3">
-                 <Send size={24} className="text-lime" /> 
-                 {isRecruit ? 'Apply Now' : 'Send Inquiry'}
-               </h3>
-               
-               <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="space-y-2">
-                       <label className="text-xs uppercase tracking-wider text-white/50 font-bold">Name</label>
-                       <input type="text" className="w-full bg-white/5 border border-white/10 rounded-lg p-4 text-white focus:outline-none focus:border-lime focus:bg-white/10 transition-all placeholder:text-white/20" placeholder="홍길동" />
-                    </div>
-                    <div className="space-y-2">
-                       <label className="text-xs uppercase tracking-wider text-white/50 font-bold">Contact</label>
-                       <input type="text" className="w-full bg-white/5 border border-white/10 rounded-lg p-4 text-white focus:outline-none focus:border-lime focus:bg-white/10 transition-all placeholder:text-white/20" placeholder="010-0000-0000 / Email" />
-                    </div>
-                  </div>
-
-                  <div className="space-y-2">
-                     <label className="text-xs uppercase tracking-wider text-white/50 font-bold">{isRecruit ? 'Portfolio / Resume URL' : 'Company / Organization'}</label>
-                     <input type="text" className="w-full bg-white/5 border border-white/10 rounded-lg p-4 text-white focus:outline-none focus:border-lime focus:bg-white/10 transition-all placeholder:text-white/20" placeholder={isRecruit ? "Notion, LinkedIn, PDF Link..." : "주식회사 원케이션"} />
-                  </div>
-
-                  {!isRecruit && (
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                       <div className="space-y-2">
-                          <label className="text-xs uppercase tracking-wider text-white/50 font-bold">Budget</label>
-                          <select className="w-full bg-white/5 border border-white/10 rounded-lg p-4 text-white focus:outline-none focus:border-lime focus:bg-white/10 transition-all appearance-none cursor-pointer">
-                             <option className="bg-obsidian">예산 미정</option>
-                             <option className="bg-obsidian">~ 3,000만원</option>
-                             <option className="bg-obsidian">3,000 ~ 5,000만원</option>
-                             <option className="bg-obsidian">5,000만원 ~ 1억원</option>
-                             <option className="bg-obsidian">1억원 이상</option>
-                          </select>
-                       </div>
-                       <div className="space-y-2">
-                          <label className="text-xs uppercase tracking-wider text-white/50 font-bold">Service Type</label>
-                          <select className="w-full bg-white/5 border border-white/10 rounded-lg p-4 text-white focus:outline-none focus:border-lime focus:bg-white/10 transition-all appearance-none cursor-pointer">
-                             <option className="bg-obsidian">Web / App 구축</option>
-                             <option className="bg-obsidian">브랜딩 / 디자인</option>
-                             <option className="bg-obsidian">마케팅</option>
-                             <option className="bg-obsidian">기획 / 컨설팅</option>
-                             <option className="bg-obsidian">기타</option>
-                          </select>
-                       </div>
-                    </div>
-                  )}
-
-                  <div className="space-y-2">
-                     <label className="text-xs uppercase tracking-wider text-white/50 font-bold">Message</label>
-                     <textarea rows={5} className="w-full bg-white/5 border border-white/10 rounded-lg p-4 text-white focus:outline-none focus:border-lime focus:bg-white/10 transition-all placeholder:text-white/20 resize-none" placeholder={isRecruit ? "간단한 자기소개를 부탁드립니다." : "프로젝트에 대한 간단한 설명을 부탁드립니다."}></textarea>
-                  </div>
-
-                  <div className="pt-4">
-                     <button className="w-full bg-lime text-obsidian font-bold text-lg py-5 rounded-lg hover:bg-white transition-colors flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(204,255,0,0.3)]">
-                        {isRecruit ? 'Submit Application' : 'Request Consultation'}
-                        <ArrowUpRight size={20} />
-                     </button>
-                     <p className="text-center text-xs text-white/30 mt-4">
-                        제출해주시면 담당자가 검토 후 24시간 이내에 연락드립니다.
-                     </p>
-                  </div>
-               </form>
-            </div>
-         </div>
-      </div>
-    </div>
-  );
-};
-
-// --- Main Component Switcher ---
-export const SubPage: React.FC<SubPageProps> = (props) => {
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [props.content]);
-
-  switch (props.content.layout) {
-    case 'contact':
-      return <ContactLayout {...props} />;
-    case 'faq':
-      return <FAQLayout {...props} />;
-    case 'split':
-      return <SplitLayout {...props} />;
-    case 'immersive':
-      return <ImmersiveLayout {...props} />;
-    case 'gallery':
-      return <GalleryLayout {...props} />;
-    case 'editorial':
-      return <EditorialLayout {...props} />;
-    case 'manifesto':
-      return <ManifestoLayout {...props} />;
-    case 'alliance':
-      return <AllianceLayout {...props} />;
-    case 'process':
-      return <ProcessLayout {...props} />;
-    case 'standard':
-    default:
-      return <StandardLayout {...props} />;
-  }
 };

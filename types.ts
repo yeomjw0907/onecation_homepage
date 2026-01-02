@@ -1,5 +1,5 @@
 
-export type LayoutType = 'standard' | 'split' | 'immersive' | 'gallery' | 'editorial' | 'contact' | 'faq' | 'manifesto' | 'alliance' | 'process' | 'success-story';
+export type LayoutType = 'standard' | 'split' | 'immersive' | 'gallery' | 'editorial' | 'contact' | 'faq' | 'manifesto' | 'alliance' | 'process' | 'success-story' | 'acceleration' | 'creation';
 
 export interface NavChild {
   label: string;
@@ -33,6 +33,13 @@ export interface SocialLink {
   url: string;
 }
 
+export interface ProcessStep {
+  step: string;
+  title: string;
+  description: string;
+  image?: string; // Added for visual process steps
+}
+
 export interface SubPageContent {
   title: string;
   subtitle: string;
@@ -42,6 +49,7 @@ export interface SubPageContent {
   details: string;
   imageGrid: string[];
   layout: LayoutType; // Controls the visual structure
+  detailedProcess?: ProcessStep[]; // New field for page-specific process
 }
 
 export interface ProjectLead {

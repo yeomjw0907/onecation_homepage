@@ -1,3 +1,4 @@
+
 import React, { useRef } from 'react';
 import { motion, useScroll, useSpring } from 'framer-motion';
 import { PROCESS_STEPS } from '../constants';
@@ -46,14 +47,29 @@ export const Process: React.FC = () => {
             return (
               <div key={step.id} className="relative grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-24 items-center">
                 
+                {/* Background Number Indicator - Centered on Timeline */}
+                <div className="absolute left-4 md:left-1/2 top-[-2rem] md:top-1/2 transform md:-translate-x-1/2 md:-translate-y-1/2 z-0 pointer-events-none select-none">
+                   <span 
+                      className="text-[8rem] md:text-[24rem] font-black leading-none font-sans text-transparent opacity-20" 
+                      style={{ 
+                        WebkitTextStroke: '2px #D4AF37', // Gold color outline
+                        fontFamily: 'Manrope, sans-serif'
+                      }}
+                    >
+                      {step.id}
+                    </span>
+                </div>
+
                 {/* Timeline Center Point Indicator */}
                 <div className="absolute left-[23px] md:left-1/2 md:-translate-x-1/2 top-0 md:top-1/2 md:-translate-y-1/2 z-20">
                    <motion.div 
                      initial={{ scale: 0 }}
                      whileInView={{ scale: 1 }}
                      viewport={{ once: true }}
-                     className="w-4 h-4 rounded-full bg-lime shadow-[0_0_15px_#CCFF00] border-4 border-obsidian"
+                     className="w-4 h-4 rounded-full bg-lime shadow-[0_0_15px_#CCFF00] border-4 border-obsidian relative z-20"
                    />
+                   {/* Pulse behind the dot */}
+                   <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 bg-lime/10 rounded-full animate-pulse z-10" />
                 </div>
 
                 {/* Text Content */}
@@ -64,16 +80,6 @@ export const Process: React.FC = () => {
                   transition={{ duration: 0.8, ease: "easeOut" }}
                   className={`relative md:w-full md:pr-12 pl-12 md:pl-0 z-10`}
                 >
-                  {/* Massive Outline Typography Background */}
-                  <div className="absolute -top-16 -left-4 md:-top-24 md:-left-20 pointer-events-none opacity-20 z-0">
-                    <span 
-                      className="text-8xl md:text-[16rem] font-black leading-none font-sans text-transparent" 
-                      style={{ WebkitTextStroke: '2px rgba(212,175,55,0.4)' }}
-                    >
-                      {step.id}
-                    </span>
-                  </div>
-
                   <div className="relative z-10">
                     <h3 className="text-4xl md:text-6xl font-bold text-white mb-6 tracking-tight">{step.title}</h3>
                     <p className="text-offwhite/60 font-kor text-lg leading-relaxed mb-8 max-w-xl">
