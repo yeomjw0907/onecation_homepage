@@ -60,7 +60,7 @@ export const FOUNDATION_SUBPAGES: Record<string, SubPageContent> = {
         details: '개발 지식이 없는 창업자도 안심하고 프로젝트를 진행할 수 있도록 기술적 가이드를 제시합니다.',
         imageGrid: [
             '/images/foundation/foundation_tech_grid1.png',
-            '/images/foundation/foundation_tech_grid1.png'
+            '/images/foundation/foundation_tech_grid2.png'
         ],
         detailedProcess: [
             { step: '01', title: 'Requirement Analysis', description: '비즈니스 요구사항의 기술적 타당성 검토' },

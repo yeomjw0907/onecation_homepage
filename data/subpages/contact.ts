@@ -5,7 +5,7 @@ export const CONTACT_SUBPAGES: Record<string, SubPageContent> = {
         title: 'Start Project',
         subtitle: 'Begin Your Journey',
         description: '위대한 여정은 작은 문의에서 시작됩니다. 프로젝트에 대해 알려주시면 가장 적합한 전문가가 답변드립니다.',
-        heroImage: 'A hand holding a golden key, opening a door to the future.',
+        heroImage: '/images/contact/contact_start_hero.png',
         features: [
             { title: 'Consultation', desc: '무료 초기 상담 및 견적 산출.' },
             { title: 'Proposal', desc: '맞춤형 제안서 제공.' },
@@ -13,8 +13,9 @@ export const CONTACT_SUBPAGES: Record<string, SubPageContent> = {
         ],
         details: '예산, 일정, 범위가 확정되지 않았어도 괜찮습니다. 원케이션이 함께 고민해 드립니다.',
         imageGrid: [
-            'A handshake between two professionals.',
-            'A contract being signed on a tablet.'
+            '/images/contact/contact_start_grid1.png',
+            '/images/contact/contact_start_grid2.png',
+            '/images/contact/contact_start_grid3.png'
         ],
         layout: 'contact'
     },
@@ -22,7 +23,7 @@ export const CONTACT_SUBPAGES: Record<string, SubPageContent> = {
         title: 'Recruit',
         subtitle: 'Join the Alliance',
         description: '원케이션과 함께 디지털 경험의 미래를 만들어갈 인재를 찾습니다. 우리는 성장에 목마른 사람들을 환영합니다.',
-        heroImage: 'An empty chair at a modern desk with a "We are hiring" sign.',
+        heroImage: '/images/contact/contact_careers_hero.png',
         features: [
             { title: 'Growth', desc: '아낌없는 교육 지원과 성장 기회.' },
             { title: 'Compensation', desc: '업계 최고 수준의 대우와 성과급.' },
@@ -30,8 +31,9 @@ export const CONTACT_SUBPAGES: Record<string, SubPageContent> = {
         ],
         details: '디자이너, 개발자, 마케터, PM 등 전 직군 상시 채용 중입니다. 당신의 포트폴리오를 보여주세요.',
         imageGrid: [
-            'A welcome kit on a desk.',
-            'A team meeting in a glass room.'
+            '/images/contact/contact_careers_grid1.png',
+            '/images/contact/contact_careers_grid2.png',
+            '/images/contact/contact_careers_grid3.png'
         ],
         layout: 'contact'
     },
@@ -39,7 +41,7 @@ export const CONTACT_SUBPAGES: Record<string, SubPageContent> = {
         title: 'FAQ',
         subtitle: 'Questions & Answers',
         description: '프로젝트 진행과 관련하여 자주 묻는 질문들을 모았습니다. 궁금한 점이 해결되지 않았다면 언제든 문의해주세요.',
-        heroImage: 'A large glowing question mark in a 3D space.',
+        heroImage: '/images/contact/contact_faq_hero.png',
         features: [
             { category: '개발', title: '개발 언어는 무엇을 사용하나요?', desc: '웹은 React, Next.js, 앱은 Flutter, React Native를 주력으로 사용합니다. 백엔드는 Node.js, Python, Java 등 프로젝트 특성에 맞춰 가장 적합한 기술 스택을 제안합니다.' },
             { category: '개발', title: '유지보수도 가능한가요?', desc: '네, 가능합니다. 프로젝트 완료 후 기본 하자보수 기간(1년)을 제공하며, 이후 별도의 유지보수(SMA) 계약을 통해 서버 관리, 기능 개선 등 안정적인 운영을 지원합니다.' },
@@ -57,8 +59,10 @@ export const CONTACT_SUBPAGES: Record<string, SubPageContent> = {
         ],
         details: '투명하고 정직하게 답변드립니다. 고객의 입장에서 궁금해할 만한 내용들을 정리했습니다.',
         imageGrid: [
-            'A person answering a phone call in an office.',
-            'A support ticket system interface.'
+            '/images/contact/contact_start_grid1.png',
+            '/images/contact/contact_faq_grid1.png',
+            '/images/contact/contact_faq_grid2.png',
+            '/images/contact/contact_faq_grid3.png'
         ],
         layout: 'faq'
     }

@@ -5,7 +5,7 @@ export const CREATION_SUBPAGES: Record<string, SubPageContent> = {
         title: 'Brand Experience',
         subtitle: 'Visual Identity',
         description: '브랜드의 영혼을 시각화합니다. 로고부터 그래픽 모티프까지, 일관되고 강력한 브랜드 경험을 설계합니다.',
-        heroImage: 'An art gallery space with floating abstract brand logos and color swatches.',
+        heroImage: '/images/creation/creation_brand_hero.png',
         features: [
             { title: 'Logo Design', desc: '기억에 남는 심볼과 워드마크.' },
             { title: 'Brand System', desc: '컬러, 타이포그래피, 그래픽 가이드라인.' },
@@ -13,10 +13,10 @@ export const CREATION_SUBPAGES: Record<string, SubPageContent> = {
         ],
         details: '심미적 아름다움을 넘어 브랜드의 철학을 담아냅니다. 시장 내에서 독보적인 위치를 점유할 수 있는 디자인을 제안합니다.',
         imageGrid: [
-            'A designer sketchpad with logo concepts.',
-            'Premium business cards with gold foil stamping.',
-            'A minimalist branding moodboard.',
-            '3D logo rendering on obsidian background.'
+            '/images/creation/creation_brand_grid1.png',
+            '/images/creation/creation_brand_grid2.png',
+            '/images/creation/creation_brand_grid3.png',
+            '/images/creation/creation_brand_grid3.png'
         ],
         detailedProcess: [
             { step: '01', title: 'Discovery', description: '브랜드 코어 밸류 및 타겟 오디언스 분석', image: 'Moodboard textures, color palettes, abstract design research, branding workshop, obsidian table' },
@@ -30,7 +30,7 @@ export const CREATION_SUBPAGES: Record<string, SubPageContent> = {
         title: 'Web Engineering',
         subtitle: 'Immersive Web',
         description: '단순한 정보 전달을 넘어 경험을 선사하는 웹사이트. WebGL, 인터랙티브 모션을 통해 압도적인 몰입감을 제공합니다.',
-        heroImage: 'A laptop screen displaying a 3D interactive website with particles flying out.',
+        heroImage: '/images/creation/creation_web_hero.png',
         features: [
             { title: 'Creative Dev', desc: '3D 인터랙션 및 마이크로 인터랙션 구현.' },
             { title: 'Responsive', desc: '모든 디바이스에 완벽하게 대응하는 반응형 웹.' },
@@ -38,10 +38,10 @@ export const CREATION_SUBPAGES: Record<string, SubPageContent> = {
         ],
         details: 'Next.js, React, Three.js 등 최신 기술을 활용하여 안정적이고 화려한 웹 경험을 구축합니다.',
         imageGrid: [
-            'Code editor with React components visible.',
-            'A mobile phone showing a responsive website layout.',
-            'A 3D mesh wireframe of a website.',
-            'Server rack with green status lights.'
+            '/images/creation/creation_web_grid1.png',
+            '/images/creation/creation_web_grid2.png',
+            '/images/creation/creation_web_grid3.png',
+            '/images/creation/creation_web_grid3.png'
         ],
         detailedProcess: [
             { step: '01', title: 'Planning & UX', description: '사용자 여정(User Journey) 설계 및 와이어프레임 작성', image: 'Wireframe sketches on whiteboard, user flow diagram, sticky notes, UX research' },
@@ -55,7 +55,7 @@ export const CREATION_SUBPAGES: Record<string, SubPageContent> = {
         title: 'App & Platform',
         subtitle: 'Robust Ecosystem',
         description: '비즈니스 로직을 완벽하게 구현하는 iOS/Android 앱 및 SaaS 플랫폼을 구축합니다.',
-        heroImage: 'A smartphone floating in mid-air displaying a sleek app interface.',
+        heroImage: '/images/creation/creation_app_hero.png',
         features: [
             { title: 'Cross Platform', desc: 'Flutter/React Native를 통한 효율적 개발.' },
             { title: 'Scalable Architecture', desc: '대용량 트래픽을 견디는 백엔드 설계.' },
@@ -63,10 +63,10 @@ export const CREATION_SUBPAGES: Record<string, SubPageContent> = {
         ],
         details: '초기 MVP부터 엔터프라이즈급 ERP 시스템까지, 목적에 맞는 최적의 솔루션을 제공합니다.',
         imageGrid: [
-            'App wireframes laid out on a table.',
-            'A dashboard interface on a tablet device.',
-            'User flow diagram on a whiteboard.',
-            'Mobile app notification screen.'
+            '/images/creation/creation_app_grid1.png',
+            '/images/creation/creation_app_grid2.png',
+            '/images/creation/creation_app_grid3.png',
+            '/images/creation/creation_app_grid3.png'
         ],
         detailedProcess: [
             { step: '01', title: 'Architecture', description: '시스템 구조 설계 및 데이터 모델링', image: 'System architecture diagram, server nodes, database schema, blueprint style' },
