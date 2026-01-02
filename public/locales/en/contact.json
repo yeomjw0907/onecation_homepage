@@ -1,0 +1,115 @@
+{
+    "start-project": {
+        "title": "Start Project",
+        "subtitle": "Begin Your Journey",
+        "description": "Great journeys begin with a small inquiry. Let us know about your project and the most suitable expert will answer.",
+        "features": [
+            {
+                "title": "Consultation",
+                "desc": "Free initial consultation and estimate calculation."
+            },
+            {
+                "title": "Proposal",
+                "desc": "Customized proposal provided."
+            },
+            {
+                "title": "Kickoff",
+                "desc": "Quick project launch."
+            }
+        ],
+        "details": "It's okay if the budget, schedule, and scope are not finalized. Onecation will think with you."
+    },
+    "recruit": {
+        "title": "Recruit",
+        "subtitle": "Join the Alliance",
+        "description": "We are looking for talents to create the future of digital experience with Onecation. We welcome people hungry for growth.",
+        "features": [
+            {
+                "title": "Growth",
+                "desc": "Generous education support and growth opportunities."
+            },
+            {
+                "title": "Compensation",
+                "desc": "Industry-leading treatment and incentives."
+            },
+            {
+                "title": "Culture",
+                "desc": "Horizontal and free communication culture."
+            }
+        ],
+        "details": "Designers, developers, marketers, PMs, etc. are hiring for all positions at all times. Show us your portfolio."
+    },
+    "faq": {
+        "title": "FAQ",
+        "subtitle": "Questions & Answers",
+        "description": "We have collected frequently asked questions regarding project progress. If your questions are not resolved, please contact us anytime.",
+        "features": [
+            {
+                "title": "What development languages do you use?",
+                "desc": "We mainly use React and Next.js for web, and Flutter and React Native for apps. For backend, we propose the most suitable technology stack such as Node.js, Python, Java according to project characteristics.",
+                "category": "Development"
+            },
+            {
+                "title": "Is maintenance possible?",
+                "desc": "Yes, it is possible. After project completion, we provide a basic defect repair period (1 year), and afterwards, we support stable operation such as server management and function improvement through a separate maintenance (SMA) contract.",
+                "category": "Development"
+            },
+            {
+                "title": "What is the difference between hybrid apps and native apps?",
+                "desc": "Native apps have excellent performance but have high development costs. Hybrid (cross-platform) apps are cost-effective by developing iOS and Android simultaneously with a single code. We propose a suitable method according to the project purpose.",
+                "category": "Development"
+            },
+            {
+                "title": "Do you also create admin pages?",
+                "desc": "Yes, we basically provide CMS (admin page) necessary for service operation. We build custom functions such as member management, content upload, and statistics verification.",
+                "category": "Development"
+            },
+            {
+                "title": "How much is ROAS guaranteed?",
+                "desc": "ROAS (Return on Ad Spend) varies depending on the industry and product, but Onecation operates with the goal of an average ROAS of 300% or more through data-driven target optimization. We improve efficiency gradually through an initial test period.",
+                "category": "Marketing"
+            },
+            {
+                "title": "What advertising media do you operate?",
+                "desc": "We operate major media such as Meta (Facebook/Instagram), Google (Youtube/Search), Naver (GFA/Search), and Kakao. We establish a Media Mix strategy by analyzing channels where the target audience is mainly active.",
+                "category": "Marketing"
+            },
+            {
+                "title": "How often are reports provided?",
+                "desc": "Basically, we provide weekly/monthly reports. If necessary, we build a real-time dashboard so you can check performance at any time.",
+                "category": "Marketing"
+            },
+            {
+                "title": "Is there a limit to the number of design revisions?",
+                "desc": "Basically, we provide 2-3 free revisions per major stage (before draft confirmation). However, additional costs may occur if the plan changes significantly or the confirmed draft is completely revised.",
+                "category": "Design"
+            },
+            {
+                "title": "Do you also provide original work files?",
+                "desc": "Yes, upon project completion, we provide all original design files (Figma, PSD, AI, etc.) along with the final deliverables. Copyright belongs to the client.",
+                "category": "Design"
+            },
+            {
+                "title": "Is mobile responsive included?",
+                "desc": "Of course. All web projects of Onecation are based on Responsive Design that responds perfectly to desktop, tablet, and mobile.",
+                "category": "Design"
+            },
+            {
+                "title": "How is the estimate calculated?",
+                "desc": "It is calculated by comprehensively considering input personnel (M/M), period, difficulty of function, design quality, etc. If you tell us your budget range, we will curate and propose the optimal functions for it.",
+                "category": "Etc"
+            },
+            {
+                "title": "How are meetings conducted?",
+                "desc": "For efficiency, initial consultation is recommended to be non-face-to-face (Zoom/Google Meet), but if detailed discussion is needed, visiting meetings in Seoul/Gyeonggi area are also possible. Kick-off meetings at the start of the project are conducted face-to-face.",
+                "category": "Etc"
+            },
+            {
+                "title": "I am curious about the contract and payment terms.",
+                "desc": "Generally, it proceeds with 40% down payment, 40% interim payment, and 20% balance. However, consultation is possible depending on the size and period of the project, and tax invoice issuance is standard.",
+                "category": "Etc"
+            }
+        ],
+        "details": "We answer transparently and honestly. We have organized contents that customers might be curious about."
+    }
+}

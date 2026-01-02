@@ -2,12 +2,14 @@ import React, { useState } from 'react';
 import { Mail, Phone, MapPin } from 'lucide-react';
 import { Button } from '../ui/Button';
 import { CustomSelect } from './CustomSelect';
+import { useTranslation, Trans } from 'react-i18next';
 
 interface ContactFormSectionProps {
     accentColor?: string;
 }
 
 export const ContactFormSection: React.FC<ContactFormSectionProps> = ({ accentColor = 'lime' }) => {
+    const { t } = useTranslation('common');
     const [service, setService] = useState('');
 
     const serviceOptions = [
@@ -22,11 +24,14 @@ export const ContactFormSection: React.FC<ContactFormSectionProps> = ({ accentCo
             <div className="max-w-5xl mx-auto">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
                     <div>
-                        <span className={`text-[10px] font-bold tracking-[0.2em] uppercase mb-4 block text-${accentColor}`}>Begin Your Journey</span>
-                        <h3 className="text-4xl font-bold text-white mb-6 tracking-tight">Start Project</h3>
+                        <span className={`text-[10px] font-bold tracking-[0.2em] uppercase mb-4 block text-${accentColor}`}>
+                            {t('contactSection.subtitle')}
+                        </span>
+                        <h3 className="text-4xl font-bold text-white mb-6 tracking-tight">
+                            {t('contactSection.title')}
+                        </h3>
                         <p className="text-offwhite/50 mb-12 font-kor leading-relaxed">
-                            위대한 여정은 작은 문의에서 시작됩니다.<br />
-                            프로젝트에 대해 알려주시면 가장 적합한 전문가가 답변드립니다.
+                            <Trans i18nKey="contactSection.description" components={{ br: <br /> }} />
                         </p>
                         <div className="space-y-8">
                             <div className="flex items-start gap-5">
@@ -34,7 +39,7 @@ export const ContactFormSection: React.FC<ContactFormSectionProps> = ({ accentCo
                                     <Mail size={20} />
                                 </div>
                                 <div>
-                                    <p className="text-white font-bold text-lg mb-1">Email Us</p>
+                                    <p className="text-white font-bold text-lg mb-1">{t('contactSection.email_us')}</p>
                                     <a href="mailto:yeomjw0907@onecation.co.kr" className="block text-offwhite/60 hover:text-white transition-colors">yeomjw0907@onecation.co.kr</a>
                                     <a href="mailto:hello@onecation.com" className="block text-offwhite/60 hover:text-white transition-colors">hello@onecation.com</a>
                                 </div>
@@ -44,9 +49,9 @@ export const ContactFormSection: React.FC<ContactFormSectionProps> = ({ accentCo
                                     <Phone size={20} />
                                 </div>
                                 <div>
-                                    <p className="text-white font-bold text-lg mb-1">Call Us</p>
+                                    <p className="text-white font-bold text-lg mb-1">{t('contactSection.call_us')}</p>
                                     <a href="tel:01063334649" className="block text-offwhite/60 hover:text-white transition-colors">010-6333-4649</a>
-                                    <p className="text-[10px] text-white/30 mt-1 uppercase tracking-wider">Mon-Fri, 10am - 7pm</p>
+                                    <p className="text-[10px] text-white/30 mt-1 uppercase tracking-wider">{t('contactSection.mon_fri')}</p>
                                 </div>
                             </div>
                             <div className="flex items-start gap-5">
@@ -54,9 +59,9 @@ export const ContactFormSection: React.FC<ContactFormSectionProps> = ({ accentCo
                                     <MapPin size={20} />
                                 </div>
                                 <div>
-                                    <p className="text-white font-bold text-lg mb-1">Visit Us</p>
+                                    <p className="text-white font-bold text-lg mb-1">{t('contactSection.visit_us')}</p>
                                     <p className="text-offwhite/60 font-kor leading-relaxed">
-                                        인천광역시 연수구 송도2동 인천타워대로 99<br />애니오션빌딩 11-12층
+                                        <Trans i18nKey="contactSection.address" components={{ br: <br /> }} />
                                     </p>
                                 </div>
                             </div>
@@ -64,36 +69,46 @@ export const ContactFormSection: React.FC<ContactFormSectionProps> = ({ accentCo
                     </div>
 
                     <div className="bg-white/[0.02] border border-white/10 rounded-3xl p-8 md:p-10 relative">
-                        <h4 className="text-xl font-bold text-white mb-8">Send a Message</h4>
+                        <h4 className="text-xl font-bold text-white mb-8">{t('contactSection.send_message')}</h4>
                         <form className="space-y-5">
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                                 <div>
-                                    <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest mb-2 block">Name</label>
-                                    <input type="text" className={`w-full bg-black/20 border border-white/10 rounded-xl p-4 text-white focus:border-${accentColor} outline-none transition-colors`} placeholder="홍길동 / 기업명" />
+                                    <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest mb-2 block">
+                                        {t('contactSection.form.name')}
+                                    </label>
+                                    <input type="text" className={`w-full bg-black/20 border border-white/10 rounded-xl p-4 text-white focus:border-${accentColor} outline-none transition-colors`} placeholder={t('contactSection.form.name_placeholder')} />
                                 </div>
                                 <div>
-                                    <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest mb-2 block">Contact</label>
-                                    <input type="text" className={`w-full bg-black/20 border border-white/10 rounded-xl p-4 text-white focus:border-${accentColor} outline-none transition-colors`} placeholder="이메일 또는 전화번호" />
+                                    <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest mb-2 block">
+                                        {t('contactSection.form.contact')}
+                                    </label>
+                                    <input type="text" className={`w-full bg-black/20 border border-white/10 rounded-xl p-4 text-white focus:border-${accentColor} outline-none transition-colors`} placeholder={t('contactSection.form.contact_placeholder')} />
                                 </div>
                             </div>
 
                             <div>
-                                <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest mb-2 block">Service Interest</label>
+                                <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest mb-2 block">
+                                    {t('contactSection.form.service_interest')}
+                                </label>
                                 <CustomSelect
                                     options={serviceOptions}
                                     value={service}
                                     onChange={setService}
-                                    placeholder="관심 서비스를 선택하세요"
+                                    placeholder={t('contactSection.form.service_placeholder')}
                                     accentColor={accentColor}
                                 />
                             </div>
 
                             <div>
-                                <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest mb-2 block">Project Details</label>
-                                <textarea rows={4} className={`w-full bg-black/20 border border-white/10 rounded-xl p-4 text-white focus:border-${accentColor} outline-none transition-colors resize-none leading-relaxed`} placeholder="프로젝트 예산, 일정, 주요 기능 등 상세 내용을 입력해주세요." />
+                                <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest mb-2 block">
+                                    {t('contactSection.form.project_details')}
+                                </label>
+                                <textarea rows={4} className={`w-full bg-black/20 border border-white/10 rounded-xl p-4 text-white focus:border-${accentColor} outline-none transition-colors resize-none leading-relaxed`} placeholder={t('contactSection.form.message_placeholder')} />
                             </div>
 
-                            <Button variant="primary" className={`w-full bg-${accentColor} text-black border-none py-4 text-lg`} withArrow>문의하기</Button>
+                            <Button variant="primary" className={`w-full bg-${accentColor} text-black border-none py-4 text-lg`} withArrow>
+                                {t('contactSection.form.submit')}
+                            </Button>
                         </form>
                     </div>
                 </div>

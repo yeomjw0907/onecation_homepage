@@ -1,0 +1,128 @@
+{
+    "brand-experience": {
+        "title": "Brand Experience",
+        "subtitle": "Visual Identity",
+        "description": "We visualize the soul of the brand. From logos to graphic motifs, we design a consistent and powerful brand experience.",
+        "features": [
+            {
+                "title": "Logo Design",
+                "desc": "Memorable symbols and wordmarks."
+            },
+            {
+                "title": "Brand System",
+                "desc": "Color, typography, and graphic guidelines."
+            },
+            {
+                "title": "Application",
+                "desc": "Application design such as business cards, forms, and goods."
+            }
+        ],
+        "details": "We contain the brand's philosophy beyond aesthetic beauty. We propose designs that can occupy a unique position in the market.",
+        "detailedProcess": [
+            {
+                "step": "01",
+                "title": "Discovery",
+                "description": "Brand core value and target audience analysis"
+            },
+            {
+                "step": "02",
+                "title": "Identity Design",
+                "description": "Establishment of visual language such as logo, color, typography"
+            },
+            {
+                "step": "03",
+                "title": "Application",
+                "description": "Design of online/offline touchpoints such as business cards, packages, goods"
+            },
+            {
+                "step": "04",
+                "title": "Guideline",
+                "description": "Distribution of BX guidelines to maintain consistent brand experience"
+            }
+        ]
+    },
+    "web-engineering": {
+        "title": "Web Engineering",
+        "subtitle": "Immersive Web",
+        "description": "A website that offers an experience beyond simple information delivery. We provide overwhelming immersion through WebGL and interactive motion.",
+        "features": [
+            {
+                "title": "Creative Dev",
+                "desc": "Implementation of 3D interaction and micro-interaction."
+            },
+            {
+                "title": "Responsive",
+                "desc": "Responsive web that perfectly responds to all devices."
+            },
+            {
+                "title": "Performance",
+                "desc": "SEO optimization and fast loading speed."
+            }
+        ],
+        "details": "We build stable and spectacular web experiences utilizing the latest technologies such as Next.js, React, and Three.js.",
+        "detailedProcess": [
+            {
+                "step": "01",
+                "title": "Planning & UX",
+                "description": "User Journey design and wireframe creation"
+            },
+            {
+                "step": "02",
+                "title": "Creative Design",
+                "description": "High-resolution UI design with immersive interaction"
+            },
+            {
+                "step": "03",
+                "title": "Engineering",
+                "description": "Frontend construction based on Next.js and CMS integration"
+            },
+            {
+                "step": "04",
+                "title": "Optimization",
+                "description": "SEO optimization, cross-browsing, performance testing and deployment"
+            }
+        ]
+    },
+    "app-platform": {
+        "title": "App & Platform",
+        "subtitle": "Robust Ecosystem",
+        "description": "We build iOS/Android apps and SaaS platforms that perfectly implement business logic.",
+        "features": [
+            {
+                "title": "Cross Platform",
+                "desc": "Efficient development via Flutter/React Native."
+            },
+            {
+                "title": "Scalable Architecture",
+                "desc": "Backend design that withstands large traffic."
+            },
+            {
+                "title": "User Centric",
+                "desc": "User-centered intuitive UI/UX."
+            }
+        ],
+        "details": "From early MVPs to enterprise-level ERP systems, we provide optimal solutions tailored to your purpose.",
+        "detailedProcess": [
+            {
+                "step": "01",
+                "title": "Architecture",
+                "description": "System structure design and data modeling"
+            },
+            {
+                "step": "02",
+                "title": "UI/UX Design",
+                "description": "User interface design optimized for mobile environments"
+            },
+            {
+                "step": "03",
+                "title": "Full-stack Dev",
+                "description": "Simultaneous client (App) and server (Admin) development"
+            },
+            {
+                "step": "04",
+                "title": "QA & Launch",
+                "description": "Store review and launch support after functional/security testing"
+            }
+        ]
+    }
+}

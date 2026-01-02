@@ -1,0 +1,128 @@
+{
+    "seo-data": {
+        "title": "SEO & Data",
+        "subtitle": "Growth Hacking",
+        "description": "Numbers don't lie. We maximize organic traffic through search engine optimization and user behavior data analysis.",
+        "features": [
+            {
+                "title": "Technical SEO",
+                "desc": "Site optimization with a structure loved by search engines."
+            },
+            {
+                "title": "Analytics",
+                "desc": "User behavior analysis using GA4, Mixpanel, etc."
+            },
+            {
+                "title": "Keyword Strategy",
+                "desc": "Discovery of high-efficiency keywords and content strategy."
+            }
+        ],
+        "details": "We make potential customers find you first. We lay the foundation for sustainable growth.",
+        "detailedProcess": [
+            {
+                "step": "01",
+                "title": "Site Audit",
+                "description": "Precise diagnosis of website structure and SEO health"
+            },
+            {
+                "step": "02",
+                "title": "Keyword Strategy",
+                "description": "Discovery of high-efficiency inflow keywords and establishment of content roadmap"
+            },
+            {
+                "step": "03",
+                "title": "Technical Setup",
+                "description": "Meta tag optimization, schema markup, site map submission"
+            },
+            {
+                "step": "04",
+                "title": "Data Analysis",
+                "description": "Continuous traffic performance analysis based on GA4/GSC data"
+            }
+        ]
+    },
+    "performance": {
+        "title": "Performance",
+        "subtitle": "ROAS Optimization",
+        "description": "We achieve maximum results with efficient budget execution. Optimized ad operation for each media such as Meta, Google, TikTok.",
+        "features": [
+            {
+                "title": "Targeting",
+                "desc": "Securing sincere users with ultra-precise targeting."
+            },
+            {
+                "title": "Creative Testing",
+                "desc": "Discovery of winning materials through endless A/B testing."
+            },
+            {
+                "title": "Funnel Optimization",
+                "desc": "Conversion rate improvement from inflow to purchase."
+            }
+        ],
+        "details": "We aim for purchase and conversion, not just exposure. We guarantee the best efficiency compared to input.",
+        "detailedProcess": [
+            {
+                "step": "01",
+                "title": "Media Mix",
+                "description": "Selection of optimal advertising media for target audience"
+            },
+            {
+                "step": "02",
+                "title": "Creative Prod",
+                "description": "Production of short-form/image advertising materials that induce clicks"
+            },
+            {
+                "step": "03",
+                "title": "A/B Testing",
+                "description": "Discovery of winning sets through material and target testing"
+            },
+            {
+                "step": "04",
+                "title": "Scale Up",
+                "description": "High-efficiency campaign budget increase and conversion rate optimization (CRO)"
+            }
+        ]
+    },
+    "viral-content": {
+        "title": "Viral & Content",
+        "subtitle": "Storytelling",
+        "description": "Content that moves people's hearts and makes them share. We create a powerful narrative that forms a brand fandom.",
+        "features": [
+            {
+                "title": "Short-form",
+                "desc": "Production of trendy short-forms such as Reels, Shorts, TikTok."
+            },
+            {
+                "title": "Blog Marketing",
+                "desc": "Building brand trust through informative content."
+            },
+            {
+                "title": "Influencer",
+                "desc": "Influencer matching and campaigns that fit the brand texture."
+            }
+        ],
+        "details": "Boring advertisements are ignored. We communicate with consumers through fun, informative, and moving content.",
+        "detailedProcess": [
+            {
+                "step": "01",
+                "title": "Trend Catch",
+                "description": "Real-time social media trend and Meme analysis"
+            },
+            {
+                "step": "02",
+                "title": "Storytelling",
+                "description": "Viral scenario planning incorporating brand message"
+            },
+            {
+                "step": "03",
+                "title": "Production",
+                "description": "Content production applying trendy shooting and editing techniques"
+            },
+            {
+                "step": "04",
+                "title": "Seeding",
+                "description": "Distribution and spread induction in major communities and SNS channels"
+            }
+        ]
+    }
+}

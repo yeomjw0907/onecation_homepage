@@ -1,0 +1,62 @@
+{
+    "for-startups": {
+        "title": "For Startups",
+        "subtitle": "Target B References",
+        "description": "Portfolio for startups with innovative ideas. Projects that make a quick and strong impact.",
+        "features": [
+            {
+                "title": "Agile MVP",
+                "desc": "Quick launch cases focusing on core features."
+            },
+            {
+                "title": "Pitch Deck Design",
+                "desc": "Design reference successful in attracting investment."
+            },
+            {
+                "title": "Trendy UI",
+                "desc": "Hip design targeting Gen Z."
+            }
+        ],
+        "details": "Check out startup success stories that maximized effects with limited resources."
+    },
+    "for-enterprise": {
+        "title": "For Enterprise",
+        "subtitle": "Target A References",
+        "description": "Trust and stability-centered projects for large corporations and mid-sized companies. Large-scale system construction and brand renewal cases.",
+        "features": [
+            {
+                "title": "Corporate Site",
+                "desc": "Corporate homepage complying with global standards."
+            },
+            {
+                "title": "Large Scale System",
+                "desc": "Administrator system processing complex data."
+            },
+            {
+                "title": "Brand Renewal",
+                "desc": "Digital transformation of traditional companies."
+            }
+        ],
+        "details": "Enterprise projects that provided perfect quality while complying with strict security regulations and guidelines."
+    },
+    "success-stories": {
+        "title": "Success Stories",
+        "subtitle": "Case Studies",
+        "description": "A collection of case studies covering in depth how problems were defined and solved.",
+        "features": [
+            {
+                "title": "Problem Solving",
+                "desc": "Clear problem definition and solution process."
+            },
+            {
+                "title": "Data Driven",
+                "desc": "Proof of performance through before-and-after data comparison."
+            },
+            {
+                "title": "Client Voice",
+                "desc": "Real interviews with clients."
+            }
+        ],
+        "details": "We transparently disclose the intense considerations and logical solution processes hidden behind the results."
+    }
+}

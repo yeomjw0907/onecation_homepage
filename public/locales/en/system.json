@@ -1,0 +1,62 @@
+{
+    "manifesto": {
+        "title": "Manifesto",
+        "subtitle": "Business All-in-One",
+        "description": "We break down the boundaries between technology and art, seeking perfect synchronization at every stage of business. Onecation is not just an agency, but a partner that realizes your vision.",
+        "features": [
+            {
+                "title": "Total Synchronization",
+                "desc": "Seamless workflow from planning to marketing."
+            },
+            {
+                "title": "Obsidian Aesthetics",
+                "desc": "Design philosophy with depth."
+            },
+            {
+                "title": "Impact Driven",
+                "desc": "Creating tangible business results."
+            }
+        ],
+        "details": "We define client success as our own. Top experts in each field gather to run towards a single goal."
+    },
+    "the-120-alliance": {
+        "title": "The 120 Alliance",
+        "subtitle": "Future Network",
+        "description": "Not a shared office, but a futuristic network. The Onecation Core Team and 120 experts are connected like a neural network.",
+        "features": [
+            {
+                "title": "Core Brain",
+                "desc": "PM/PO group overseeing projects."
+            },
+            {
+                "title": "Specialist Node",
+                "desc": "Top 1% expert nodes in each field."
+            },
+            {
+                "title": "Hyper Connection",
+                "desc": "Real-time communication collaboration protocol."
+            }
+        ],
+        "details": "120 nodes where developers, designers, and marketers are organically connected. Optimal teams are instantly formed according to project needs."
+    },
+    "process": {
+        "title": "Process",
+        "subtitle": "The Sync System",
+        "description": "Onecation's unique synchronization process designed like precision engineering. Every step interlocks perfectly.",
+        "features": [
+            {
+                "title": "Discovery",
+                "desc": "Radar UI exploring the essence."
+            },
+            {
+                "title": "Definition",
+                "desc": "Blueprint designing the strategy."
+            },
+            {
+                "title": "Delivery",
+                "desc": "3D Diamond proving the results."
+            }
+        ],
+        "details": "Minimizing project risks through transparent progress sharing and data-driven decision-making processes."
+    }
+}

@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { AnimatePresence } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { SubPageContent } from '../types';
 import {
   ContextNavigation,
@@ -29,7 +30,8 @@ interface SubPageProps {
 }
 
 export const SubPage: React.FC<SubPageProps> = (props) => {
-  const { content, slug, onNavigate } = props;
+  const { content: originalContent, slug, onNavigate } = props;
+  const { t } = useTranslation(['system', 'foundation', 'creation', 'acceleration', 'work', 'olab', 'contact', 'common']);
   const [selectedProject, setSelectedProject] = useState<any>(null);
   const [selectedInsight, setSelectedInsight] = useState<any>(null);
 
@@ -38,21 +40,44 @@ export const SubPage: React.FC<SubPageProps> = (props) => {
     window.scrollTo(0, 0);
   }, [slug]);
 
+  const content = useMemo(() => {
+    if (!originalContent.translationKey) return originalContent;
+
+    const key = originalContent.translationKey;
+    const features = originalContent.features.map((f, idx) => ({
+      ...f,
+      title: t(`${key}.features.${idx}.title`, f.title),
+      desc: t(`${key}.features.${idx}.desc`, f.desc)
+    }));
+
+    return {
+      ...originalContent,
+      title: t(`${key}.title`, originalContent.title),
+      subtitle: t(`${key}.subtitle`, originalContent.subtitle),
+      description: t(`${key}.description`, originalContent.description),
+      details: t(`${key}.details`, originalContent.details),
+      features
+    };
+  }, [originalContent, t]);
+
   const renderLayout = () => {
+    // Pass the translated content to layouts
+    const layoutProps = { ...props, content };
+
     switch (content.layout) {
-      case 'manifesto': return <ManifestoLayout {...props} />;
-      case 'alliance': return <AllianceLayout {...props} />;
-      case 'process': return <ProcessLayout {...props} />;
-      case 'creation': return <CreationLayout {...props} />;
-      case 'split': return <SplitLayout {...props} />;
-      case 'acceleration': return <AccelerationLayout {...props} />;
-      case 'immersive': return <ImmersiveLayout {...props} />;
-      case 'gallery': return <GalleryLayout {...props} onSelectProject={setSelectedProject} />;
-      case 'success-story': return <GalleryLayout {...props} onSelectProject={setSelectedProject} />;
-      case 'editorial': return <EditorialLayout {...props} onSelectInsight={setSelectedInsight} />;
-      case 'contact': return <ContactLayout {...props} />;
-      case 'faq': return <FAQLayout {...props} />;
-      default: return <CreationLayout {...props} />;
+      case 'manifesto': return <ManifestoLayout {...layoutProps} />;
+      case 'alliance': return <AllianceLayout {...layoutProps} />;
+      case 'process': return <ProcessLayout {...layoutProps} />;
+      case 'creation': return <CreationLayout {...layoutProps} />;
+      case 'split': return <SplitLayout {...layoutProps} />;
+      case 'acceleration': return <AccelerationLayout {...layoutProps} />;
+      case 'immersive': return <ImmersiveLayout {...layoutProps} />;
+      case 'gallery': return <GalleryLayout {...layoutProps} onSelectProject={setSelectedProject} />;
+      case 'success-story': return <GalleryLayout {...layoutProps} onSelectProject={setSelectedProject} />;
+      case 'editorial': return <EditorialLayout {...layoutProps} onSelectInsight={setSelectedInsight} />;
+      case 'contact': return <ContactLayout {...layoutProps} />;
+      case 'faq': return <FAQLayout {...layoutProps} />;
+      default: return <CreationLayout {...layoutProps} />;
     }
   };
 

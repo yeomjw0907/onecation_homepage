@@ -1,0 +1,65 @@
+{
+    "header": {
+        "language": {
+            "ko": "KR",
+            "en": "EN"
+        }
+    },
+    "footer": {
+        "copyright": "© {year} 98.7 degrees Co., Ltd. All rights reserved.",
+        "premium_motto": "Premium Business Architects",
+        "labels": {
+            "company_name": "Company Name",
+            "ceo": "CEO",
+            "business_no": "Business No.",
+            "email": "Email",
+            "address_dept": "Management & Design Dept.",
+            "phone_inquiry": "Phone Inquiry",
+            "kakao_inquiry": "Kakao Inquiry"
+        },
+        "info": {
+            "company_name": "98.7 degrees Co., Ltd.",
+            "ceo": "Yeom Jeong-won",
+            "business_no": "501-81-27350",
+            "address": "11-12F, AnyOcean Building, 99 Incheon Tower-daero, Songdo 2-dong, Yeonsu-gu, Incheon",
+            "phone_time": "Mon-Fri 10am - 7pm",
+            "kakao_time": "9am - 12pm (Open Year Round)"
+        }
+    },
+    "common": {
+        "back": "BACK",
+        "scroll_down": "Scroll Down",
+        "read_more": "Read More"
+    },
+    "contactSection": {
+        "subtitle": "Begin Your Journey",
+        "title": "Start Project",
+        "description": "Great journeys begin with small inquiries.<br />Tell us about your project, and the most suitable expert will respond.",
+        "email_us": "Email Us",
+        "call_us": "Call Us",
+        "mon_fri": "Mon-Fri, 10am - 7pm",
+        "visit_us": "Visit Us",
+        "address": "11-12F, AnyOcean Building, 99 Incheon Tower-daero<br />Songdo 2-dong, Yeonsu-gu, Incheon",
+        "send_message": "Send a Message",
+        "form": {
+            "name": "Name",
+            "contact": "Contact",
+            "service_interest": "Service Interest",
+            "project_details": "Project Details",
+            "name_placeholder": "Name / Company Name",
+            "contact_placeholder": "Email or Phone Number",
+            "service_placeholder": "Select Service Interest",
+            "message_placeholder": "Please provide details such as project budget, schedule, and key features.",
+            "submit": "Send Inquiry"
+        }
+    },
+    "relatedWorks": {
+        "subtitle": "Related Works",
+        "title": "Proven Results",
+        "description": "Check out success stories related to this service."
+    },
+    "seo": {
+        "default_title": "Onecation | Business All-in-One",
+        "default_description": "From planning to marketing, everything for your business in one place. Onecation provides premium digital solutions."
+    }
+}

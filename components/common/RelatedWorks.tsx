@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
 import { GenAIImage } from '../GenAIImage';
 import { SHOWCASE_ITEMS } from '../../data/portfolio';
+import { useTranslation } from 'react-i18next';
 
 interface RelatedWorksProps {
     currentSlug: string;
@@ -10,6 +11,7 @@ interface RelatedWorksProps {
 }
 
 export const RelatedWorks: React.FC<RelatedWorksProps> = ({ currentSlug, onSelectProject }) => {
+    const { t } = useTranslation('common');
     const relatedProjects = useMemo(() => {
         let filtered = SHOWCASE_ITEMS.filter(item =>
             item.relatedSlugs?.includes(currentSlug)
@@ -31,11 +33,15 @@ export const RelatedWorks: React.FC<RelatedWorksProps> = ({ currentSlug, onSelec
             <div className="max-w-7xl mx-auto px-6 md:px-8">
                 <div className="mb-12 flex items-end justify-between">
                     <div>
-                        <span className="text-lime text-[10px] font-bold tracking-[0.2em] uppercase mb-3 block">Related Works</span>
-                        <h3 className="text-3xl font-bold text-white">Proven Results</h3>
+                        <span className="text-lime text-[10px] font-bold tracking-[0.2em] uppercase mb-3 block">
+                            {t('relatedWorks.subtitle')}
+                        </span>
+                        <h3 className="text-3xl font-bold text-white">
+                            {t('relatedWorks.title')}
+                        </h3>
                     </div>
                     <p className="text-offwhite/40 text-xs font-kor hidden md:block">
-                        해당 서비스와 관련된 성공 사례를 확인해보세요.
+                        {t('relatedWorks.description')}
                     </p>
                 </div>
 

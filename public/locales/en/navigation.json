@@ -1,0 +1,121 @@
+{
+    "system": {
+        "label": "ONE.SYSTEM",
+        "subLabel": "Company Intro",
+        "description": "Experience the best results through Onecation's unique process.",
+        "manifesto": {
+            "label": "Manifesto",
+            "desc": "Vision Proclamation (Business All-in-One)"
+        },
+        "the-120-alliance": {
+            "label": "The 120 Alliance",
+            "desc": "Core Team & 120 Experts Collaboration"
+        },
+        "process": {
+            "label": "Process",
+            "desc": "Sync Working Method"
+        }
+    },
+    "foundation": {
+        "label": "FOUNDATION",
+        "subLabel": "Planning & Consulting",
+        "description": "We establish a solid foundation for your business.",
+        "business-planning": {
+            "label": "Business Planning",
+            "desc": "Business Plan, IR Pitch Deck"
+        },
+        "gov-strategy": {
+            "label": "Gov. Strategy",
+            "desc": "Government Support Strategy"
+        },
+        "tech-consulting": {
+            "label": "Tech Consulting",
+            "desc": "Architecture Design (CTO Service)"
+        }
+    },
+    "creation": {
+        "label": "CREATION",
+        "subLabel": "Design & Dev",
+        "description": "We create stunning design and robust development.",
+        "brand-experience": {
+            "label": "Brand Experience",
+            "desc": "Logo (CI/BI), Brand Identity"
+        },
+        "web-engineering": {
+            "label": "Web Engineering",
+            "desc": "Responsive Web, Corporate Site"
+        },
+        "app-platform": {
+            "label": "App & Platform",
+            "desc": "iOS/Android App, Platform, SaaS"
+        }
+    },
+    "acceleration": {
+        "label": "ACCELERATION",
+        "subLabel": "Marketing & Growth",
+        "description": "We accelerate your business growth.",
+        "seo-data": {
+            "label": "SEO & Data",
+            "desc": "Search Engine Optimization, Data Analysis"
+        },
+        "performance": {
+            "label": "Performance",
+            "desc": "Performance Marketing (ROAS Optimization)"
+        },
+        "viral-content": {
+            "label": "Viral & Content",
+            "desc": "SNS, Blog, Content Marketing"
+        }
+    },
+    "work": {
+        "label": "WORK",
+        "subLabel": "Portfolio",
+        "description": "Check our portfolio.",
+        "for-startups": {
+            "label": "For Startups",
+            "desc": "Innovation/Trend References"
+        },
+        "for-enterprise": {
+            "label": "For Enterprise",
+            "desc": "Trust/Scale References"
+        },
+        "success-stories": {
+            "label": "Success Stories",
+            "desc": "In-depth Case Studies"
+        }
+    },
+    "olab": {
+        "label": "O-LAB",
+        "subLabel": "Insights",
+        "description": "Explore our insights and experiments.",
+        "originals": {
+            "label": "Originals",
+            "desc": "In-house Service & App Lab"
+        },
+        "trend-insights": {
+            "label": "Trend Insights",
+            "desc": "Design/Marketing Trend Reports"
+        },
+        "culture-log": {
+            "label": "Culture Log",
+            "desc": "Team Culture, Hackathon"
+        }
+    },
+    "contact": {
+        "label": "CONTACT",
+        "subLabel": "Contact Us",
+        "description": "Start your journey with us.",
+        "start-project": {
+            "label": "Start Project",
+            "desc": "Project Inquiry"
+        },
+        "recruit": {
+            "label": "Recruit",
+            "desc": "Join Our Team"
+        },
+        "faq": {
+            "label": "FAQ",
+            "desc": "Frequently Asked Questions"
+        }
+    }
+}

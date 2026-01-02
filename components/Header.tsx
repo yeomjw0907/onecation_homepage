@@ -1,16 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { NAV_ITEMS } from '../constants';
-import { Menu, X, ChevronDown, ChevronRight, ArrowUpRight } from 'lucide-react';
+import { Menu, X, ChevronDown, ChevronRight, ArrowUpRight, Globe } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 
 export const Header: React.FC = () => {
+  const { t, i18n } = useTranslation(['navigation', 'header']);
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [hoveredNav, setHoveredNav] = useState<string | null>(null);
   const [mobileExpanded, setMobileExpanded] = useState<string | null>(null);
   const navigate = useNavigate();
   const location = useLocation();
+
+  const toggleLanguage = () => {
+    const newLang = i18n.language === 'ko' ? 'en' : 'ko';
+    i18n.changeLanguage(newLang);
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -50,8 +57,8 @@ export const Header: React.FC = () => {
     <>
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 border-b ${isScrolled || hoveredNav
-            ? 'bg-obsidian/80 backdrop-blur-xl border-white/10 py-4'
-            : 'bg-transparent border-transparent py-6'
+          ? 'bg-obsidian/80 backdrop-blur-xl border-white/10 py-4'
+          : 'bg-transparent border-transparent py-6'
           }`}
         onMouseLeave={() => setHoveredNav(null)}
       >
@@ -78,22 +85,33 @@ export const Header: React.FC = () => {
                   aria-haspopup="true"
                   aria-expanded={hoveredNav === item.id}
                 >
-                  {item.label}
+                  {t(`${item.id}.label`)}
                   <span className={`h-[1px] bg-gold w-0 transition-all duration-300 ${hoveredNav === item.id ? 'w-full' : ''}`} />
                 </button>
               </div>
             ))}
           </nav>
 
-          {/* Mobile Menu Toggle */}
-          <button
-            className="lg:hidden text-offwhite z-50 p-2"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
-            aria-expanded={mobileMenuOpen}
-          >
-            {mobileMenuOpen ? <X /> : <Menu />}
-          </button>
+          <div className="flex items-center gap-4">
+            {/* Language Switcher */}
+            <button
+              onClick={toggleLanguage}
+              className="hidden lg:flex items-center gap-2 text-xs font-bold tracking-wider text-offwhite/60 hover:text-gold transition-colors z-50"
+            >
+              <Globe size={14} />
+              <span>{i18n.language === 'ko' ? 'EN' : 'KR'}</span>
+            </button>
+
+            {/* Mobile Menu Toggle */}
+            <button
+              className="lg:hidden text-offwhite z-50 p-2"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
+              aria-expanded={mobileMenuOpen}
+            >
+              {mobileMenuOpen ? <X /> : <Menu />}
+            </button>
+          </div>
         </div>
 
         {/* Desktop Mega Menu Dropdown */}
@@ -117,11 +135,10 @@ export const Header: React.FC = () => {
                     <div key={item.id} className="grid grid-cols-12 gap-12">
                       {/* Left Column */}
                       <div className="col-span-3 border-r border-white/5 pr-8">
-                        <h2 className="text-4xl font-bold text-white mb-2 tracking-tighter">{item.label}</h2>
-                        <span className="text-gold text-lg font-kor font-medium mb-4 block">{item.subLabel}</span>
+                        <h2 className="text-4xl font-bold text-white mb-2 tracking-tighter">{t(`${item.id}.label`)}</h2>
+                        <span className="text-gold text-lg font-kor font-medium mb-4 block">{t(`${item.id}.subLabel`)}</span>
                         <p className="text-offwhite/40 text-sm leading-relaxed font-kor">
-                          원케이션만의 독보적인 {item.subLabel} 프로세스를 통해 <br />
-                          최상의 결과를 경험하세요.
+                          {t(`${item.id}.description`)}
                         </p>
                       </div>
 
@@ -141,7 +158,7 @@ export const Header: React.FC = () => {
                                   <div className="absolute inset-0 bg-gradient-to-t from-obsidian via-transparent to-transparent z-10" />
                                   <img
                                     src={child.image}
-                                    alt={child.label}
+                                    alt={t(`${item.id}.${child.slug}.label`)}
                                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                                     loading="lazy"
                                   />
@@ -151,8 +168,8 @@ export const Header: React.FC = () => {
                                 </div>
 
                                 <div className="h-[35%] p-5 flex flex-col justify-center bg-obsidian/40 backdrop-blur-sm border-t border-white/5">
-                                  <h4 className="text-white font-bold text-lg mb-1 group-hover:text-gold transition-colors">{child.label}</h4>
-                                  <p className="text-offwhite/50 text-xs font-kor truncate">{child.desc}</p>
+                                  <h4 className="text-white font-bold text-lg mb-1 group-hover:text-gold transition-colors">{t(`${item.id}.${child.slug}.label`)}</h4>
+                                  <p className="text-offwhite/50 text-xs font-kor truncate">{t(`${item.id}.${child.slug}.desc`)}</p>
                                 </div>
                               </Link>
                             ))}
@@ -168,11 +185,11 @@ export const Header: React.FC = () => {
                                 role="menuitem"
                               >
                                 <h4 className="text-white font-bold text-base mb-1 group-hover:text-lime transition-colors flex items-center gap-2">
-                                  {child.label}
+                                  {t(`${item.id}.${child.slug}.label`)}
                                   <ChevronRight size={16} className="opacity-0 -translate-x-2 group-hover:translate-x-0 group-hover:opacity-100 transition-all" />
                                 </h4>
                                 <p className="text-offwhite/40 text-sm font-kor group-hover:text-offwhite/70 transition-colors">
-                                  {child.desc}
+                                  {t(`${item.id}.${child.slug}.desc`)}
                                 </p>
                               </Link>
                             ))}
@@ -197,6 +214,15 @@ export const Header: React.FC = () => {
         aria-label="Mobile Navigation"
       >
         <div className="flex flex-col gap-2 pb-10">
+          <div className="flex justify-end mb-4">
+            <button
+              onClick={toggleLanguage}
+              className="flex items-center gap-2 text-sm font-bold tracking-wider text-offwhite/60 hover:text-gold transition-colors p-2"
+            >
+              <Globe size={16} />
+              <span>{i18n.language === 'ko' ? 'English' : '한국어'}</span>
+            </button>
+          </div>
           {NAV_ITEMS.map((item) => (
             <div key={item.id} className="border-b border-white/5 last:border-0">
               <button
@@ -206,10 +232,10 @@ export const Header: React.FC = () => {
               >
                 <div>
                   <span className={`block text-2xl font-bold tracking-tight font-sans transition-colors ${mobileExpanded === item.id ? 'text-gold' : 'text-white'}`}>
-                    {item.label}
+                    {t(`${item.id}.label`)}
                   </span>
                   <span className="text-xs text-gold/70 font-kor mt-1 block group-hover:text-gold transition-colors">
-                    {item.subLabel}
+                    {t(`${item.id}.subLabel`)}
                   </span>
                 </div>
                 <ChevronDown
@@ -232,8 +258,8 @@ export const Header: React.FC = () => {
                           to={`/${child.slug}`}
                           className="block p-4 bg-white/5 rounded-lg border border-transparent hover:border-lime/30 transition-all"
                         >
-                          <span className="text-white font-medium text-sm block mb-1">{child.label}</span>
-                          <span className="text-offwhite/40 text-xs font-kor block">{child.desc}</span>
+                          <span className="text-white font-medium text-sm block mb-1">{t(`${item.id}.${child.slug}.label`)}</span>
+                          <span className="text-offwhite/40 text-xs font-kor block">{t(`${item.id}.${child.slug}.desc`)}</span>
                         </Link>
                       ))}
                     </div>

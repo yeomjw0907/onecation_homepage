@@ -1,0 +1,66 @@
+{
+    "originals": {
+        "title": "Originals",
+        "subtitle": "Product Gallery",
+        "description": "Introducing services planned and developed by Onecation itself and experimental products. Results of innovative ideas implemented as real products.",
+        "features": [
+            {
+                "title": "SaaS Products",
+                "desc": "In-house SaaS services currently in operation."
+            },
+            {
+                "title": "Interactive Art",
+                "desc": "Digital art combining technology and art."
+            },
+            {
+                "title": "Open Source",
+                "desc": "Libraries contributing to the development community."
+            }
+        ],
+        "details": "We not only do client work, but also become makers ourselves, constantly challenging and proving."
+    },
+    "trend-insights": {
+        "title": "Trend Insights",
+        "subtitle": "Insight Archive",
+        "description": "We analyze and archive trends in the rapidly changing digital market. Check out key insights across design, technology, and marketing.",
+        "features": [
+            {
+                "title": "Web 3.0 & Luxury",
+                "desc": "Digital combination trend of luxury brands."
+            },
+            {
+                "title": "Immersive Interaction",
+                "desc": "New UX patterns for user immersion."
+            },
+            {
+                "title": "2024 Design Guide",
+                "desc": "Design guidelines to watch this year."
+            },
+            {
+                "title": "Startup Roadmap",
+                "desc": "Strategy for winning government support projects."
+            }
+        ],
+        "details": "Prepare for the future through in-depth analysis interpreted from Onecation's perspective."
+    },
+    "culture-log": {
+        "title": "Culture Log",
+        "subtitle": "Team Archive",
+        "description": "We record Onecation's organizational culture and behind-the-scenes stories of working hard and playing fun.",
+        "features": [
+            {
+                "title": "Work Style",
+                "desc": "Work culture that values autonomy and responsibility."
+            },
+            {
+                "title": "Events",
+                "desc": "In-house events such as hackathons, workshops, and company dinners."
+            },
+            {
+                "title": "People",
+                "desc": "Interviews with members who make Onecation."
+            }
+        ],
+        "details": "The best results come from the best teams. We share how we work and our culture."
+    }
+}

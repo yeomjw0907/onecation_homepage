@@ -1,0 +1,128 @@
+{
+    "business-planning": {
+        "title": "Business Planning",
+        "subtitle": "Visionary Roadmap",
+        "description": "We design a clear path to victory in uncertain business environments. Overwhelming storytelling and sophisticated financial simulation that captivates investors.",
+        "features": [
+            {
+                "title": "Market Analysis",
+                "desc": "Quantitative/Qualitative market analysis data."
+            },
+            {
+                "title": "Financial Modeling",
+                "desc": "Realistic and logical financial estimation."
+            },
+            {
+                "title": "Persuasive Story",
+                "desc": "Storytelling that moves investors' hearts."
+            }
+        ],
+        "details": "We provide consulting that diagnoses and advances the Business Model (BM) itself, not just simple documentation.",
+        "detailedProcess": [
+            {
+                "step": "01",
+                "title": "BM Diagnosis",
+                "description": "Precise diagnosis of profitability and scalability of existing business models"
+            },
+            {
+                "step": "02",
+                "title": "Market Research",
+                "description": "TAM-SAM-SOM analysis and competitor benchmarking"
+            },
+            {
+                "step": "03",
+                "title": "Financial Modeling",
+                "description": "3-5 year estimated income statement and valuation"
+            },
+            {
+                "step": "04",
+                "title": "Pitch Deck Design",
+                "description": "Overwhelming storytelling and design that persuades investors"
+            }
+        ]
+    },
+    "gov-strategy": {
+        "title": "Gov. Strategy",
+        "subtitle": "Master Key Strategy",
+        "description": "A winning strategy that penetrates complex screening criteria. We propose Onecation's winning formula verified by numerous successful data.",
+        "features": [
+            {
+                "title": "Eligibility Check",
+                "desc": "Diagnosis of suitability for eligible projects."
+            },
+            {
+                "title": "Evaluation Criteria",
+                "desc": "Optimization of business plans tailored to evaluation indicators."
+            },
+            {
+                "title": "Presentation Prep",
+                "desc": "Presentation materials for face-to-face evaluation and Q&A coaching."
+            }
+        ],
+        "details": "Expert committee members with numerous success cases point out the winning points from the evaluator's perspective.",
+        "detailedProcess": [
+            {
+                "step": "01",
+                "title": "Audit",
+                "description": "Precise diagnosis of corporate capabilities and bonus points"
+            },
+            {
+                "step": "02",
+                "title": "Matching",
+                "description": "Optimal support project matching and strategy formulation"
+            },
+            {
+                "step": "03",
+                "title": "Writing",
+                "description": "Business plan writing and editing that penetrates evaluation indicators"
+            },
+            {
+                "step": "04",
+                "title": "Defense",
+                "description": "Production of presentation materials and mock Q&A coaching"
+            }
+        ]
+    },
+    "tech-consulting": {
+        "title": "Tech Consulting",
+        "subtitle": "System Architecture",
+        "description": "Technical design that makes the failure rate 0% before development begins. We provide scalable architecture and flawless functional specifications (SRS).",
+        "features": [
+            {
+                "title": "Stack Selection",
+                "desc": "Selection of technology stack optimized for the service."
+            },
+            {
+                "title": "DB Design",
+                "desc": "Database design considering scalability."
+            },
+            {
+                "title": "Technical Spec",
+                "desc": "Creation of clear detailed functional specifications (SRS)."
+            }
+        ],
+        "details": "We present technical guides so that founders without development knowledge can proceed with projects with peace of mind.",
+        "detailedProcess": [
+            {
+                "step": "01",
+                "title": "Requirement Analysis",
+                "description": "Review of technical feasibility of business requirements"
+            },
+            {
+                "step": "02",
+                "title": "Stack Selection",
+                "description": "Selection of optimal language and framework for service scale"
+            },
+            {
+                "step": "03",
+                "title": "Architecture Design",
+                "description": "DB schema, API specification, system architecture design"
+            },
+            {
+                "step": "04",
+                "title": "SRS Documentation",
+                "description": "Creation of detailed functional specifications for developer communication"
+            }
+        ]
+    }
+}

@@ -50,6 +50,7 @@ export interface SubPageContent {
   imageGrid: string[];
   layout: LayoutType; // Controls the visual structure
   detailedProcess?: ProcessStep[]; // New field for page-specific process
+  translationKey?: string; // e.g., "system:manifesto"
 }
 
 export interface ProjectLead {
